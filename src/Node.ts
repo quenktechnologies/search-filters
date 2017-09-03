@@ -58,22 +58,6 @@ export class List {
 
 }
 
-export class Dict {
-
-    type = 'dict';
-    constructor(public properties: KVP[], public location: Location) { }
-
-}
-
-export class KVP {
-
-    type = 'kvp';
-
-    constructor(public key: Field, public value: Value, public location: Location) { }
-
-}
-
-
 export class StringLiteral {
 
     type = 'string';
@@ -94,14 +78,6 @@ export class BooleanLiteral {
 export class NumberLiteral {
 
     type = 'number-literal';
-    constructor(public value: string, public location: Location) { }
-
-}
-
-export class Field {
-
-    type = 'field';
-
     constructor(public value: string, public location: Location) { }
 
 }

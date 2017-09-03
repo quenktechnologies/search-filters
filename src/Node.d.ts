@@ -40,19 +40,6 @@ export declare class List {
     type: string;
     constructor(members: Value[], location: Location);
 }
-export declare class Dict {
-    properties: KVP[];
-    location: Location;
-    type: string;
-    constructor(properties: KVP[], location: Location);
-}
-export declare class KVP {
-    key: Field;
-    value: Value;
-    location: Location;
-    type: string;
-    constructor(key: Field, value: Value, location: Location);
-}
 export declare class StringLiteral {
     value: string;
     location: Location;
@@ -66,12 +53,6 @@ export declare class BooleanLiteral {
     constructor(value: string, location: Location);
 }
 export declare class NumberLiteral {
-    value: string;
-    location: Location;
-    type: string;
-    constructor(value: string, location: Location);
-}
-export declare class Field {
     value: string;
     location: Location;
     type: string;

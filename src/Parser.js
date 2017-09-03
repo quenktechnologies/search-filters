@@ -72,12 +72,12 @@
   }
 */
 var Parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[5,8,9],$V2=[1,39],$V3=[1,33],$V4=[1,34],$V5=[1,35],$V6=[1,37],$V7=[1,38],$V8=[1,36],$V9=[5,7,8,9],$Va=[9,20,24,29,30,31,32],$Vb=[5,7,8,9,21,23],$Vc=[21,23],$Vd=[25,28];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[5,8,9],$V2=[1,34],$V3=[1,21],$V4=[1,32],$V5=[1,33],$V6=[1,36],$V7=[1,37],$V8=[1,35],$V9=[5,7,8,9],$Va=[9,15,19,23,24,25,26],$Vb=[5,7,8,9,20,22],$Vc=[20,22];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"conditions":3,"filters":4,"EOF":5,"filter":6,"AND":7,"OR":8,"FIELD":9,":":10,"operator":11,"value":12,"operator_group0":13,"list":14,"dict":15,"string_literal":16,"number_literal":17,"boolean_literal":18,"field":19,"[":20,"]":21,"value_list":22,",":23,"{":24,"}":25,"dict_repetition_plus0":26,"kvps":27,"kvp":28,"STRING_LITERAL":29,"TRUE":30,"FALSE":31,"NUMBER_LITERAL":32,">":33,"<":34,">=":35,"<=":36,"=":37,"?":38,"%":39,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"AND",8:"OR",9:"FIELD",10:":",20:"[",21:"]",23:",",24:"{",25:"}",28:"kvp",29:"STRING_LITERAL",30:"TRUE",31:"FALSE",32:"NUMBER_LITERAL",33:">",34:"<",35:">=",36:"<=",37:"=",38:"?",39:"%"},
-productions_: [0,[3,2],[3,2],[3,1],[4,2],[4,2],[4,3],[4,3],[4,3],[6,4],[6,3],[11,1],[12,1],[12,1],[12,1],[12,1],[12,1],[12,1],[14,2],[14,3],[22,1],[22,3],[15,2],[15,3],[27,1],[27,2],[16,1],[18,1],[18,1],[17,1],[19,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1],[26,1],[26,2]],
+symbols_: {"error":2,"conditions":3,"filters":4,"EOF":5,"filter":6,"AND":7,"OR":8,"FIELD":9,":":10,"operator":11,"value":12,"operator_group0":13,"list":14,"dict":15,"string_literal":16,"number_literal":17,"boolean_literal":18,"[":19,"]":20,"value_list":21,",":22,"STRING_LITERAL":23,"TRUE":24,"FALSE":25,"NUMBER_LITERAL":26,">":27,"<":28,">=":29,"<=":30,"=":31,"?":32,"%":33,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"AND",8:"OR",9:"FIELD",10:":",15:"dict",19:"[",20:"]",22:",",23:"STRING_LITERAL",24:"TRUE",25:"FALSE",26:"NUMBER_LITERAL",27:">",28:"<",29:">=",30:"<=",31:"=",32:"?",33:"%"},
+productions_: [0,[3,2],[3,2],[3,1],[4,2],[4,2],[4,3],[4,3],[4,3],[6,4],[6,3],[11,1],[12,1],[12,1],[12,1],[12,1],[12,1],[14,2],[14,3],[21,1],[21,3],[16,1],[16,1],[18,1],[18,1],[17,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -110,54 +110,39 @@ break;
 case 11:
 this.$ = $$[$0]; 
 break;
-case 12: case 13: case 14: case 15: case 16: case 17:
+case 12: case 13: case 14: case 15: case 16:
 this.$ =$$[$0];
 break;
-case 18:
+case 17:
 this.$ = new yy.ast.List([], this._$); 
 break;
-case 19:
+case 18:
 this.$ = new yy.ast.List($$[$0-1], this._$); 
 break;
-case 20: case 24:
+case 19:
 this.$ = [$$[$0]];         
 break;
-case 21:
+case 20:
 this.$ = $$[$0-2].concat($$[$0]);
 break;
-case 22:
-this.$ = new yy.ast.Dict([], this._$); 
-break;
-case 23:
-this.$ = new yy.ast.Dict($$[$0-1], this._$); 
-break;
-case 25:
-this.$ = $$[$0-1].concat($$[$0]);
-break;
-case 26:
+case 21:
 this.$ = new yy.ast.StringLiteral($$[$0].slice(1, -1), this._$); 
 break;
-case 27:
+case 22:
+this.$ = new yy.ast.StringLiteral($$[$0], this._$); 
+break;
+case 23:
 this.$ = new yy.ast.BooleanLiteral(true, this._$);
 break;
-case 28:
+case 24:
 this.$ = new yy.ast.BooleanLiteral(false, this._$);
 break;
-case 29:
+case 25:
 this.$ = new yy.ast.NumberLiteral(parseFloat($$[$0]), this._$); 
-break;
-case 30:
-this.$ = new yy.ast.Field($$[$0], this._$);
-break;
-case 38:
-this.$ = [$$[$0]];
-break;
-case 39:
-$$[$0-1].push($$[$0]);
 break;
 }
 },
-table: [{3:1,4:2,5:[1,4],6:3,9:$V0},{1:[3]},{5:[1,6],6:7,8:[1,8],9:$V0},{5:[1,9],6:10,7:[1,11],8:[1,12],9:$V0},{1:[2,3]},{10:[1,13]},{1:[2,1]},o($V1,[2,5]),{6:14,9:$V0},{1:[2,2]},o($V1,[2,4]),{6:15,9:$V0},{6:16,9:$V0},{9:$V2,11:17,12:18,13:19,14:20,15:21,16:22,17:23,18:24,19:25,20:$V3,24:$V4,29:$V5,30:$V6,31:$V7,32:$V8,33:[1,26],34:[1,27],35:[1,28],36:[1,29],37:[1,30],38:[1,31],39:[1,32]},o($V1,[2,8]),o($V1,[2,6]),o($V1,[2,7]),{9:$V2,12:40,14:20,15:21,16:22,17:23,18:24,19:25,20:$V3,24:$V4,29:$V5,30:$V6,31:$V7,32:$V8},o($V9,[2,10]),o($Va,[2,11]),o($Vb,[2,12]),o($Vb,[2,13]),o($Vb,[2,14]),o($Vb,[2,15]),o($Vb,[2,16]),o($Vb,[2,17]),o($Va,[2,31]),o($Va,[2,32]),o($Va,[2,33]),o($Va,[2,34]),o($Va,[2,35]),o($Va,[2,36]),o($Va,[2,37]),{9:$V2,12:43,14:20,15:21,16:22,17:23,18:24,19:25,20:$V3,21:[1,41],22:42,24:$V4,29:$V5,30:$V6,31:$V7,32:$V8},{25:[1,44],26:45,28:[1,46]},o($Vb,[2,26]),o($Vb,[2,29]),o($Vb,[2,27]),o($Vb,[2,28]),o($Vb,[2,30]),o($V9,[2,9]),o($Vb,[2,18]),{21:[1,47],23:[1,48]},o($Vc,[2,20]),o($Vb,[2,22]),{25:[1,49],28:[1,50]},o($Vd,[2,38]),o($Vb,[2,19]),{9:$V2,12:51,14:20,15:21,16:22,17:23,18:24,19:25,20:$V3,24:$V4,29:$V5,30:$V6,31:$V7,32:$V8},o($Vb,[2,23]),o($Vd,[2,39]),o($Vc,[2,21])],
+table: [{3:1,4:2,5:[1,4],6:3,9:$V0},{1:[3]},{5:[1,6],6:7,8:[1,8],9:$V0},{5:[1,9],6:10,7:[1,11],8:[1,12],9:$V0},{1:[2,3]},{10:[1,13]},{1:[2,1]},o($V1,[2,5]),{6:14,9:$V0},{1:[2,2]},o($V1,[2,4]),{6:15,9:$V0},{6:16,9:$V0},{9:$V2,11:17,12:18,13:19,14:20,15:$V3,16:22,17:23,18:24,19:$V4,23:$V5,24:$V6,25:$V7,26:$V8,27:[1,25],28:[1,26],29:[1,27],30:[1,28],31:[1,29],32:[1,30],33:[1,31]},o($V1,[2,8]),o($V1,[2,6]),o($V1,[2,7]),{9:$V2,12:38,14:20,15:$V3,16:22,17:23,18:24,19:$V4,23:$V5,24:$V6,25:$V7,26:$V8},o($V9,[2,10]),o($Va,[2,11]),o($Vb,[2,12]),o($Vb,[2,13]),o($Vb,[2,14]),o($Vb,[2,15]),o($Vb,[2,16]),o($Va,[2,26]),o($Va,[2,27]),o($Va,[2,28]),o($Va,[2,29]),o($Va,[2,30]),o($Va,[2,31]),o($Va,[2,32]),{9:$V2,12:41,14:20,15:$V3,16:22,17:23,18:24,19:$V4,20:[1,39],21:40,23:$V5,24:$V6,25:$V7,26:$V8},o($Vb,[2,21]),o($Vb,[2,22]),o($Vb,[2,25]),o($Vb,[2,23]),o($Vb,[2,24]),o($V9,[2,9]),o($Vb,[2,17]),{20:[1,42],22:[1,43]},o($Vc,[2,19]),o($Vb,[2,18]),{9:$V2,12:44,14:20,15:$V3,16:22,17:23,18:24,19:$V4,23:$V5,24:$V6,25:$V7,26:$V8},o($Vc,[2,20])],
 defaultActions: {4:[2,3],6:[2,1],9:[2,2]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
@@ -639,13 +624,13 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:/* skips whitespace */
 break;
-case 1:return 30;
+case 1:return 24;
 break;
-case 2:return 31;
+case 2:return 25;
 break;
-case 3:return 32;
+case 3:return 26;
 break;
-case 4:return 29;
+case 4:return 23;
 break;
 case 5:return 8;
 break;
@@ -655,25 +640,25 @@ case 7:return 9;
 break;
 case 8:return 10;
 break;
-case 9:return 20;
+case 9:return 19;
 break;
-case 10:return 21;
+case 10:return 20;
 break;
-case 11:return 23;
+case 11:return 22;
 break;
-case 12:return 35;
+case 12:return 29;
 break;
-case 13:return 33;
+case 13:return 27;
 break;
-case 14:return 36;
+case 14:return 30;
 break;
-case 15:return 34;
+case 15:return 28;
 break;
-case 16:return 37;
+case 16:return 31;
 break;
-case 17:return 38;
+case 17:return 32;
 break;
-case 18:return 39;
+case 18:return 33;
 break;
 case 19:return 5;
 break;

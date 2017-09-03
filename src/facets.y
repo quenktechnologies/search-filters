@@ -118,9 +118,6 @@ value
 
             | boolean_literal
               {$$ =$1;}
-
-            | field
-              {$$ =$1;}
             ;
 
 list        
@@ -136,22 +133,12 @@ value_list
             | value_list ',' value  {$$ = $1.concat($3);}
             ;
 
-dict
-            : '{' '}'
-              {$$ = new yy.ast.Dict([], @$); }
-
-            | '{' kvp+ '}'
-              {$$ = new yy.ast.Dict($2, @$); }
-            ;
-
-kvps
-            : kvp         {$$ = [$1];         }
-            | kvps kvp    {$$ = $1.concat($2);}
-            ;
-
 string_literal
             : STRING_LITERAL 
               {$$ = new yy.ast.StringLiteral($1.slice(1, -1), @$); }
+
+            | FIELD
+              {$$ = new yy.ast.StringLiteral($1, @$); }
             ;
 
 boolean_literal
@@ -165,9 +152,4 @@ boolean_literal
 number_literal
             : NUMBER_LITERAL
               {$$ = new yy.ast.NumberLiteral(parseFloat($1), @$); }
-            ;
-
-field
-            : FIELD
-              {$$ = new yy.ast.Field($1, @$);}
             ;

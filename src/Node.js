@@ -50,25 +50,6 @@ var List = (function () {
     return List;
 }());
 exports.List = List;
-var Dict = (function () {
-    function Dict(properties, location) {
-        this.properties = properties;
-        this.location = location;
-        this.type = 'dict';
-    }
-    return Dict;
-}());
-exports.Dict = Dict;
-var KVP = (function () {
-    function KVP(key, value, location) {
-        this.key = key;
-        this.value = value;
-        this.location = location;
-        this.type = 'kvp';
-    }
-    return KVP;
-}());
-exports.KVP = KVP;
 var StringLiteral = (function () {
     function StringLiteral(value, location) {
         this.value = value;
@@ -96,13 +77,4 @@ var NumberLiteral = (function () {
     return NumberLiteral;
 }());
 exports.NumberLiteral = NumberLiteral;
-var Field = (function () {
-    function Field(value, location) {
-        this.value = value;
-        this.location = location;
-        this.type = 'field';
-    }
-    return Field;
-}());
-exports.Field = Field;
 //# sourceMappingURL=Node.js.map
