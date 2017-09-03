@@ -1,0 +1,26 @@
+{
+  "name": "@quenk/facets-parser",
+  "version": "0.0.1",
+  "description": "Parser for a small search filter DSL",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rm -R lib/*",
+    "dist": "cd lib && npm publish",
+    "build:parser": "./node_modules/.bin/jison -o src/Parser.js src/facets.y",
+    "build:src": "./node_modules/.bin/tsc -p src",
+    "build": "npm run -s build:parser && npm run -s build:src",
+    "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts"
+  },
+  "author": "Lasana Murray <dev@quenk.com> (http://quenk.com)",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.18",
+    "jison": "^0.4.17",
+    "mocha": "^3.3.0",
+    "must": "^0.13.4",
+    "ts-node": "^3.0.2",
+    "typescript": "^2.4.2"
+  }
+}
