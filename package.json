@@ -9,7 +9,7 @@
     "dist": "cd lib && npm publish",
     "build:parser": "./node_modules/.bin/jison -o src/Parser.js src/facets.y",
     "build:src": "./node_modules/.bin/tsc -p src",
-    "build": "npm run -s build:parser && npm run -s build:src && GENERATE=y npm run -s test",
+    "build": "npm run -s build:parser && npm run -s build:src",
     "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts"
   },
   "author": "Lasana Murray <dev@quenk.com> (http://quenk.com)",

@@ -87,10 +87,10 @@ case 1:
 this.$ = new yy.ast.Conditions($$[$0-1], this._$); return this.$;     
 break;
 case 2:
-this.$ = new yy.ast.Conditions([$$[$0-1]], this._$); return this.$;   
+this.$ = new yy.ast.Conditions($$[$0-1], this._$); return this.$;   
 break;
 case 3:
-this.$ = new yy.ast.Conditions([], this._$); return this.$;     
+this.$ = new yy.ast.Conditions(null, this._$); return this.$;     
 break;
 case 4: case 5:
 this.$ = new yy.ast.And($$[$0-1], $$[$0], this._$);  

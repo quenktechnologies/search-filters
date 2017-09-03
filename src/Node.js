@@ -1,9 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 ;
 var Conditions = (function () {
-    function Conditions(filters, location) {
-        this.filters = filters;
+    function Conditions(conditions, location) {
+        this.conditions = conditions;
         this.location = location;
         this.type = 'conditions';
     }
@@ -50,31 +60,42 @@ var List = (function () {
     return List;
 }());
 exports.List = List;
-var StringLiteral = (function () {
-    function StringLiteral(value, location) {
+var Literal = (function () {
+    function Literal(value, location) {
         this.value = value;
         this.location = location;
-        this.type = 'string';
+    }
+    return Literal;
+}());
+exports.Literal = Literal;
+var StringLiteral = (function (_super) {
+    __extends(StringLiteral, _super);
+    function StringLiteral() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'string';
+        return _this;
     }
     return StringLiteral;
-}());
+}(Literal));
 exports.StringLiteral = StringLiteral;
-var BooleanLiteral = (function () {
-    function BooleanLiteral(value, location) {
-        this.value = value;
-        this.location = location;
-        this.type = 'boolean-literal';
+var BooleanLiteral = (function (_super) {
+    __extends(BooleanLiteral, _super);
+    function BooleanLiteral() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'boolean-literal';
+        return _this;
     }
     return BooleanLiteral;
-}());
+}(Literal));
 exports.BooleanLiteral = BooleanLiteral;
-var NumberLiteral = (function () {
-    function NumberLiteral(value, location) {
-        this.value = value;
-        this.location = location;
-        this.type = 'number-literal';
+var NumberLiteral = (function (_super) {
+    __extends(NumberLiteral, _super);
+    function NumberLiteral() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.type = 'number-literal';
+        return _this;
     }
     return NumberLiteral;
-}());
+}(Literal));
 exports.NumberLiteral = NumberLiteral;
 //# sourceMappingURL=Node.js.map

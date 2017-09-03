@@ -16,9 +16,15 @@ export class Conditions {
 
     type = 'conditions';
 
-    constructor(public filters: Filter[], public location: Location) { }
+    constructor(public conditions: Condition,  public location: Location) { }
 
 }
+
+export type Condition
+    = Filter
+    | And
+    | Or
+    ;
 
 export class Filter {
 
@@ -58,26 +64,26 @@ export class List {
 
 }
 
-export class StringLiteral {
+export class Literal {
+
+    constructor(public value: string, public location: Location) { }
+
+}
+
+export class StringLiteral extends Literal {
 
     type = 'string';
 
-    constructor(public value: string, public location: Location) { }
-
-
 }
 
-export class BooleanLiteral {
+export class BooleanLiteral extends Literal {
 
     type = 'boolean-literal';
 
-    constructor(public value: string, public location: Location) { }
-
 }
 
-export class NumberLiteral {
+export class NumberLiteral extends Literal {
 
     type = 'number-literal';
-    constructor(public value: string, public location: Location) { }
 
 }

@@ -6,11 +6,12 @@ export interface Location {
     [key: string]: string | number;
 }
 export declare class Conditions {
-    filters: Filter[];
+    conditions: Condition;
     location: Location;
     type: string;
-    constructor(filters: Filter[], location: Location);
+    constructor(conditions: Condition, location: Location);
 }
+export declare type Condition = Filter | And | Or;
 export declare class Filter {
     field: string;
     operator: string;
@@ -40,21 +41,17 @@ export declare class List {
     type: string;
     constructor(members: Value[], location: Location);
 }
-export declare class StringLiteral {
+export declare class Literal {
     value: string;
     location: Location;
-    type: string;
     constructor(value: string, location: Location);
 }
-export declare class BooleanLiteral {
-    value: string;
-    location: Location;
+export declare class StringLiteral extends Literal {
     type: string;
-    constructor(value: string, location: Location);
 }
-export declare class NumberLiteral {
-    value: string;
-    location: Location;
+export declare class BooleanLiteral extends Literal {
     type: string;
-    constructor(value: string, location: Location);
+}
+export declare class NumberLiteral extends Literal {
+    type: string;
 }

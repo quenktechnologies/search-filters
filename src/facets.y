@@ -67,10 +67,10 @@ conditions
               {$$ = new yy.ast.Conditions($1, @$); return $$;     }
 
             | filter EOF
-              {$$ = new yy.ast.Conditions([$1], @$); return $$;   }
+              {$$ = new yy.ast.Conditions($1, @$); return $$;   }
 
             | EOF
-              {$$ = new yy.ast.Conditions([], @$); return $$;     }
+              {$$ = new yy.ast.Conditions(null, @$); return $$;     }
             ;
 
 filters
