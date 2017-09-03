@@ -91,10 +91,10 @@ filters
             ;
 
 filter
-            : field ':' operator value 
+            : FIELD ':' operator value 
               {$$ = new yy.ast.Filter($1, $3, $4, @$);}
 
-            | field ':' value 
+            | FIELD ':' value 
               {$$ = new yy.ast.Filter($1, '=', $3, @$);}
             ;
 

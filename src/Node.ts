@@ -24,7 +24,7 @@ export class Filter {
 
     type = 'filter';
 
-    constructor(public field: Field, public operator: string, public value: Value, public location: Location) { }
+    constructor(public field: string, public operator: string, public value: Value, public location: Location) { }
 
 }
 

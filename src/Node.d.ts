@@ -12,12 +12,12 @@ export declare class Conditions {
     constructor(filters: Filter[], location: Location);
 }
 export declare class Filter {
-    field: Field;
+    field: string;
     operator: string;
     value: Value;
     location: Location;
     type: string;
-    constructor(field: Field, operator: string, value: Value, location: Location);
+    constructor(field: string, operator: string, value: Value, location: Location);
 }
 export declare class And {
     left: Filter;
