@@ -75,8 +75,8 @@ var Parser = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,5],$V1=[5,8,9],$V2=[1,34],$V3=[1,21],$V4=[1,32],$V5=[1,33],$V6=[1,36],$V7=[1,37],$V8=[1,35],$V9=[5,7,8,9],$Va=[9,15,19,23,24,25,26],$Vb=[5,7,8,9,20,22],$Vc=[20,22];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"conditions":3,"filters":4,"EOF":5,"filter":6,"AND":7,"OR":8,"FIELD":9,":":10,"operator":11,"value":12,"operator_group0":13,"list":14,"dict":15,"string_literal":16,"number_literal":17,"boolean_literal":18,"[":19,"]":20,"value_list":21,",":22,"STRING_LITERAL":23,"TRUE":24,"FALSE":25,"NUMBER_LITERAL":26,">":27,"<":28,">=":29,"<=":30,"=":31,"?":32,"%":33,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"AND",8:"OR",9:"FIELD",10:":",15:"dict",19:"[",20:"]",22:",",23:"STRING_LITERAL",24:"TRUE",25:"FALSE",26:"NUMBER_LITERAL",27:">",28:"<",29:">=",30:"<=",31:"=",32:"?",33:"%"},
+symbols_: {"error":2,"conditions":3,"filters":4,"EOF":5,"filter":6,"AND":7,"OR":8,"FIELD":9,":":10,"operator":11,"value":12,"operator_group0":13,"list":14,"dict":15,"string_literal":16,"number_literal":17,"boolean_literal":18,"[":19,"]":20,"value_list":21,",":22,"STRING_LITERAL":23,"TRUE":24,"FALSE":25,"NUMBER_LITERAL":26,">":27,"<":28,">=":29,"<=":30,"=":31,"!=":32,"%":33,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"AND",8:"OR",9:"FIELD",10:":",15:"dict",19:"[",20:"]",22:",",23:"STRING_LITERAL",24:"TRUE",25:"FALSE",26:"NUMBER_LITERAL",27:">",28:"<",29:">=",30:"<=",31:"=",32:"!=",33:"%"},
 productions_: [0,[3,2],[3,2],[3,1],[4,2],[4,2],[4,3],[4,3],[4,3],[6,4],[6,3],[11,1],[12,1],[12,1],[12,1],[12,1],[12,1],[14,2],[14,3],[21,1],[21,3],[16,1],[16,1],[18,1],[18,1],[17,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1],[13,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
@@ -656,7 +656,7 @@ case 15:return 28;
 break;
 case 16:return 31;
 break;
-case 17:return 32;
+case 17:return '?';
 break;
 case 18:return 33;
 break;

@@ -34,7 +34,7 @@ export declare class Or {
     type: string;
     constructor(left: Filter, right: Filter, location: Location);
 }
-export declare type Value = List | StringLiteral | BooleanLiteral | NumberLiteral;
+export declare type Value = List | Literal;
 export declare class List {
     members: Value[];
     location: Location;
@@ -42,9 +42,9 @@ export declare class List {
     constructor(members: Value[], location: Location);
 }
 export declare class Literal {
-    value: string;
+    value: any;
     location: Location;
-    constructor(value: string, location: Location);
+    constructor(value: any, location: Location);
 }
 export declare class StringLiteral extends Literal {
     type: string;

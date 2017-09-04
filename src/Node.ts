@@ -52,9 +52,7 @@ export class Or {
 
 export type Value
     = List
-    | StringLiteral
-    | BooleanLiteral
-    | NumberLiteral
+    | Literal
     ;
 
 export class List {
@@ -66,7 +64,7 @@ export class List {
 
 export class Literal {
 
-    constructor(public value: string, public location: Location) { }
+    constructor(public value: any, public location: Location) { }
 
 }
 
