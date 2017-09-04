@@ -42,7 +42,7 @@ StringLiteral (\"{DoubleStringCharacter}*\")|(\'{SingleStringCharacter}*\')|(\`{
 {StringLiteral}                                                 return 'STRING_LITERAL';
 'OR'|'or'                                                       return 'OR';
 'AND'|'and'                                                     return 'AND';
-[^\[\]?<>:\s,"]+                                                return 'FIELD';
+[^\[\]?<>:\s,"%`]+                                              return 'FIELD';
 ':'                                                             return ':';
 '['                                                             return '[';
 ']'                                                             return ']';
