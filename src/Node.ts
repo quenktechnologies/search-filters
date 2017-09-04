@@ -16,7 +16,7 @@ export class Conditions {
 
     type = 'conditions';
 
-    constructor(public conditions: Condition,  public location: Location) { }
+    constructor(public conditions: Condition, public location: Location) { }
 
 }
 
@@ -44,7 +44,7 @@ export class And {
 
 export class Or {
 
-    type = 'and';
+    type = 'or';
 
     constructor(public left: Filter, public right: Filter, public location: Location) { }
 

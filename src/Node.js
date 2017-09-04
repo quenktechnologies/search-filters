@@ -46,7 +46,7 @@ var Or = (function () {
         this.left = left;
         this.right = right;
         this.location = location;
-        this.type = 'and';
+        this.type = 'or';
     }
     return Or;
 }());
