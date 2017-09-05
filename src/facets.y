@@ -22,11 +22,7 @@ HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
 DoubleStringCharacter ([^\"\\\n\r]+)
-//|(\\{EscapeSequence})|{LineContinuation}
-//SingleStringCharacter ([^\'\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
-//TemplateStringCharacter ([^\`\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
 StringLiteral (\"{DoubleStringCharacter}*\")
-//|(\'{SingleStringCharacter}*\')|(\`{TemplateStringCharacter}*\`)
 
 /* Flags */
 %options flex
