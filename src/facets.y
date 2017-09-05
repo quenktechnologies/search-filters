@@ -16,30 +16,29 @@ HexIntegerLiteral [0][xX]{HexDigit}+
 DecimalLiteral ([-]?{DecimalIntegerLiteral}\.{DecimalDigits}*{ExponentPart}?)|(\.{DecimalDigits}{ExponentPart}?)|({DecimalIntegerLiteral}{ExponentPart}?)
 NumberLiteral {DecimalLiteral}|{HexIntegerLiteral}|{OctalIntegerLiteral}
 Identifier [a-zA-Z$_][a-zA-Z$_0-9-]*
-DotIdentifier [a-zA-Z$_][a-zA-Z$_0-9.-]*
 LineContinuation \\(\r\n|\r|\n)
 OctalEscapeSequence (?:[1-7][0-7]{0,2}|[0-7]{2,3})
 HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
-SingleEscapeCharacter [\'\"\\bfnrtv]
-NonEscapeCharacter [^\'\"\\bfnrtv0-9xu]
-CharacterEscapeSequence {SingleEscapeCharacter}|{NonEscapeCharacter}
-EscapeSequence {CharacterEscapeSequence}|{OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
-DoubleStringCharacter ([^\"\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
-SingleStringCharacter ([^\'\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
-TemplateStringCharacter ([^\`\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
-StringLiteral (\"{DoubleStringCharacter}*\")|(\'{SingleStringCharacter}*\')|(\`{TemplateStringCharacter}*\`)
+EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
+DoubleStringCharacter ([^\"\\\n\r]+)
+//|(\\{EscapeSequence})|{LineContinuation}
+//SingleStringCharacter ([^\'\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
+//TemplateStringCharacter ([^\`\\\n\r]+)|(\\{EscapeSequence})|{LineContinuation}
+StringLiteral (\"{DoubleStringCharacter}*\")
+//|(\'{SingleStringCharacter}*\')|(\`{TemplateStringCharacter}*\`)
 
 /* Flags */
 %options flex
+%x STRING_LITERAL
 %%
+
 
 /* Rules */
 \s+                                                             /* skips whitespace */
 'true'                                                          return 'TRUE';
 'false'                                                         return 'FALSE';
 {NumberLiteral}                                                 return 'NUMBER_LITERAL';
-{StringLiteral}                                                 return 'STRING_LITERAL';
 'OR'|'or'                                                       return 'OR';
 'AND'|'and'                                                     return 'AND';
 [^\[\]?<>:\s,"%`)(]+                                            return 'FIELD';
@@ -56,6 +55,9 @@ StringLiteral (\"{DoubleStringCharacter}*\")|(\'{SingleStringCharacter}*\')|(\`{
 '='                                                             return '=';
 '?'                                                             return '?';
 '%'                                                             return '%';
+'"'                       this.begin('STRING_LITERAL');         return 'QUOTE';
+<STRING_LITERAL>[^"\n]*                                         return 'STRING_LITERAL';
+<STRING_LITERAL>["]       this.popState();                      return 'QUOTE';
 <*><<EOF>>                                                      return 'EOF';
 
 /lex
@@ -136,8 +138,8 @@ value_list
             ;
 
 string_literal
-            : STRING_LITERAL 
-              {$$ = new yy.ast.StringLiteral($1.slice(1, -1), @$); }
+            : QUOTE STRING_LITERAL  QUOTE
+              {$$ = new yy.ast.StringLiteral($2, @$); }
 
             | FIELD
               {$$ = new yy.ast.StringLiteral($1, @$); }
