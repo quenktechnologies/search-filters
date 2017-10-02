@@ -95,7 +95,7 @@ filter
               {$$ = new yy.ast.Filter($1, $3, $4, @$);}
 
             | FIELD ':' value 
-              {$$ = new yy.ast.Filter($1, '=', $3, @$);}
+              {$$ = new yy.ast.Filter($1, 'default', $3, @$);}
             ;
 
 operator

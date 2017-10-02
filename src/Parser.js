@@ -105,7 +105,7 @@ case 9:
 this.$ = new yy.ast.Filter($$[$0-3], $$[$0-1], $$[$0], this._$);
 break;
 case 10:
-this.$ = new yy.ast.Filter($$[$0-2], '=', $$[$0], this._$);
+this.$ = new yy.ast.Filter($$[$0-2], 'default', $$[$0], this._$);
 break;
 case 11:
 this.$ = $$[$0]; 
