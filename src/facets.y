@@ -2,7 +2,6 @@
 %lex
 
 /* Definitions */
-DecimalDigit [0-9]
 DecimalDigits [0-9]+
 NonZeroDigit [1-9]
 OctalDigit [0-7]
@@ -16,7 +15,6 @@ HexIntegerLiteral [0][xX]{HexDigit}+
 DecimalLiteral ([-]?{DecimalIntegerLiteral}\.{DecimalDigits}*{ExponentPart}?)|(\.{DecimalDigits}{ExponentPart}?)|({DecimalIntegerLiteral}{ExponentPart}?)
 NumberLiteral {DecimalLiteral}|{HexIntegerLiteral}|{OctalIntegerLiteral}
 Identifier [a-zA-Z$_][a-zA-Z$_0-9-]*
-LineContinuation \\(\r\n|\r|\n)
 OctalEscapeSequence (?:[1-7][0-7]{0,2}|[0-7]{2,3})
 HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
