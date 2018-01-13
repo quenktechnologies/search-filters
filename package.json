@@ -2,8 +2,8 @@
   "name": "@quenk/facets-parser",
   "version": "0.2.0",
   "description": "Parser for a small search filter DSL",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "clean": "rm -R lib/*",
     "dist": "cd lib && npm publish",
