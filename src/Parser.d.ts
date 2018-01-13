@@ -1,4 +1,4 @@
-import { Conditions } from './Node';
+import { Conditions } from './ast';
 
 export interface Parser {
 

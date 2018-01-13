@@ -1,4 +1,10 @@
 
+export interface Nodes {
+
+    [key: string]: Node
+
+}
+
 export interface Node {
 
     type: string

@@ -27,7 +27,6 @@ function makeTest(test, index) {
         return;
     }
 
-
         compare(json(parse(test.input)), fs.readFileSync(`./test/expectations/${file}.json`, {
             encoding: 'utf8'
         }));

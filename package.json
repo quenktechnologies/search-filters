@@ -10,7 +10,8 @@
     "build:parser": "./node_modules/.bin/jison -o src/Parser.js src/facets.y",
     "build:src": "./node_modules/.bin/tsc -p src",
     "build": "npm run -s build:parser && npm run -s build:src",
-    "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts"
+    "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts",
+    "docs": "rm -R docs; cd src && ../node_modules/.bin/typedoc --ignoreCompilerErrors --mode modules --out docs . && mv docs .. && cd - && echo 'DO NOT DELETE!' > docs/.nojekyll"
   },
   "author": "Lasana Murray <dev@quenk.com> (http://quenk.com)",
   "license": "Apache-2.0",
@@ -21,6 +22,11 @@
     "mocha": "^3.3.0",
     "must": "^0.13.4",
     "ts-node": "^3.0.2",
+    "typedoc": "^0.9.0",
     "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "@quenk/match": "^1.1.0",
+    "afpl": "^0.12.0"
   }
 }
