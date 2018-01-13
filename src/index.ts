@@ -348,9 +348,9 @@ const resolvePolicy = <F>(available: PolicyMap<F>) => (specified: PolicySpec<F>)
         .orJust(() => <Policy<F>>specified);
 
 /**
- * convert source text to a Term.
+ * term source text to a Term.
  */
-export const convert = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
+export const term = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
     : Either<Err, Term<F>> =>
     parse$(source)
         .chain(ast2Terms(ctx)(policies));
@@ -360,5 +360,5 @@ export const convert = <F>(ctx: Context<F>) => (policies: Policies<F>) => (sourc
  */
 export const compile = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
     : Either<Err, F> =>
-    (convert(ctx)(policies)(source))
+    (term(ctx)(policies)(source))
         .chain((v: Term<F>) => v.compile());

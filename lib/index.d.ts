@@ -211,9 +211,9 @@ export declare const parse$: (source: string) => Either<Err, ast.Conditions>;
  */
 export declare const ast2Terms: <F>(ctx: Context<F>) => (policies: Policies<F>) => (n: ast.Node) => Either<Err, Term<F>>;
 /**
- * convert source text to a Term.
+ * term source text to a Term.
  */
-export declare const convert: <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: string) => Either<Err, Term<F>>;
+export declare const term: <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: string) => Either<Err, Term<F>>;
 /**
  * compile a string into a usable string of filters.
  */
