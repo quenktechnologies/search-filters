@@ -7,7 +7,7 @@
   "scripts": {
     "clean": "rm -R lib/*",
     "dist": "cd lib && npm publish",
-    "build:parser": "./node_modules/.bin/jison -o src/Parser.js src/facets.y",
+    "build:parser": "./node_modules/.bin/jison -o lib/Parser.js src/facets.y",
     "build:src": "./node_modules/.bin/tsc -p src",
     "build": "npm run -s build:parser && npm run -s build:src",
     "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts",
