@@ -1,6 +1,6 @@
 {
   "name": "@quenk/facets-dsl",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Small DSL for building search filters",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
