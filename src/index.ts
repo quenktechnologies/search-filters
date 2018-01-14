@@ -17,6 +17,60 @@ export const defaultOptions = {
 type AndOr = ast.And | ast.Or;
 
 /**
+ * TermConsMap is an object containing constructor
+ * functions for creating supported Terms.
+ */
+export interface TermConsMap<F> {
+
+    [key: string]: TermCons<F>
+
+    empty: EmptyTermCons<F>,
+
+    and: AndTermCons<F>,
+
+    or: OrTermCons<F>
+
+}
+
+/**
+ * TermCons are constructor functions for creating Terms.
+ */
+export type TermCons<F>
+    = EmptyTermCons<F>
+    | AndTermCons<F>
+    | OrTermCons<F>
+    | FilterTermCons<F>
+    ;
+
+/**
+ * EmptyTermCons provides the empty unit.
+ */
+export type EmptyTermCons<F> = () => Term<F>;
+
+/**
+ * AndTermCons provides the unit for compiling 'and' expressions.
+ */
+export type AndTermCons<F> =
+    (c: Context<F>) => (left: Term<F>) => (right: Term<F>) => Term<F>;
+
+/**
+ * OrTermCons provides the unit for compiling 'or' expressions. 
+ */
+export type OrTermCons<F> =
+    (c: Context<F>) => (left: Term<F>) => (right: Term<F>) => Term<F>;
+
+/**
+ * FilterTermCons is a function that constructs a new Term for compiling a filter.
+ */
+export type FilterTermCons<F> =
+    (c: Context<F>) => (filter: FilterSpec<any>) => Term<F>;
+
+/**
+ * FilterSpec holds information about a Filter being processed.
+ */
+export interface FilterSpec<V> { field: string, operator: string, value: V };
+
+/**
  * Context represents the context the compilation
  * takes place in.
  *
@@ -32,19 +86,9 @@ export interface Context<F> {
     options: Options,
 
     /**
-     * empty function for empty strings.
+     * terms map of constructors.
      */
-    empty: EmptyProvider<F>,
-
-    /**
-     * and function used to construct an 'and' unit.
-     */
-    and: AndProvider<F>,
-
-    /**
-     * or function used to construct an 'or' unit.
-     */
-    or: OrProvider<F>
+    terms: TermConsMap<F>
 
     /**
      * policies that can be defined via strings.
@@ -99,7 +143,7 @@ export interface Policy<F> {
     /**
      * term provides a function for constructing the field's term.
      */
-    term: TermProvider<F>
+    term: FilterTermCons<F>
 
 }
 
@@ -126,34 +170,6 @@ export interface Options {
     maxFilters?: number
 
 }
-
-/**
- * TermProvider provides the unit used to compile a filter.
- */
-export type TermProvider<F> =
-    (c: Context<F>) => (filter: FilterSpec<any>) => Term<F>;
-
-/**
- * FilterSpec holds information about a Filter being processed.
- */
-export interface FilterSpec<V> { field: string, operator: string, value: V };
-
-/**
- * EmptyProvider provides the empty unit.
- */
-export type EmptyProvider<F> = () => Term<F>;
-
-/**
- * AndProvider provides the unit for compiling 'and' expressions.
- */
-export type AndProvider<F> =
-    (c: Context<F>) => (left: Term<F>) => (right: Term<F>) => Term<F>;
-
-/**
- * OrProvider provides the unit for compiling 'or' expressions. 
- */
-export type OrProvider<F> =
-    (c: Context<F>) => (left: Term<F>) => (right: Term<F>) => Term<F>;
 
 /**
  * Term is a chain of verticies that ultimately form the filter to be 
@@ -308,7 +324,7 @@ const parseRoot = <F>(ctx: Context<F>) => (policies: Policies<F>) => (n: ast.Con
         .map((c: ast.Condition) =>
             ensureFilterLimit(c, ctx.options.maxFilters)
                 .chain(c => ast2Terms<F>(ctx)(policies)(c)))
-        .orJust(() => right<Err, Term<F>>(ctx.empty()))
+        .orJust(() => right<Err, Term<F>>(ctx.terms.empty()))
         .get();
 
 const parseAndOr = <F>(ctx: Context<F>) => (policies: Policies<F>) => (n: AndOr)
@@ -317,8 +333,8 @@ const parseAndOr = <F>(ctx: Context<F>) => (policies: Policies<F>) => (n: AndOr)
         .chain(lv =>
             (ast2Terms<F>(ctx)(policies)(n.right))
                 .map(rv => match<Term<F>>(n)
-                    .caseOf(ast.And, () => ctx.and(ctx)(lv)(rv))
-                    .caseOf(ast.Or, () => ctx.or(ctx)(lv)(rv))
+                    .caseOf(ast.And, () => ctx.terms.and(ctx)(lv)(rv))
+                    .caseOf(ast.Or, () => ctx.terms.or(ctx)(lv)(rv))
                     .end()));
 
 const parseFilter = <F>(ctx: Context<F>) => (policies: Policies<F>) => ({ field, operator, value }: ast.Filter)
@@ -348,9 +364,9 @@ const resolvePolicy = <F>(available: PolicyMap<F>) => (specified: PolicySpec<F>)
         .orJust(() => <Policy<F>>specified);
 
 /**
- * term source text to a Term.
+ * source2Term source text to a Term.
  */
-export const term = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
+export const source2Term = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
     : Either<Err, Term<F>> =>
     parse$(source)
         .chain(ast2Terms(ctx)(policies));
@@ -358,7 +374,7 @@ export const term = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: 
 /**
  * compile a string into a usable string of filters.
  */
-export const compile = <F>(ctx: Context<F>) => (policies: Policies<F>) => (source: Source)
-    : Either<Err, F> =>
-    (term(ctx)(policies)(source))
-        .chain((v: Term<F>) => v.compile());
+export const compile = <F>(terms: TermConsMap<F>) => (policies: PolicyMap<F>) => (options: Options) =>
+    (p: Policies<F>) => (source: Source): Either<Err, F> =>
+        (source2Term<F>({ terms, policies, options })(p)(source))
+            .chain((v: Term<F>) => v.compile());

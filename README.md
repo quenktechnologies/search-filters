@@ -47,14 +47,6 @@ be used instead for parsing with defaults.
 
 ### Compiling
 
-Once you have an AST, (see [src/ast](src/ast/index.ts) for nodes) it can be compiled using the
-curried function `compile`. `compile` takes a `Context` followed by a record of `Policy` descriptions.
-
-The Context provides needed functions for compile `and` and `or` expressions as well as other options.
-`Policy` descriptions are used during compilation to determine what fields are excepted and how to treat them.
-
-You can supply the whole policy in the record or use a string to indicate it should be retrieved from 
-the Context's `policies` property. 
 
 ## Todo
 
