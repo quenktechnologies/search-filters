@@ -21,6 +21,7 @@ UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
 DoubleStringCharacter ([^\"\\\n\r]+)
 StringLiteral (\"{DoubleStringCharacter}*\")
+Date (\d{4}-([0]\d|1[0-2])-([0-2]\d|3[01]))
 
 /* Flags */
 %options flex
@@ -32,6 +33,7 @@ StringLiteral (\"{DoubleStringCharacter}*\")
 \s+                                                             /* skips whitespace */
 'true'                                                          return 'TRUE';
 'false'                                                         return 'FALSE';
+{Date}                                                          return 'Date';
 {NumberLiteral}                                                 return 'NUMBER_LITERAL';
 'OR'|'or'                                                       return 'OR';
 'AND'|'and'                                                     return 'AND';
@@ -65,10 +67,10 @@ conditions
               {$$ = new yy.ast.Conditions($1, @$); return $$;     }
 
             | filter EOF
-              {$$ = new yy.ast.Conditions($1, @$); return $$;   }
+              {$$ = new yy.ast.Conditions($1, @$); return $$;     }
 
             | EOF
-              {$$ = new yy.ast.Conditions(null, @$); return $$;     }
+              {$$ = new yy.ast.Conditions(null, @$); return $$;   }
             ;
 
 filters
@@ -108,6 +110,9 @@ value
             | dict 
               {$$ =$1;}
 
+            | date
+              {$$ = $1;}
+
             | string_literal 
               {$$ =$1;}
 
@@ -129,6 +134,11 @@ list
 value_list  
             : value                 {$$ = [$1];         }
             | value_list ',' value  {$$ = $1.concat($3);}
+            ;
+
+date
+            : DATE
+              {$$ = new yy.ast.DateLiteral($2, @$);   }
             ;
 
 string_literal

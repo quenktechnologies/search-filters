@@ -1,6 +1,6 @@
 import * as must from 'must/register';
 import * as fs from 'fs';
-import { parse } from '../src';
+import { parse$ as parse} from '../src';
 
 var input = null;
 var tests = null;
@@ -19,13 +19,12 @@ function makeTest(test, index) {
 
     var file = index.replace(/\s/g, '-');
 
-
     if (!test.skip) {
 
-    if (process.env.GENERATE) {
-        fs.writeFileSync(`./test/expectations/${file}.json`, json(parse(test.input)));
-        return;
-    }
+        if (process.env.GENERATE) {
+            fs.writeFileSync(`./test/expectations/${file}.json`, json(parse(test.input)));
+            return;
+        }
 
         compare(json(parse(test.input)), fs.readFileSync(`./test/expectations/${file}.json`, {
             encoding: 'utf8'
@@ -87,6 +86,11 @@ tests = {
     'should parse the $in function': {
 
         input: 'tag:[24, 88.9,"mumch", 23.5, "Cake mix"]'
+
+    },
+    'should parse date literals': {
+
+        input: 'dob:2009-04-03'
 
     }
 
