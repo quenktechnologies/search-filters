@@ -22,7 +22,7 @@ EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
 DoubleStringCharacter ([^\"\\\n\r]+)
 StringLiteral (\"{DoubleStringCharacter}*\")
 DateLiteral [0-9]{4}[-]([0][0-9]|1[0-2])[-]([0-2][0-9]|3[01])
-Identifier [a-zA-Z$_][a-zA-Z$_-0-9]*
+Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 
 /* Flags */
 %options flex

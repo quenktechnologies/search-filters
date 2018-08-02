@@ -103,6 +103,11 @@ tests = {
 
         input: 'dob:2009-04-03'
 
+    },
+    'should parse dotts': {
+
+        input: 'user.username:"faro"'
+
     }
 
 };
