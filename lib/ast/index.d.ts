@@ -49,6 +49,9 @@ export declare class Literal {
     location: Location;
     constructor(value: any, location: Location);
 }
+export declare class DateLiteral extends Literal {
+    type: string;
+}
 export declare class StringLiteral extends Literal {
     type: string;
 }

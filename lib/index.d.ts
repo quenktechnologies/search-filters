@@ -1,4 +1,4 @@
-/// <reference path="../src/Parser.d.ts" />
+/// <reference path="Parser.d.ts" />
 import * as ast from './ast';
 import { Either } from 'afpl/lib/monad/Either';
 /**
