@@ -47,6 +47,7 @@ export class Query {
 
     constructor(
         public terms: Maybe<Term>,
+        public count: number,
         public location: Location) { }
 
 }

@@ -63,13 +63,13 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 
 query
             : filters EOF
-              {$$ = new yy.ast.Query($1, @$); return $$;     }
+              {$$ = new yy.ast.Query($1, yy.filterCount @$); return $$;     }
 
             | filter EOF
-              {$$ = new yy.ast.Query($1, @$); return $$;     }
+              {$$ = new yy.ast.Query($1, yy.filterCount, @$); return $$;     }
 
             | EOF
-              {$$ = new yy.ast.Query(yy.nothing, @$); return $$; }
+              {$$ = new yy.ast.Query(yy.nothing, yy.filterCount, @$); return $$; }
             ;
 
 filters 
@@ -95,10 +95,10 @@ filters
 
 filter
             : identitifer ':' operator value 
-              {$$ = new yy.ast.Filter($1, $3, $4, @$);}
+              {$$ = new yy.ast.Filter($1, $3, $4, @$); yy.filterCount++; }
 
             | identitifer ':' value 
-              {$$ = new yy.ast.Filter($1, 'default', $3, @$);}
+              {$$ = new yy.ast.Filter($1, 'default', $3, @$); yy.filterCount++; }
             ;
 
 operator

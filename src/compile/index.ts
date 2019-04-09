@@ -23,6 +23,13 @@ export const defaultOptions = {
 export type Source = string;
 
 /**
+ * maxFilterExceededErr indicates the maximum amount of filters allowed
+ * has been surpassed.
+ */
+export const maxFilterExceededErr = (n: number, max: number) =>
+    ({ n, max, message: `Max ${max} filters are allowed, got ${n}!` });
+
+/**
  * invalidFilterFieldErr invalid indicates the filter supplied is not supported.
  */
 export const invalidFilterFieldErr = <V>
@@ -39,6 +46,9 @@ export const ast2Terms = <F>
 
         if (n.terms.isNothing())
             return <Except<Term<F>>>right(ctx.terms.empty());
+
+        if (n.count > ctx.options.maxFilters)
+            return left(maxFilterExceededErr(n.count, ctx.options.maxFilters));
 
         return ast2Terms<F>(ctx, n.terms.get());
 
@@ -87,4 +97,4 @@ export const ast2Terms = <F>
  */
 export const source2Term = <F>
     (ctx: Context<F>, source: Source): Except<Term<F>> =>
-    parse(source)        .chain(n => ast2Terms(ctx, n));
+    parse(source).chain(n => ast2Terms(ctx, n));
