@@ -14,66 +14,66 @@ OctalIntegerLiteral [0]{OctalDigit}+
 HexIntegerLiteral [0][xX]{HexDigit}+
 DecimalLiteral ([-]?{DecimalIntegerLiteral}\.{DecimalDigits}*{ExponentPart}?)|(\.{DecimalDigits}{ExponentPart}?)|({DecimalIntegerLiteral}{ExponentPart}?)
 NumberLiteral {DecimalLiteral}|{HexIntegerLiteral}|{OctalIntegerLiteral}
-Identifier [a-zA-Z$_][a-zA-Z$_0-9-]*
+Identifier [a-zA-Z$_][a-zA-Z$_0-9-.]*
+Characters [a-zA-Z][a-zA-Z]*
 OctalEscapeSequence (?:[1-7][0-7]{0,2}|[0-7]{2,3})
 HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
-DoubleStringCharacter ([^\"\\\n\r]+)
-StringLiteral (\"{DoubleStringCharacter}*\")
+DoubleStringCharacter [^"\n\r]+
+StringLiteral (\"{DoubleStringCharacter}+\")|(\"\")
 DateLiteral [0-9]{4}[-]([0][0-9]|1[0-2])[-]([0-2][0-9]|3[01])
 Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 
 /* Flags */
 %options flex
-%x STRING_LITERAL
 %%
 
 /* Rules */
-\s+                                                             /* skips whitespace */
-'true'                                                          return 'TRUE';
-'false'                                                         return 'FALSE';
-{DateLiteral}                                                   return 'DATE_LITERAL';
-'OR'|'or'                                                       return 'OR';
-'AND'|'and'                                                     return 'AND';
-{Identifier}                                                    return 'FIELD';
-{NumberLiteral}                                                 return 'NUMBER_LITERAL';
-'('                                                             return '(';
-')'                                                             return ')';
-':'                                                             return ':';
-'['                                                             return '[';
-']'                                                             return ']';
-','                                                             return ',';
-'>='                                                            return '>=';
-'>'                                                             return '>';
-'<='                                                            return '<=';
-'<'                                                             return '<';
-'='                                                             return '=';
-'?'                                                             return '?';
-'%'                                                             return '%';
-'"'                       this.begin('STRING_LITERAL');         return 'QUOTE';
-<STRING_LITERAL>[^"\n]+                                         return 'STRING_LITERAL';
-<STRING_LITERAL>["]       this.popState();                      return 'QUOTE';
-<*><<EOF>>                                                      return 'EOF';
+\s+                                         /* skips whitespace */
+'true'                                      return 'TRUE';
+'false'                                     return 'FALSE';
+{DateLiteral}                               return 'DATE_LITERAL';
+'OR'                                        return 'OR';
+'AND'                                       return 'AND';
+{Characters}                                return 'CHARACTERS';
+{Identifier}                                return 'IDENTIFIER';
+{StringLiteral}                             return 'STRING_LITERAL';
+{NumberLiteral}                             return 'NUMBER_LITERAL';
+'('                                         return '(';
+')'                                         return ')';
+':'                                         return ':';
+'['                                         return '[';
+']'                                         return ']';
+','                                         return ',';
+'>='                                        return '>=';
+'>'                                         return '>';
+'<='                                        return '<=';
+'<'                                         return '<';
+'='                                         return '=';
+'?'                                         return '?';
+'%'                                         return '%';
+<*><<EOF>>                                  return 'EOF';
 
 /lex
 %ebnf
-%start conditions
+%start query
 
 %%
 
-conditions
+query
             : filters EOF
-              {$$ = new yy.ast.Conditions($1, @$); return $$;     }
+              {$$ = new yy.ast.Query($1, @$); return $$;     }
 
             | filter EOF
-              {$$ = new yy.ast.Conditions($1, @$); return $$;     }
+              {$$ = new yy.ast.Query($1, @$); return $$;     }
 
             | EOF
-              {$$ = new yy.ast.Conditions(null, @$); return $$;   }
+              {$$ = new yy.ast.Query(yy.nothing, @$); return $$; }
             ;
 
-filters
+filters 
+
             : filter filter
               {$$ = new yy.ast.And($1, $2, @$);  }
 
@@ -81,6 +81,9 @@ filters
               {$$ = new yy.ast.And($1, $2, @$);  }
 
             | filter AND filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filters AND filter
               {$$ = new yy.ast.And($1, $3, @$);  }
 
             | filter OR filter
@@ -91,10 +94,10 @@ filters
             ;
 
 filter
-            : FIELD ':' operator value 
+            : identitifer ':' operator value 
               {$$ = new yy.ast.Filter($1, $3, $4, @$);}
 
-            | FIELD ':' value 
+            | identitifer ':' value 
               {$$ = new yy.ast.Filter($1, 'default', $3, @$);}
             ;
 
@@ -107,9 +110,6 @@ value
             : list 
               {$$ =$1;}
               
-            | dict 
-              {$$ =$1;}
-
             | date_literal
               {$$ = $1;}
 
@@ -142,10 +142,10 @@ date_literal
             ;
 
 string_literal
-            : QUOTE STRING_LITERAL QUOTE
-              {$$ = new yy.ast.StringLiteral($2, @$); }
+            : STRING_LITERAL
+              {$$ = new yy.ast.StringLiteral($1, @$); }
 
-            | FIELD
+            | CHARACTERS 
               {$$ = new yy.ast.StringLiteral($1, @$); }
             ;
 
@@ -160,4 +160,9 @@ boolean_literal
 number_literal
             : NUMBER_LITERAL
               {$$ = new yy.ast.NumberLiteral(parseFloat($1), @$); }
+            ;
+
+identitifer 
+            : (IDENTIFIER|CHARACTERS)
+              {$$ = new yy.ast.Identifier($1, @$); }
             ;
