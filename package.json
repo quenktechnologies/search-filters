@@ -3,25 +3,25 @@
   "version": "0.5.2",
   "description": "Small DSL for building search filters",
   "main": "lib/index.js",
+  "files": ["lib"],
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "./node_modules/.bin/mocha --opts mocha.opts test/parse.ts"
   },
-  "author": "Lasana Murray <dev@quenk.com> (http://quenk.com)",
+  "author": "Quenk Technologies Limited <info@quenk.com> (https://quenk.com)",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/mocha": "^2.2.41",
-    "@types/node": "^7.0.18",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.13.2",
     "jison": "^0.4.17",
     "jison-gho": "^0.6.1-215",
-    "mocha": "^3.3.0",
+    "mocha": "^6.1.2",
     "must": "^0.13.4",
-    "ts-node": "^3.0.2",
+    "ts-node": "^8.0.3",
     "typedoc": "^0.9.0",
-    "typescript": "^2.4.2"
+    "typescript": "^3.4.2"
   },
   "dependencies": {
-    "@quenk/match": "^1.1.0",
-    "afpl": "^0.12.0"
+    "@quenk/noni": "^1.18.0"
   }
 }
