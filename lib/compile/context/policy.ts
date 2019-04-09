@@ -2,6 +2,7 @@ import * as ast from '../../ast';
 import { left, right } from '@quenk/noni/lib/data/either';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/json';
+import { reduce, merge } from '@quenk/noni/lib/data/record';
 import { Term, FilterInfo, FilterTermConstructor } from '../term';
 import { Context } from './';
 
@@ -9,6 +10,20 @@ import { Context } from './';
  * Operator
  */
 export type Operator = string;
+
+/**
+ * PRef type.
+ */
+export type PRef<F> = string | Policy<F>;
+
+/**
+ * PRefs
+ */
+export interface PRefs<F> {
+
+    [key: string]: PRef<F>
+
+}
 
 /**
  * Policies used during compilation.
@@ -43,13 +58,6 @@ export interface Policy<F> {
     term: FilterTermConstructor<F>
 
 }
-
-/**
- * maxFilterExceededErr indicates the maximum amount of filters allowed
- * has been surpassed.
- */
-export const maxFilterExceededErr = (n: number, max: number) =>
-    ({ n, max, message: `Max ${max} filters are allowed, got ${n}!` });
 
 /**
  * invalidFilterOperatorErr indicates an invalid operator was supplied.
@@ -123,3 +131,27 @@ export const apply = <F>
     return left(invalidFilterOperatorErr({ field, operator, value }));
 
 }
+
+/**
+ * expand a map of PRefs into a Policies map.
+ *
+ * This works by expanding string PRef to values found in the provided policies
+ * map. Any string reference that can't be resolved is not included in the
+ * final map.
+ */
+export const expand = <F>(m: Policies<F>, target: PRefs<F>): Policies<F> =>
+    reduce(target, {}, (p, c, k) => {
+
+        if (typeof c === 'string') {
+            if (m[c])
+                return merge(p, { [k]: m[c] });
+            else
+                return p;
+
+        } else {
+
+            return merge(p, { [k]: c });
+
+        }
+
+    });

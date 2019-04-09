@@ -7,6 +7,16 @@ import { Context } from './';
  */
 export declare type Operator = string;
 /**
+ * PRef type.
+ */
+export declare type PRef<F> = string | Policy<F>;
+/**
+ * PRefs
+ */
+export interface PRefs<F> {
+    [key: string]: PRef<F>;
+}
+/**
  * Policies used during compilation.
  */
 export interface Policies<F> {
@@ -32,15 +42,6 @@ export interface Policy<F> {
      */
     term: FilterTermConstructor<F>;
 }
-/**
- * maxFilterExceededErr indicates the maximum amount of filters allowed
- * has been surpassed.
- */
-export declare const maxFilterExceededErr: (n: number, max: number) => {
-    n: number;
-    max: number;
-    message: string;
-};
 /**
  * invalidFilterOperatorErr indicates an invalid operator was supplied.
  */
@@ -70,3 +71,11 @@ export declare const toNative: (v: ast.Value) => Value;
  * This function will produce a Term for the filter or an error if any occurs.
  */
 export declare const apply: <F>(ctx: Context<F>, p: Policy<F>, n: ast.Filter) => import("@quenk/noni/lib/data/either").Either<import("@quenk/noni/lib/control/error").Err, Term<F>>;
+/**
+ * expand a map of PRefs into a Policies map.
+ *
+ * This works by expanding string PRef to values found in the provided policies
+ * map. Any string reference that can't be resolved is not included in the
+ * final map.
+ */
+export declare const expand: <F>(m: Policies<F>, target: PRefs<F>) => Policies<F>;

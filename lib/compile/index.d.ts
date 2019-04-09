@@ -13,6 +13,15 @@ export declare const defaultOptions: {
  */
 export declare type Source = string;
 /**
+ * maxFilterExceededErr indicates the maximum amount of filters allowed
+ * has been surpassed.
+ */
+export declare const maxFilterExceededErr: (n: number, max: number) => {
+    n: number;
+    max: number;
+    message: string;
+};
+/**
  * invalidFilterFieldErr invalid indicates the filter supplied is not supported.
  */
 export declare const invalidFilterFieldErr: <V>({ field, operator, value }: FilterInfo<V>) => {

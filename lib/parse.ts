@@ -15,7 +15,7 @@ export type Source = string;
 export const parse = (source: Source): Except<ast.Query> =>
     attempt(() => {
 
-        parser.parser.yy = { ast, nothing: nothing() };
+        parser.parser.yy = { ast, nothing: nothing(), filterCount: 0 };
         return parser.parser.parse(source);
 
     });

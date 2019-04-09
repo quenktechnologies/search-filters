@@ -32,9 +32,10 @@ export interface Location {
  */
 export declare class Query {
     terms: Maybe<Term>;
+    count: number;
     location: Location;
     type: string;
-    constructor(terms: Maybe<Term>, location: Location);
+    constructor(terms: Maybe<Term>, count: number, location: Location);
 }
 /**
  * Term
