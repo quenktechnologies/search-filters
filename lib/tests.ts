@@ -20,13 +20,6 @@ export const tests: { [key: string]: any } = {
 
     },
 
-    'should not allow double quotes between string literals': {
-
-        input: 'type:"type%:"dom%""',
-        skip: true //@todo to enable later
-
-    },
-
     'should parse three filters': {
 
         input: 'type:c name:johan active:false',
