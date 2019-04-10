@@ -63,7 +63,7 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 
 query
             : filters EOF
-              {$$ = new yy.ast.Query($1, yy.filterCount @$); return $$;     }
+              {$$ = new yy.ast.Query($1, yy.filterCount, @$); return $$;     }
 
             | filter EOF
               {$$ = new yy.ast.Query($1, yy.filterCount, @$); return $$;     }
