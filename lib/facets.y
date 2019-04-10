@@ -52,7 +52,6 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 '<'                                         return '<';
 '='                                         return '=';
 '?'                                         return '?';
-'%'                                         return '%';
 <*><<EOF>>                                  return 'EOF';
 
 /lex

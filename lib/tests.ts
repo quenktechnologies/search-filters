@@ -14,11 +14,11 @@ export const tests: { [key: string]: any } = {
 
     },
 
-       'should allow any character except \'"\' between double quotes': {
-    
-    input: 'type:"%><>?:L^#@!@#%^&p:%\'for long\'!@<=a:%22>=<>#\\$%^&{()\'\`f`\\"',
+    'should allow any character except \'"\' between double quotes': {
 
-     },
+        input: 'type:"%><>?:L^#@!@#%^&p:%\'for long\'!@<=a:%22>=<>#\\$%^&{()\'\`f`\\"',
+
+    },
 
     'should not allow double quotes between string literals': {
 
@@ -50,18 +50,12 @@ export const tests: { [key: string]: any } = {
         input: 'tag:old OR tag:new OR user:grandma OR filetype:jpeg'
 
     },
-
-    'should parse the $in function': {
-
-        input: 'tag:[24, 88.9,"mumch", 23.5, "Cake mix"]'
-
-    },
     'should parse date literals': {
 
         input: 'dob:2009-04-03'
 
     },
-    'should parse dotts': {
+    'should parse dots': {
 
         input: 'user.username:"faro"'
 
