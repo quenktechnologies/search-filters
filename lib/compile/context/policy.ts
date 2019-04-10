@@ -113,12 +113,11 @@ const checkType = <V>(typ: string, value: V): boolean => {
 export const apply = <F>
     (ctx: Context<F>, p: Policy<F>, n: ast.Filter): Except<Term<F>> => {
 
-    let { operator, value } = n;
+    let { operator  } = n;
     let field = n.field.value;
+      let value = toNative(n.value);
 
-    let v = toNative(value);
-
-    if (!checkType(p.type, v))
+    if (!checkType(p.type, value))
         return left(invalidFilterTypeErr({ field, operator, value },
             p.type));
 
