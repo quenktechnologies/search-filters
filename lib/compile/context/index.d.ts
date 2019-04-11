@@ -4,11 +4,10 @@ import { TermConstructors } from '../term';
  * Options used during the compilation process.
  */
 export interface Options {
-    [key: string]: any;
     /**
      * maxFilters allowed to specified in the source.
      */
-    maxFilters?: number;
+    maxFilters: number;
 }
 /**
  * Context represents the context the compilation

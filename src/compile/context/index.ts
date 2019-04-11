@@ -6,12 +6,10 @@ import { TermConstructors } from '../term';
  */
 export interface Options {
 
-    [key: string]: any
-
     /**
      * maxFilters allowed to specified in the source.
      */
-    maxFilters?: number
+    maxFilters: number
 
 }
 

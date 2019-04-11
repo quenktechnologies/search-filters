@@ -101,7 +101,7 @@ const checkType = <V>(typ: string, value: V): boolean => {
     else if (typeof value === typ)
         return true
     else
-        false
+ return       false
 
 }
 
