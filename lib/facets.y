@@ -148,7 +148,7 @@ date_literal
 
 string_literal
             : STRING_LITERAL
-              {$$ = new yy.ast.StringLiteral($1, @$); }
+              {$$ = new yy.ast.StringLiteral($1.slice(1, $1.length-1), @$); }
 
             | CHARACTERS 
               {$$ = new yy.ast.StringLiteral($1, @$); }
