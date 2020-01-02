@@ -1,4 +1,5 @@
 import * as ast from '../../ast';
+import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/json';
 import { Term, FilterInfo, FilterTermConstructor } from '../term';
 import { Context } from './';
@@ -70,7 +71,7 @@ export declare const toNative: (v: ast.Value) => Value;
  *
  * This function will produce a Term for the filter or an error if any occurs.
  */
-export declare const apply: <F>(ctx: Context<F>, p: Policy<F>, n: ast.Filter) => import("@quenk/noni/lib/data/either").Either<import("@quenk/noni/lib/control/error").Err, Term<F>>;
+export declare const apply: <F>(ctx: Context<F>, p: Policy<F>, n: ast.Filter) => Except<Term<F>>;
 /**
  * expand a map of PRefs into a Policies map.
  *

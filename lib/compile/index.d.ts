@@ -1,5 +1,6 @@
 /// <reference path="../parser.d.ts" />
 import * as ast from '../ast';
+import { Except } from '@quenk/noni/lib/control/error';
 import { Context } from './context';
 import { FilterInfo, Term } from './term';
 /**
@@ -33,8 +34,8 @@ export declare const invalidFilterFieldErr: <V>({ field, operator, value }: Filt
 /**
  * ast2Terms converts an AST into a graph of verticies starting at the root node.
  */
-export declare const ast2Terms: <F>(ctx: Context<F>, n: ast.Node) => import("@quenk/noni/lib/data/either").Either<import("@quenk/noni/lib/control/error").Err, Term<F>>;
+export declare const ast2Terms: <F>(ctx: Context<F>, n: ast.Node) => Except<Term<F>>;
 /**
  * source2Term source text to a Term.
  */
-export declare const source2Term: <F>(ctx: Context<F>, source: string) => import("@quenk/noni/lib/data/either").Either<import("@quenk/noni/lib/control/error").Err, Term<F>>;
+export declare const source2Term: <F>(ctx: Context<F>, source: string) => Except<Term<F>>;
