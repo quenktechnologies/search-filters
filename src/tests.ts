@@ -52,6 +52,11 @@ export const tests: { [key: string]: any } = {
 
         input: 'user.username:"faro"'
 
+    },
+    'should not be thrown off by extra whitespace': {
+
+        input: 'type: "P",   name: "Micah Sargent",  date_of_birth:  "1990-07-12"'
+
     }
 
 };

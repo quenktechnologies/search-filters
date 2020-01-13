@@ -91,6 +91,12 @@ filters
             | filters AND filter
               {$$ = new yy.ast.And($1, $3, @$);  }
 
+            | filter "," filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filters "," filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
             | filter OR filter
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
