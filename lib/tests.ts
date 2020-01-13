@@ -55,7 +55,32 @@ export const tests: { [key: string]: any } = {
     },
     'should not be thrown off by extra whitespace': {
 
-        input: 'type: "P",   name: "Micah Sargent",  date_of_birth:  "1990-07-12"'
+        input: 'type: "P",   name: "Sargent",  date_of_birth:  "1990-07-12"'
+
+    },
+    'should allow grouping (single)': {
+
+        input: '(type:"P")'
+
+    },
+    'should allow grouping (two with OR)': {
+
+        input: '(type:"P" OR name:"Sargent")'
+
+    },
+    'should allow grouping (two with AND)': {
+
+        input: '(type:"P" AND name:"Sargent")'
+
+    },
+    'should allow grouping (two with commas)': {
+
+        input: '(type:"P" , name:"Sargent")'
+
+    },
+    'should allow grouping (complex)': {
+
+        input: '(type:"P" , name:"Sargent") and (type:"P" or name:"Sa")'
 
     }
 

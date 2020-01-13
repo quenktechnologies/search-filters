@@ -34,8 +34,8 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 'true'                                      return 'TRUE';
 'false'                                     return 'FALSE';
 {DateLiteral}                               return 'DATE_LITERAL';
-'OR'                                        return 'OR';
-'AND'                                       return 'AND';
+'OR'|'or'                                   return 'OR';
+'AND'|'and'                                 return 'AND';
 {Characters}                                return 'CHARACTERS';
 {Identifier}                                return 'IDENTIFIER';
 {StringLiteral}                             return 'STRING_LITERAL';
@@ -73,6 +73,12 @@ query
                 return $$; 
               }
 
+            | filter_group EOF
+              {$$ =
+                new yy.ast.Query(yy.just($1), yy.filterCount, @$); 
+                return $$; 
+              }
+
             | EOF
               {$$ = new yy.ast.Query(yy.nothing, yy.filterCount, @$); return $$; }
             ;
@@ -81,27 +87,77 @@ filters
 
             : filter filter
               {$$ = new yy.ast.And($1, $2, @$);  }
-
-            | filters filter
-              {$$ = new yy.ast.And($1, $2, @$);  }
-
+          
             | filter AND filter
               {$$ = new yy.ast.And($1, $3, @$);  }
 
-            | filters AND filter
-              {$$ = new yy.ast.And($1, $3, @$);  }
-
-            | filter "," filter
-              {$$ = new yy.ast.And($1, $3, @$);  }
-
-            | filters "," filter
+            | filter ',' filter
               {$$ = new yy.ast.And($1, $3, @$);  }
 
             | filter OR filter
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
+            | filter_group filter_group
+              {$$ = new yy.ast.And($1, $2, @$);  }
+          
+            | filter_group AND filter_group
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filter_group ',' filter_group
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filter_group OR filter_group
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
+            | filter_group AND filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filter_group ',' filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filter_group OR filter
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
+            | filters filter
+              {$$ = new yy.ast.And($1, $2, @$);  }
+
+            | filters AND filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filters ',' filter
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
             | filters OR filter 
               {$$ = new yy.ast.Or($1, $3, @$);   }
+
+            | filters filter_group
+              {$$ = new yy.ast.And($1, $2, @$);  }
+
+            | filters AND filter_group
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filters ',' filter_group
+              {$$ = new yy.ast.And($1, $3, @$);  }
+
+            | filters OR filter_group 
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
+            ;
+
+filter_group
+
+            : '(' filter ')'
+              {$$ = $2;                          }
+
+            | '(' filter OR filter ')'
+              {$$ = new yy.ast.Or($2, $4, @$);   }
+
+            | '(' filter AND filter ')'
+              {$$ = new yy.ast.And($2, $4, @$);  }
+
+            | '(' filter ',' filter ')'
+              {$$ = new yy.ast.And($2, $4, @$);  }
+
             ;
 
 filter
