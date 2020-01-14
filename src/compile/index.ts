@@ -1,43 +1,45 @@
-/// <reference path='../parser.d.ts' />
-import * as ast from '../ast';
+/// <reference path='../parser/parser.d.ts' />
+import * as ast from '../parser/ast';
+
 import { left, right } from '@quenk/noni/lib/data/either';
 import { Except } from '@quenk/noni/lib/control/error';
 import { fromNullable } from '@quenk/noni/lib/data/maybe';
-import { parse } from '../parse';
+
+import { Source, parse } from '../parser';
 import { apply } from './context/policy';
 import { Context } from './context';
 import { FilterInfo, Term } from './term';
 
 /**
- * defaultOptions 
+ * defaultOptions for compilation.
  */
 export const defaultOptions = {
 
-    maxFilters: 100,
+    /**
+     * maxFilters allowed in a query string.
+     */
+    maxFilters: 100
 
 };
 
 /**
- * Source text for parsing and compilation.
- */
-export type Source = string;
-
-/**
- * maxFilterExceededErr indicates the maximum amount of filters allowed
- * has been surpassed.
+ * maxFilterExceededErr constructs an Err indicating the maximum amount of
+ * filters allowed has been surpassed.
  */
 export const maxFilterExceededErr = (n: number, max: number) =>
     ({ n, max, message: `Max ${max} filters are allowed, got ${n}!` });
 
 /**
- * invalidFilterFieldErr invalid indicates the filter supplied is not supported.
+ * invalidFilterFieldErr constructs an Err indicating the filter encountered
+ * is not supported.
  */
 export const invalidFilterFieldErr = <V>
     ({ field, operator, value }: FilterInfo<V>) =>
     ({ field, operator, value, message: `Invalid field ${field}!` });
 
 /**
- * ast2Terms converts an AST into a graph of verticies starting at the root node.
+ * ast2Terms converts an AST into a graph of Terms representing a chain of
+ * filters.
  */
 export const ast2Terms = <F>
     (ctx: Context<F>, n: ast.Node): Except<Term<F>> => {
@@ -93,7 +95,7 @@ export const ast2Terms = <F>
 }
 
 /**
- * source2Term source text to a Term.
+ * source2Term transform source text to a Term chain.
  */
 export const source2Term = <F>
     (ctx: Context<F>, source: Source): Except<Term<F>> =>
