@@ -1,12 +1,12 @@
 import { Maybe } from '@quenk/noni/lib/data/maybe';
 /**
- * Nodes map.
+ * Nodes maps a key to Node constructor.
  */
 export interface Nodes {
     [key: string]: Node;
 }
 /**
- * Node
+ * Node is the basic interface all members of the AST implements.
  */
 export interface Node {
     /**
@@ -21,6 +21,8 @@ export interface Node {
 /**
  * Location provides information about where a node was found
  * in the source text.
+ *
+ * More information available in the Jison module.
  */
 export interface Location {
     [key: string]: string | number;

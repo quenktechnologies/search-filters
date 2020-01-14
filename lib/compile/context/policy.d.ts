@@ -1,4 +1,4 @@
-import * as ast from '../../ast';
+import * as ast from '../../parser/ast';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/json';
 import { Term, FilterInfo, FilterTermConstructor } from '../term';

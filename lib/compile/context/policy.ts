@@ -1,8 +1,10 @@
-import * as ast from '../../ast';
+import * as ast from '../../parser/ast';
+
 import { left, right } from '@quenk/noni/lib/data/either';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/json';
 import { reduce, merge } from '@quenk/noni/lib/data/record';
+
 import { Term, FilterInfo, FilterTermConstructor } from '../term';
 import { Context } from './';
 
@@ -101,7 +103,7 @@ const checkType = <V>(typ: string, value: V): boolean => {
     else if (typeof value === typ)
         return true
     else
- return       false
+        return false
 
 }
 
@@ -113,9 +115,9 @@ const checkType = <V>(typ: string, value: V): boolean => {
 export const apply = <F>
     (ctx: Context<F>, p: Policy<F>, n: ast.Filter): Except<Term<F>> => {
 
-    let { operator  } = n;
+    let { operator } = n;
     let field = n.field.value;
-      let value = toNative(n.value);
+    let value = toNative(n.value);
 
     if (!checkType(p.type, value))
         return left(invalidFilterTypeErr({ field, operator, value },
