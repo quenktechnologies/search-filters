@@ -6,7 +6,7 @@ lib: $(shell find src -type f)
 	./node_modules/.bin/jison -o lib/parser/parser.js lib/parser/facets.y
 	./node_modules/.bin/tsc -p lib
 
-public: src
+docs: src
 	rm -R $@ || true
 	./node_modules/.bin/typedoc \
 	--mode modules \
