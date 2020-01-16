@@ -20,7 +20,7 @@ OctalEscapeSequence (?:[1-7][0-7]{0,2}|[0-7]{2,3})
 HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
-DoubleStringCharacter [^"\n\r]+
+DoubleStringCharacter ([^"\n\r]|[\\"])
 StringLiteral (\"{DoubleStringCharacter}+\")|(\"\")
 DateLiteral [0-9]{4}[-]([0][0-9]|1[0-2])[-]([0-2][0-9]|3[01])
 Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
@@ -52,6 +52,7 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 '<'                                         return '<';
 '='                                         return '=';
 '?'                                         return '?';
+'|'                                         return '|';
 <*><<EOF>>                                  return 'EOF';
 
 /lex
@@ -97,6 +98,9 @@ filters
             | filter OR filter
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
+            | filter '|' filter
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
             | filter_group filter_group
               {$$ = new yy.ast.And($1, $2, @$);  }
           
@@ -109,6 +113,9 @@ filters
             | filter_group OR filter_group
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
+            | filter_group '|' filter_group
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
             | filter_group AND filter
               {$$ = new yy.ast.And($1, $3, @$);  }
 
@@ -116,6 +123,9 @@ filters
               {$$ = new yy.ast.And($1, $3, @$);  }
 
             | filter_group OR filter
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
+            | filter_group '|' filter
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
             | filters filter
@@ -130,6 +140,9 @@ filters
             | filters OR filter 
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
+            | filters '|' filter 
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
             | filters filter_group
               {$$ = new yy.ast.And($1, $2, @$);  }
 
@@ -142,6 +155,9 @@ filters
             | filters OR filter_group 
               {$$ = new yy.ast.Or($1, $3, @$);   }
 
+            | filters '|' filter_group 
+              {$$ = new yy.ast.Or($1, $3, @$);   }
+
             ;
 
 filter_group
@@ -150,6 +166,9 @@ filter_group
               {$$ = $2;                          }
 
             | '(' filter OR filter ')'
+              {$$ = new yy.ast.Or($2, $4, @$);   }
+
+            | '(' filter '|' filter ')'
               {$$ = new yy.ast.Or($2, $4, @$);   }
 
             | '(' filter AND filter ')'
