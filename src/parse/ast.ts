@@ -41,7 +41,7 @@ export interface Location {
 /**
  * Query
  *
- * This is the main node
+ * This is the main node in the AST we are interested in.
  */
 export class Query {
 

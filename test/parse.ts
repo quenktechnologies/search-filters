@@ -1,6 +1,7 @@
 import * as must from 'must/register';
 import * as fs from 'fs';
-import { parse } from '../lib/parser';
+
+import { parse } from '../lib/parse';
 import { tests } from '../lib/tests';
 
 function json(tree: any): string {
