@@ -1,50 +1,83 @@
 import { Except } from '@quenk/noni/lib/control/error';
-import { Context } from './context';
+import { Value } from '@quenk/noni/lib/data/json';
+import { Context } from './';
 /**
- * TermConstructor are constructor functions for creating Terms.
+ * TermConstructor are functions that produce Term instances on the compiler's
+ * behalf.
  */
-export declare type TermConstructor<F> = EmptyTermConstructor<F> | AndTermConstructor<F> | OrTermConstructor<F> | FilterTermConstructor<F>;
+export declare type TermConstructor<T> = EmptyTermConstructor<T> | AndTermConstructor<T> | OrTermConstructor<T> | FilterTermConstructor<T>;
 /**
- * EmptyTermConstructor type.
+ * EmptyTermConstructor
+ *
+ * The EmptyTermConstructor is used to indicate the absence of any filters.
+ * It is also used when the ignoreUnknownFields options is set.
  */
-export declare type EmptyTermConstructor<F> = () => Term<F>;
+export declare type EmptyTermConstructor<T> = () => Term<T>;
 /**
- * AndTermConstructor type.
+ * AndTermConstructor
+ *
+ * The AndTermConstructor provides a Term that combines two filters into a
+ * logical AND.
  */
-export declare type AndTermConstructor<F> = (c: Context<F>, left: Term<F>, right: Term<F>) => Term<F>;
+export declare type AndTermConstructor<T> = (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
 /**
- * OrTermConstructor term type.
+ * OrTermConstructor
+ *
+ * The OrTermConstructor provides a Term that alternates between two filters
+ * via a logical OR.
+ *
  */
-export declare type OrTermConstructor<F> = (c: Context<F>, left: Term<F>, right: Term<F>) => Term<F>;
+export declare type OrTermConstructor<T> = (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
 /**
  * FilterTermConstructor type.
+ *
+ * The FilterTermConstructor constructs a Term for a filter to be used in a
+ * query.
  */
-export declare type FilterTermConstructor<F> = (c: Context<F>, filter: FilterInfo<any>) => Term<F>;
+export declare type FilterTermConstructor<T> = (c: Context<T>, filter: FilterInfo) => Term<T>;
 /**
- * FilterInfo holds information about a Filter being processed.
+ * FilterInfo holds information about a filter while being compiled.
  */
-export interface FilterInfo<V> {
-    field: string;
-    operator: string;
-    value: V;
-}
-/**
- * TermConstructors is an object containing constructor
- * functions for creating supported Terms.
- */
-export interface TermConstructors<F> {
-    [key: string]: TermConstructor<F>;
-    empty: EmptyTermConstructor<F>;
-    and: AndTermConstructor<F>;
-    or: OrTermConstructor<F>;
-}
-/**
- * Term is a chain of verticies that ultimately form the filter to be
- * used in the application.
- */
-export interface Term<F> {
+export interface FilterInfo {
     /**
-     * compile this Term returning it's native filter representation.
+     * field the filter refers to.
      */
-    compile(): Except<F>;
+    field: string;
+    /**
+     * operator applied to the filter.
+     */
+    operator: string;
+    /**
+     * value used with the operator.
+     */
+    value: Value;
+}
+/**
+ * TermConstructorFactory provides functions for creating new instances of
+ * the common Terms.
+ */
+export interface TermConstructorFactory<T> {
+    [key: string]: TermConstructor<T>;
+    /**
+     * empty provides a new EmptyTermConstructor instance.
+     */
+    empty: EmptyTermConstructor<T>;
+    /**
+     * and provides a new AndTermConstructor instance.
+     */
+    and: AndTermConstructor<T>;
+    /**
+     * or provides a new OrTermConstructor instance.
+     */
+    or: OrTermConstructor<T>;
+}
+/**
+ * Term is an intermediate representation of a filter (or chain of filters)
+ * before it is compiled to its final form.
+ */
+export interface Term<T> {
+    /**
+     * compile this Term into its target filter format.
+     */
+    compile(): Except<T>;
 }

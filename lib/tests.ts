@@ -82,6 +82,11 @@ export const tests: { [key: string]: any } = {
 
         input: '(type:"P" , name:"Sargent") and (type:"P" or name:"Sa")'
 
+    },
+    'should allow use of pipes in place of or': {
+
+        input: '(type:"P" \'|\' name:"Sargent")'
+
     }
 
 };
