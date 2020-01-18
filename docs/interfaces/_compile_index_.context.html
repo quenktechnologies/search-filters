@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>FilterInfo | @quenk/search-filters - v1.2.0</title>
+	<title>Context | @quenk/search-filters - v1.2.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,13 +52,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_compile_term_.html">&quot;compile/term&quot;</a>
+					<a href="../modules/_compile_index_.html">&quot;compile/index&quot;</a>
 				</li>
 				<li>
-					<a href="_compile_term_.filterinfo.html">FilterInfo</a>
+					<a href="_compile_index_.context.html">Context</a>
 				</li>
 			</ul>
-			<h1>Interface FilterInfo</h1>
+			<h1>Interface Context&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -68,15 +68,25 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>FilterInfo holds information about a filter while being compiled.</p>
+						<p>Context compilation takes place in.</p>
 					</div>
+					<p>It specifies the options and functions etc. used to transform the parsed
+					code into a result.</p>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">FilterInfo</span>
+						<span class="target">Context</span>
 					</li>
 				</ul>
 			</section>
@@ -87,9 +97,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_term_.filterinfo.html#field" class="tsd-kind-icon">field</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_term_.filterinfo.html#operator" class="tsd-kind-icon">operator</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_term_.filterinfo.html#value" class="tsd-kind-icon">value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_index_.context.html#options" class="tsd-kind-icon">options</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_index_.context.html#policies" class="tsd-kind-icon">policies</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_index_.context.html#terms" class="tsd-kind-icon">terms</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,47 +108,48 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="field" class="tsd-anchor"></a>
-					<h3>field</h3>
-					<div class="tsd-signature tsd-kind-icon">field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="options" class="tsd-anchor"></a>
+					<h3>options</h3>
+					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <a href="_compile_index_.options.html" class="tsd-signature-type">Options</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/term.ts#L61">compile/term.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/index.ts#L66">compile/index.ts:66</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>field the filter refers to.</p>
+							<p>options used during compilation.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="operator" class="tsd-anchor"></a>
-					<h3>operator</h3>
-					<div class="tsd-signature tsd-kind-icon">operator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="policies" class="tsd-anchor"></a>
+					<h3>policies</h3>
+					<div class="tsd-signature tsd-kind-icon">policies<span class="tsd-signature-symbol">:</span> <a href="_compile_policy_set_.policyset.html" class="tsd-signature-type">PolicySet</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/term.ts#L66">compile/term.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/index.ts#L77">compile/index.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>operator applied to the filter.</p>
+							<p>policies is the PolicySet that a parsed query string must comply with
+							to compile successfully.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="value" class="tsd-anchor"></a>
-					<h3>value</h3>
-					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <a href="../modules/_parse_ast_.html#value" class="tsd-signature-type">Value</a></div>
+					<a name="terms" class="tsd-anchor"></a>
+					<h3>terms</h3>
+					<div class="tsd-signature tsd-kind-icon">terms<span class="tsd-signature-symbol">:</span> <a href="_compile_term_.termconstructorfactory.html" class="tsd-signature-type">TermConstructorFactory</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/term.ts#L71">compile/term.ts:71</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/bf9e15f/lib/compile/index.ts#L71">compile/index.ts:71</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>value used with the operator.</p>
+							<p>terms provides the common required terms.</p>
 						</div>
 					</div>
 				</section>
@@ -150,7 +161,7 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_compile_index_.html">&quot;compile/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -159,7 +170,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_policy_set_.html">&quot;compile/policy/set&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_term_.html">&quot;compile/term&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -177,42 +188,48 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="_compile_term_.filterinfo.html" class="tsd-kind-icon">Filter<wbr>Info</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_index_.context.html" class="tsd-kind-icon">Context</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_term_.filterinfo.html#field" class="tsd-kind-icon">field</a>
+								<a href="_compile_index_.context.html#options" class="tsd-kind-icon">options</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_term_.filterinfo.html#operator" class="tsd-kind-icon">operator</a>
+								<a href="_compile_index_.context.html#policies" class="tsd-kind-icon">policies</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_term_.filterinfo.html#value" class="tsd-kind-icon">value</a>
+								<a href="_compile_index_.context.html#terms" class="tsd-kind-icon">terms</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_compile_term_.term.html" class="tsd-kind-icon">Term</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_compile_index_.options.html" class="tsd-kind-icon">Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_compile_term_.termconstructorfactory.html" class="tsd-kind-icon">Term<wbr>Constructor<wbr>Factory</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_index_.html#default_max_filters" class="tsd-kind-icon">DEFAULT_<wbr>MAX_<wbr>FILTERS</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_term_.html#andtermconstructor" class="tsd-kind-icon">And<wbr>Term<wbr>Constructor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_index_.html#ast2terms" class="tsd-kind-icon">ast2<wbr>Terms</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_term_.html#emptytermconstructor" class="tsd-kind-icon">Empty<wbr>Term<wbr>Constructor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_index_.html#compile" class="tsd-kind-icon">compile</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_term_.html#filtertermconstructor" class="tsd-kind-icon">Filter<wbr>Term<wbr>Constructor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_compile_index_.html#invalidfilterfielderr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Field<wbr>Err</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_term_.html#ortermconstructor" class="tsd-kind-icon">Or<wbr>Term<wbr>Constructor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_compile_index_.html#maxfilterexceedederr" class="tsd-kind-icon">max<wbr>Filter<wbr>Exceeded<wbr>Err</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_term_.html#termconstructor" class="tsd-kind-icon">Term<wbr>Constructor</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_index_.html#newcontext" class="tsd-kind-icon">new<wbr>Context</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_index_.html#source2term" class="tsd-kind-icon">source2<wbr>Term</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-parent-kind-external-module">
+						<a href="../modules/_compile_index_.html#defaultoptions" class="tsd-kind-icon">default<wbr>Options</a>
 					</li>
 				</ul>
 			</nav>
