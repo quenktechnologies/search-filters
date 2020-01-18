@@ -1,5 +1,5 @@
 
-# facets-dsl
+# Search Filters
 
 Provides a parser and related APIs for converting a string sequence
 of filter conditions (query string) into usable search filters.
@@ -13,14 +13,15 @@ npm install --save-dev @quenk/facets-dsl
 
 ## Usage
 
-This module only provides the APIs for parsing a string into an AST.
+This module only provides the APIs for parsing a string into an AST and some
+helpers for compilation.
 
-To actually generate a query, use one of the modules for the supported platforms
-below:
-1. [facets-mongodb](https://github.com/quenktechnologies/facets-mongodb) 
-2. [facets-mysql](https://github.com/quenktechnologies/facets-mysql) 
+To actually generate a query from a filter string, use a module for a supported
+target or implement one use them as a guide.
 
-or implement your own using them as a guide.
+Supported platforms:
+
+1. [search-filters-mongodb](https://github.com/quenktechnologies/search-filters-mongodb) 
 
 ## Syntax
 
