@@ -15,5 +15,7 @@ docs:
 	--excludeExternals \
 	--excludeNotExported \
 	--excludePrivate \
-	--tsconfig lib/tsconfig.json 
+	--tsconfig lib/tsconfig.json
+	echo "" > docs/.nojekyll
+
 

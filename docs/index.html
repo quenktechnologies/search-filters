@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@quenk/search-filters - v1.2.0</title>
+	<title>@quenk/search-filters - v2.0.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@quenk/search-filters - v1.2.0</a>
+					<a href="index.html" class="title">@quenk/search-filters - v2.0.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @quenk/search-filters - v1.2.0</h1>
+			<h1> @quenk/search-filters - v2.0.0</h1>
 		</div>
 	</div>
 </header>
@@ -60,43 +60,41 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#facets-dsl" id="facets-dsl" style="color: inherit; text-decoration: none;">
-					<h1>facets-dsl</h1>
+				<a href="#search-filters" id="search-filters" style="color: inherit; text-decoration: none;">
+					<h1>Search Filters</h1>
 				</a>
 				<p>Provides a parser and related APIs for converting a string sequence
 				of filter conditions (query string) into usable search filters.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
-				<pre><code class="language-sh">npm install --save-dev @quenk/facets-dsl
+				<pre><code class="language-sh">npm install --save-dev @quenk/search-filters
 </code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<p>This module only provides the APIs for parsing a string into an AST and some
-				helpers for compilation.</p>
-				<p>To actually generate a query from a filter string, use a module for a supported
-				target or implement one use them as a guide.</p>
-				<p>Supported platforms:</p>
+				<p>This module only provides an API for parsing a string into an Abstract Syntax
+				Tree with some additional helpers for compilation.</p>
+				<p>To actually generate valid query filters for a target, use a supported module:</p>
+				<p>Supported targets:</p>
 				<ol>
-					<li><a href="https://github.com/quenktechnologies/search-filters-mongodb">search-filters-mongodb</a> </li>
+					<li><a href="https://github.com/quenktechnologies/search-filters-mongodb">search-filters-mongodb</a>.</li>
 				</ol>
+				<p>Alternatively, you can implement your own compiler.</p>
 				<a href="#syntax" id="syntax" style="color: inherit; text-decoration: none;">
 					<h2>Syntax</h2>
 				</a>
-				<a href="#query-string" id="query-string" style="color: inherit; text-decoration: none;">
-					<h3>Query String</h3>
+				<a href="#the-query-string" id="the-query-string" style="color: inherit; text-decoration: none;">
+					<h3>The Query String</h3>
 				</a>
 				<p>A valid query string consists of a sequence of one or more &quot;filters&quot; seperated
-				by the following operators:</p>
+				by the following logical operators:</p>
 				<ol>
-					<li>&quot;,&quot; (space) - indicates the filters are chained via a logical &quot;AND&quot;.</li>
-					<li>&quot;,&quot;         - Same as above.</li>
+					<li>&quot;and&quot;       - indicates the filters are chained via a logical &quot;AND&quot;.</li>
+					<li>&quot;,&quot;         - same as above.</li>
 					<li>&quot;or&quot;        - indicates the filters are chained via a logical &quot;OR&quot;.</li>
-					<li>&quot;|&quot;         - Same as above.</li>
+					<li>&quot;|&quot;         - same as above.</li>
 				</ol>
-				<p>In short, a sequence of more than one filter is either chained together via a
-				logical &quot;AND&quot; or &quot;OR&quot;.</p>
 				<p>Example:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> qs1 = <span class="hljs-string">'name:"jon"'</span>;
 <span class="hljs-keyword">let</span> qs2 = <span class="hljs-string">'name:"jon" or name:"jon\'s" age:&gt;=12'</span>;
@@ -114,12 +112,13 @@
 					The operator is one of <code>&gt;,&lt;,&gt;=&lt;=,=,!=</code>. If no operator is specified then the
 					special operator <code>default</code> is assumed which means it is up to the compiler
 				to decide which operator to apply.</p>
-				<p>This is usually set in the policy.</p>
+				<p>The standard right now is to use the first operator specificed in the policy.</p>
 				<p>The value part can either be a <code>string</code> surronded by double quotes, an
 					identifier which is treated as a string, a valid ECMAScript <code>number</code> literal,
 					one of the boolean values <code>true</code> or <code>false</code>, an &quot;array&quot; of values or a
 				&quot;dictionary&quot; (object literal) of key value pairs.</p>
-				<p>A compile target may not support all the value types.</p>
+				<p>A compile target only needs to support those values that are valid for the
+				underlying query language.</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
