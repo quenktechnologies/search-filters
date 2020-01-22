@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Policy | @quenk/search-filters - v2.0.0</title>
+	<title>MaxFilterExceededErr | @quenk/search-filters - v2.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@quenk/search-filters - v2.0.0</a>
+					<a href="../index.html" class="title">@quenk/search-filters - v2.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,13 +52,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_compile_policy_index_.html">&quot;compile/policy/index&quot;</a>
+					<a href="../modules/_compile_error_.html">&quot;compile/error&quot;</a>
 				</li>
 				<li>
-					<a href="_compile_policy_index_.policy.html">Policy</a>
+					<a href="_compile_error_.maxfilterexceedederr.html">MaxFilterExceededErr</a>
 				</li>
 			</ul>
-			<h1>Interface Policy&lt;T&gt;</h1>
+			<h1>Class MaxFilterExceededErr</h1>
 		</div>
 	</div>
 </header>
@@ -68,26 +68,24 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Policy is effectively a rule or constraint placed on a field that can be
-						filtered.</p>
+						<p>MaxFilterExceedErr constructs an Err indicating the maximum amount of
+						filters allowed has been surpassed in the source string.</p>
 					</div>
-					<p>During compilation, a Policy must exist for a field otherwise compliation
-					will either fail or omit the field depending on configuration.</p>
+					<dl class="tsd-comment-tags">
+						<dt>param</dt>
+						<dd><p>The maximum number of filters allowed.</p>
+						</dd>
+						<dt>param</dt>
+						<dd><p>The number of filters encountered.</p>
+						</dd>
+					</dl>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-type-parameters">
-				<h3>Type parameters</h3>
-				<ul class="tsd-type-parameters">
-					<li>
-						<h4>T</h4>
-					</li>
-				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Policy</span>
+						<span class="target">MaxFilterExceededErr</span>
 					</li>
 				</ul>
 			</section>
@@ -96,65 +94,82 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_policy_index_.policy.html#operators" class="tsd-kind-icon">operators</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_policy_index_.policy.html#term" class="tsd-kind-icon">term</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_compile_policy_index_.policy.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#actual" class="tsd-kind-icon">actual</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#allowed" class="tsd-kind-icon">allowed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#message" class="tsd-kind-icon">message</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Max<wbr>Filter<wbr>Exceeded<wbr>Err<span class="tsd-signature-symbol">(</span>allowed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, actual<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_compile_error_.maxfilterexceedederr.html" class="tsd-signature-type">MaxFilterExceededErr</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/error.ts#L12">compile/error.ts:12</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>allowed: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>actual: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_compile_error_.maxfilterexceedederr.html" class="tsd-signature-type">MaxFilterExceededErr</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="operators" class="tsd-anchor"></a>
-					<h3>operators</h3>
-					<div class="tsd-signature tsd-kind-icon">operators<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_policy_index_.html#operator" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol">[]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="actual" class="tsd-anchor"></a>
+					<h3>actual</h3>
+					<div class="tsd-signature tsd-kind-icon">actual<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L43">compile/policy/index.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/error.ts#L14">compile/error.ts:14</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>operators is a list of operators allowed.
-							The first is used as the default when &quot;default&quot; is specified.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="term" class="tsd-anchor"></a>
-					<h3>term</h3>
-					<div class="tsd-signature tsd-kind-icon">term<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_term_.html#filtertermconstructor" class="tsd-signature-type">FilterTermConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="allowed" class="tsd-anchor"></a>
+					<h3>allowed</h3>
+					<div class="tsd-signature tsd-kind-icon">allowed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L49">compile/policy/index.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/error.ts#L14">compile/error.ts:14</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>term provides a function for constructing a Term instance for the field
-							the policy is applied to.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="message" class="tsd-anchor"></a>
+					<h3>message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;Max ${this.allowed} filters are allowed, got ${this.actual}!&#x60;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L37">compile/policy/index.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/error.ts#L16">compile/error.ts:16</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>type indicates what type the value should be.</p>
-						</div>
-						<p>If the value does not match the type it is rejected.</p>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -164,14 +179,14 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_compile_error_.html">&quot;compile/error&quot;</a>
+					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_index_.html">&quot;compile/index&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html">&quot;compile/policy/index&quot;</a>
-					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="../modules/_compile_policy_set_.html">&quot;compile/policy/set&quot;</a>
+						<a href="../modules/_compile_policy_.html">&quot;compile/policy&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_term_.html">&quot;compile/term&quot;</a>
@@ -189,41 +204,35 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_compile_error_.invalidtypeerr.html" class="tsd-kind-icon">Invalid<wbr>Type<wbr>Err</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_compile_policy_index_.policy.html" class="tsd-kind-icon">Policy</a>
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_compile_error_.maxfilterexceedederr.html" class="tsd-kind-icon">Max<wbr>Filter<wbr>Exceeded<wbr>Err</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_policy_index_.policy.html#operators" class="tsd-kind-icon">operators</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="_compile_error_.maxfilterexceedederr.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_policy_index_.policy.html#term" class="tsd-kind-icon">term</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_compile_error_.maxfilterexceedederr.html#actual" class="tsd-kind-icon">actual</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_compile_policy_index_.policy.html#type" class="tsd-kind-icon">type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_compile_error_.maxfilterexceedederr.html#allowed" class="tsd-kind-icon">allowed</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_compile_error_.maxfilterexceedederr.html#message" class="tsd-kind-icon">message</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html#operator" class="tsd-kind-icon">Operator</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_compile_error_.unsupportedfielderr.html" class="tsd-kind-icon">Unsupported<wbr>Field<wbr>Err</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../modules/_compile_policy_index_.html#apply" class="tsd-kind-icon">apply</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html#invalidfilteroperatorerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Operator<wbr>Err</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html#invalidfiltertypeerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Type<wbr>Err</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_index_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_compile_error_.unsupportedoperatorerr.html" class="tsd-kind-icon">Unsupported<wbr>Operator<wbr>Err</a>
 					</li>
 				</ul>
 			</nav>

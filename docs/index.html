@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@quenk/search-filters - v2.0.0</title>
+	<title>@quenk/search-filters - v2.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@quenk/search-filters - v2.0.0</a>
+					<a href="index.html" class="title">@quenk/search-filters - v2.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @quenk/search-filters - v2.0.0</h1>
+			<h1> @quenk/search-filters - v2.1.0</h1>
 		</div>
 	</div>
 </header>
@@ -63,8 +63,30 @@
 				<a href="#search-filters" id="search-filters" style="color: inherit; text-decoration: none;">
 					<h1>Search Filters</h1>
 				</a>
-				<p>Provides a parser and related APIs for converting a string sequence
-				of filter conditions (query string) into usable search filters.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#install">Installation</a></li>
+					<li><a href="#usage">Usage</a><ul>
+							<li><a href="#syntax">Syntax</a><ul>
+									<li><a href="#the-source-string">The Source String</a></li>
+									<li><a href="#filters">Filters</a></li>
+								</ul>
+							</li>
+							<li><a href="#compilation">Compilation</a><ul>
+									<li><a href="#policies">Policies</a></li>
+								</ul>
+							</li>
+							<li><a href="#api">API</a></li>
+							<li><a href="#license">License</a></li>
+						</ul>
+					</li>
+				</ul>
+				<p>Parse and compile a string into usable search filters.</p>
+				<p>This library provides a parser and compiler API for converting a string sequence
+					of filter conditions into usable search filters. Use it to build faceted search
+				interfaces in web applications or to provide advanced users with a search DSL.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
@@ -73,52 +95,89 @@
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
-				<p>This module only provides an API for parsing a string into an Abstract Syntax
-				Tree with some additional helpers for compilation.</p>
-				<p>To actually generate valid query filters for a target, use a supported module:</p>
+				<p>This module by itself only provides a parser in <code>lib/parse</code> and supporting
+					APIs for creating a compiler in <code>lib/compile</code>. To actually generate valid query filters for
+				your target platform, use a supported module or implement your own compiler using  <code>lib/compile</code>.</p>
 				<p>Supported targets:</p>
 				<ol>
 					<li><a href="https://github.com/quenktechnologies/search-filters-mongodb">search-filters-mongodb</a>.</li>
 				</ol>
-				<p>Alternatively, you can implement your own compiler.</p>
 				<a href="#syntax" id="syntax" style="color: inherit; text-decoration: none;">
 					<h2>Syntax</h2>
 				</a>
-				<a href="#the-query-string" id="the-query-string" style="color: inherit; text-decoration: none;">
-					<h3>The Query String</h3>
+				<a href="#the-source-string" id="the-source-string" style="color: inherit; text-decoration: none;">
+					<h3>The Source String</h3>
 				</a>
-				<p>A valid query string consists of a sequence of one or more &quot;filters&quot; seperated
+				<p>A valid source string consists of a sequence of one or more &quot;filters&quot; seperated
 				by the following logical operators:</p>
 				<ol>
-					<li>&quot;and&quot;       - indicates the filters are chained via a logical &quot;AND&quot;.</li>
-					<li>&quot;,&quot;         - same as above.</li>
-					<li>&quot;or&quot;        - indicates the filters are chained via a logical &quot;OR&quot;.</li>
-					<li>&quot;|&quot;         - same as above.</li>
+					<li>&quot;and&quot;, &quot;,&quot;  - indicates the filters are chained via a logical &quot;AND&quot;.</li>
+					<li>&quot;or&quot;, &quot;|&quot;   - indicates the filters are chained via a logical &quot;OR&quot;.</li>
 				</ol>
 				<p>Example:</p>
 				<pre><code class="language-js"><span class="hljs-keyword">let</span> qs1 = <span class="hljs-string">'name:"jon"'</span>;
 <span class="hljs-keyword">let</span> qs2 = <span class="hljs-string">'name:"jon" or name:"jon\'s" age:&gt;=12'</span>;
 <span class="hljs-keyword">let</span> qs3 = <span class="hljs-string">'(name:"jon" or name:"jon\'s") and age:&gt;=12'</span>;
 </code></pre>
+				<p>A source string is always parsed and compiled to one filter. That one
+				filter may be optionally composed of other filters via the use of logical AND or OR.</p>
 				<p>Filters can be grouped together via parenthesis &quot;(&quot; &quot;)&quot; to ensure precedence
-				is kept during parsing.</p>
+				is kept during parsing as shown above.</p>
 				<a href="#filters" id="filters" style="color: inherit; text-decoration: none;">
 					<h3>Filters</h3>
 				</a>
 				<p>A filter consists of a field name part, colon, optional operator and a value
 				part:</p>
 				<pre><code class="language-bnf"><span class="hljs-attribute">&lt;field&gt;</span> <span class="hljs-attribute">&lt;colon&gt;</span> <span class="hljs-attribute">&lt;operator&gt;</span>? <span class="hljs-attribute">&lt;value&gt;</span></code></pre>
-				<p>The field name is any valid ECMAScript identifier.
-					The operator is one of <code>&gt;,&lt;,&gt;=&lt;=,=,!=</code>. If no operator is specified then the
-					special operator <code>default</code> is assumed which means it is up to the compiler
-				to decide which operator to apply.</p>
-				<p>The standard right now is to use the first operator specificed in the policy.</p>
-				<p>The value part can either be a <code>string</code> surronded by double quotes, an
-					identifier which is treated as a string, a valid ECMAScript <code>number</code> literal,
-					one of the boolean values <code>true</code> or <code>false</code>, an &quot;array&quot; of values or a
-				&quot;dictionary&quot; (object literal) of key value pairs.</p>
-				<p>A compile target only needs to support those values that are valid for the
+				<p>Examples: <code>status:=1</code> or <code>status:1</code>.</p>
+				<p>The field name is any valid ECMAScript identifier or sequence of valid identifiers seperated
+				via the &quot;.&quot;, that is, a property path.</p>
+				<p>The colon is used to indicate the end of the field name and is followed by the operator or value if
+				none specified. If the operator part is ommited, the default operator is assumed. The default operator is determined by the policies set for the field.</p>
+				<p>The following operators are recognised by the parser:</p>
+				<ol>
+					<li>&quot;&gt;&quot;     Greater than.</li>
+					<li>&quot;&lt;&quot;     Less than.</li>
+					<li>&quot;&gt;=&quot;    Greater than or equal to.</li>
+					<li>&quot;&lt;=&quot;    Less than or equal to.</li>
+					<li>&quot;=&quot;     Equal to.</li>
+					<li>&quot;!=&quot;    Not equal to.</li>
+				</ol>
+				<p>The validity and actual implementation of these operators, and their accepted value types, depends on the policies set for the fields. Compilation fails if the wrong operator or type is used on a field.</p>
+				<p>The value part can either be one of the following values:</p>
+				<ol>
+					<li><p>String  - A sequence of one or more unicode characters surronded by double quotes.</p>
+					<pre><code>     <span class="hljs-keyword">Example</span>: <span class="hljs-string">"my string"</span></code></pre></li>
+					<li><p>Number  - Any number that can be represented in the IEEE 754 double format.</p>
+					</li>
+					<li><p>Boolean - The literal value true or the literal value false. </p>
+					</li>
+					<li><p>List    - A comma seperated sequence of the above values surronded in &quot;[&quot; &quot;]&quot;</p>
+					</li>
+				</ol>
+				<p>A compiler impelmentation only needs to support those values that are valid for the
 				underlying query language.</p>
+				<a href="#compilation" id="compilation" style="color: inherit; text-decoration: none;">
+					<h2>Compilation</h2>
+				</a>
+				<p>In <code>lib/compile</code> of this module a function <code>compile</code> is exported that
+				does most of the compilation work. Compilers need only pass an instance of <code>Context</code> with the required <code>Term</code> instances, <code>EnabledPolicies</code> the source string and valid filters for the target will be produced.</p>
+				<p>The <code>EnabledPolcies</code> instance is what determines what fields can be included in the
+				source string. The <code>EnabledPolicies</code> type supports either a literal <code>Policy</code> definition or a string pointing to one in the <code>policies</code> key of the passed Context.</p>
+				<p>Policy pointers that cannot be resolved will result in a failed compilation.</p>
+				<a href="#policies" id="policies" style="color: inherit; text-decoration: none;">
+					<h3>Policies</h3>
+				</a>
+				<p>A Policy has the following main fields:</p>
+				<ol>
+					<li>type        -       Indicates the allowed type for the field.<pre><code>                One <span class="hljs-keyword">of</span> (<span class="hljs-built_in">string</span>,<span class="hljs-built_in">number</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">boolean</span>).</code></pre></li>
+					<li>operators   -       A list of supported operators for the field.</li>
+					<li>term        -       A function that will produce a <code>Term</code> instance of the filter.</li>
+				</ol>
+				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
+					<h2>API</h2>
+				</a>
+				<p>API documentation is generated and made available <a href="https://quenktechnologies.github.io/search-filters">here</a>.</p>
 				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
 					<h2>License</h2>
 				</a>
@@ -132,13 +191,13 @@
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="modules/_compile_error_.html">&quot;compile/error&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="modules/_compile_index_.html">&quot;compile/index&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
-						<a href="modules/_compile_policy_index_.html">&quot;compile/policy/index&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="modules/_compile_policy_set_.html">&quot;compile/policy/set&quot;</a>
+						<a href="modules/_compile_policy_.html">&quot;compile/policy&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="modules/_compile_term_.html">&quot;compile/term&quot;</a>

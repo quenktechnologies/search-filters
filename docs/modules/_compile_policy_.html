@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;compile/policy/index&quot; | @quenk/search-filters - v2.0.0</title>
+	<title>&quot;compile/policy&quot; | @quenk/search-filters - v2.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@quenk/search-filters - v2.0.0</a>
+					<a href="../index.html" class="title">@quenk/search-filters - v2.1.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_compile_policy_index_.html">&quot;compile/policy/index&quot;</a>
+					<a href="_compile_policy_.html">&quot;compile/policy&quot;</a>
 				</li>
 			</ul>
-			<h1>External module &quot;compile/policy/index&quot;</h1>
+			<h1>External module &quot;compile/policy&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -69,23 +69,26 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_compile_policy_index_.policy.html" class="tsd-kind-icon">Policy</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-kind-icon">Available<wbr>Policies</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_compile_policy_.enabledpolicies.html" class="tsd-kind-icon">Enabled<wbr>Policies</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter"><a href="../interfaces/_compile_policy_.policy.html" class="tsd-kind-icon">Policy</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_compile_policy_index_.html#operator" class="tsd-kind-icon">Operator</a></li>
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_compile_policy_index_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_compile_policy_.html#operator" class="tsd-kind-icon">Operator</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module"><a href="_compile_policy_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_compile_policy_.html#policyref" class="tsd-kind-icon">Policy<wbr>Ref</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_compile_policy_index_.html#apply" class="tsd-kind-icon">apply</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_compile_policy_index_.html#invalidfilteroperatorerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Operator<wbr>Err</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_compile_policy_index_.html#invalidfiltertypeerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Type<wbr>Err</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_compile_policy_index_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_compile_policy_.html#apply" class="tsd-kind-icon">apply</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_compile_policy_.html#getpolicyfor" class="tsd-kind-icon">get<wbr>Policy<wbr>For</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter"><a href="_compile_policy_.html#resolve" class="tsd-kind-icon">resolve</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_compile_policy_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,7 +102,7 @@
 					<div class="tsd-signature tsd-kind-icon">Operator<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L13">compile/policy/index.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L16">compile/policy.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -114,7 +117,7 @@
 					<div class="tsd-signature tsd-kind-icon">Policy<wbr>Pointer<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L21">compile/policy/index.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L24">compile/policy.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -125,6 +128,27 @@
 						the PolicyPointer cannot be resolved.</p>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="policyref" class="tsd-anchor"></a>
+					<h3>Policy<wbr>Ref</h3>
+					<div class="tsd-signature tsd-kind-icon">Policy<wbr>Ref&lt;T&gt;<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><a href="_compile_policy_.html#policypointer" class="tsd-signature-type">PolicyPointer</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L29">compile/policy.ts:29</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>PolicyRef is either a raw Policy definition or a pointer to one.</p>
+						</div>
+					</div>
+					<h4 class="tsd-type-parameters-title">Type parameters</h4>
+					<ul class="tsd-type-parameters">
+						<li>
+							<h4>T</h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
@@ -132,13 +156,13 @@
 					<a name="apply" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> apply</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">apply&lt;T&gt;<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_index_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, p<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_policy_index_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, n<span class="tsd-signature-symbol">: </span><a href="../classes/_parse_ast_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Except</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_term_.term.html" class="tsd-signature-type">Term</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">apply&lt;T&gt;<span class="tsd-signature-symbol">(</span>ctx<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_index_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, p<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, n<span class="tsd-signature-symbol">: </span><a href="../classes/_parse_ast_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Except</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_term_.term.html" class="tsd-signature-type">Term</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L104">compile/policy/index.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L135">compile/policy.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -159,7 +183,7 @@
 									<h5>ctx: <a href="../interfaces/_compile_index_.context.html" class="tsd-signature-type">Context</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>p: <a href="../interfaces/_compile_policy_index_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>p: <a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>n: <a href="../classes/_parse_ast_.filter.html" class="tsd-signature-type">Filter</a></h5>
@@ -169,113 +193,83 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="invalidfilteroperatorerr" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> invalid<wbr>Filter<wbr>Operator<wbr>Err</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">invalid<wbr>Filter<wbr>Operator<wbr>Err<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="getpolicyfor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Policy<wbr>For</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Policy<wbr>For&lt;T&gt;<span class="tsd-signature-symbol">(</span>available<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-signature-type">AvailablePolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, enabled<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_policy_.enabledpolicies.html" class="tsd-signature-type">EnabledPolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Maybe</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L56">compile/policy/index.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L115">compile/policy.ts:115</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>invalidFilterOperatorErr indicates an invalid operator was supplied.</p>
+									<p>getPolicyFor will attempt to get the Policy applicable to a field.</p>
 								</div>
+								<p>If the field does not have a Policy or the Policy cannot be resolve the
+								result will be an instance of Nothing.</p>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>operator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONArray</span></h5>
-										</li>
-									</ul>
+									<h5>available: <a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-signature-type">AvailablePolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>enabled: <a href="../interfaces/_compile_policy_.enabledpolicies.html" class="tsd-signature-type">EnabledPolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5>field: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>operator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONArray</span></h5>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Maybe</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
-					<a name="invalidfiltertypeerr" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> invalid<wbr>Filter<wbr>Type<wbr>Err</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">invalid<wbr>Filter<wbr>Type<wbr>Err<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, typ<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+					<a name="resolve" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> resolve</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">resolve&lt;T&gt;<span class="tsd-signature-symbol">(</span>avail<span class="tsd-signature-symbol">: </span><a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-signature-type">AvailablePolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>, ref<span class="tsd-signature-symbol">: </span><a href="_compile_policy_.html#policyref" class="tsd-signature-type">PolicyRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Maybe</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L67">compile/policy/index.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L126">compile/policy.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>invalidFilterTypeErr indicates the value used with the
-									filter is the incorrect type.</p>
+									<p>resolve a PolicyRef against an AvailablePolicies list to get the applicable
+									Policy (if any).</p>
 								</div>
 							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>T</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>operator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONArray</span></h5>
-										</li>
-									</ul>
+									<h5>avail: <a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-signature-type">AvailablePolicies</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>typ: <span class="tsd-signature-type">string</span></h5>
+									<h5>ref: <a href="_compile_policy_.html#policyref" class="tsd-signature-type">PolicyRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
-							<ul class="tsd-parameters">
-								<li class="tsd-parameter">
-									<h5>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>operator<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONObject</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">JSONArray</span></h5>
-								</li>
-							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Maybe</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_compile_policy_.policy.html" class="tsd-signature-type">Policy</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -289,7 +283,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/7d742a3/lib/compile/policy/index.ts#L80">compile/policy/index.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/compile/policy.ts#L90">compile/policy.ts:90</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -316,13 +310,13 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="_compile_error_.html">&quot;compile/error&quot;</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="_compile_index_.html">&quot;compile/index&quot;</a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_compile_policy_index_.html">&quot;compile/policy/index&quot;</a>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="_compile_policy_set_.html">&quot;compile/policy/set&quot;</a>
+						<a href="_compile_policy_.html">&quot;compile/policy&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_compile_term_.html">&quot;compile/term&quot;</a>
@@ -341,25 +335,34 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="../interfaces/_compile_policy_index_.policy.html" class="tsd-kind-icon">Policy</a>
+						<a href="../interfaces/_compile_policy_.availablepolicies.html" class="tsd-kind-icon">Available<wbr>Policies</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../interfaces/_compile_policy_.enabledpolicies.html" class="tsd-kind-icon">Enabled<wbr>Policies</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../interfaces/_compile_policy_.policy.html" class="tsd-kind-icon">Policy</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_compile_policy_index_.html#operator" class="tsd-kind-icon">Operator</a>
+						<a href="_compile_policy_.html#operator" class="tsd-kind-icon">Operator</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="_compile_policy_index_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a>
+						<a href="_compile_policy_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.html#policyref" class="tsd-kind-icon">Policy<wbr>Ref</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
-						<a href="_compile_policy_index_.html#apply" class="tsd-kind-icon">apply</a>
+						<a href="_compile_policy_.html#apply" class="tsd-kind-icon">apply</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.html#getpolicyfor" class="tsd-kind-icon">get<wbr>Policy<wbr>For</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.html#resolve" class="tsd-kind-icon">resolve</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_compile_policy_index_.html#invalidfilteroperatorerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Operator<wbr>Err</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_compile_policy_index_.html#invalidfiltertypeerr" class="tsd-kind-icon">invalid<wbr>Filter<wbr>Type<wbr>Err</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="_compile_policy_index_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a>
+						<a href="_compile_policy_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a>
 					</li>
 				</ul>
 			</nav>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>List | @quenk/search-filters - v2.1.0</title>
+	<title>EnabledPolicies | @quenk/search-filters - v2.1.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,13 +52,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_parse_ast_.html">&quot;parse/ast&quot;</a>
+					<a href="../modules/_compile_policy_.html">&quot;compile/policy&quot;</a>
 				</li>
 				<li>
-					<a href="_parse_ast_.list.html">List</a>
+					<a href="_compile_policy_.enabledpolicies.html">EnabledPolicies</a>
 				</li>
 			</ul>
-			<h1>Class List</h1>
+			<h1>Interface EnabledPolicies&lt;T&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -68,100 +68,40 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>List</p>
+						<p>EnabledPolicies is a map of PolicyRefs where the key is a field name and
+						the value the Policy (or PolicyPointer) to be applied to that field.</p>
 					</div>
+					<p>EnabledPolicies is used to determine what fields can occur in a filter chain
+					and how they can be filtered on.</p>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>T</h4>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">List</span>
+						<span class="target">EnabledPolicies</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_parse_ast_.list.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parse_ast_.list.html#location" class="tsd-kind-icon">location</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parse_ast_.list.html#members" class="tsd-kind-icon">members</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_parse_ast_.list.html#type" class="tsd-kind-icon">type</a></li>
-							</ul>
-						</section>
+			<section class="tsd-panel tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+				<h3 class="tsd-before-signature">Indexable</h3>
+				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="../modules/_compile_policy_.html#policyref" class="tsd-signature-type">PolicyRef</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>EnabledPolicies is a map of PolicyRefs where the key is a field name and
+						the value the Policy (or PolicyPointer) to be applied to that field.</p>
 					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>List<span class="tsd-signature-symbol">(</span>members<span class="tsd-signature-symbol">: </span><a href="../modules/_parse_ast_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">[]</span>, location<span class="tsd-signature-symbol">: </span><a href="../interfaces/_parse_ast_.location.html" class="tsd-signature-type">Location</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_parse_ast_.list.html" class="tsd-signature-type">List</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/parse/ast.ts#L122">parse/ast.ts:122</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>members: <a href="../modules/_parse_ast_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>location: <a href="../interfaces/_parse_ast_.location.html" class="tsd-signature-type">Location</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_parse_ast_.list.html" class="tsd-signature-type">List</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="location" class="tsd-anchor"></a>
-					<h3>location</h3>
-					<div class="tsd-signature tsd-kind-icon">location<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_parse_ast_.location.html" class="tsd-signature-type">Location</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/parse/ast.ts#L126">parse/ast.ts:126</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="members" class="tsd-anchor"></a>
-					<h3>members</h3>
-					<div class="tsd-signature tsd-kind-icon">members<span class="tsd-signature-symbol">:</span> <a href="../modules/_parse_ast_.html#value" class="tsd-signature-type">Value</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/parse/ast.ts#L125">parse/ast.ts:125</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;list&quot;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/1f6cade/lib/parse/ast.ts#L122">parse/ast.ts:122</a></li>
-						</ul>
-					</aside>
-				</section>
+					<p>EnabledPolicies is used to determine what fields can occur in a filter chain
+					and how they can be filtered on.</p>
+				</div>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -176,13 +116,13 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_index_.html">&quot;compile/index&quot;</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_compile_policy_.html">&quot;compile/policy&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_compile_term_.html">&quot;compile/term&quot;</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_parse_ast_.html">&quot;parse/ast&quot;</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -195,71 +135,39 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.and.html" class="tsd-kind-icon">And</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.booleanliteral.html" class="tsd-kind-icon">Boolean<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.dateliteral.html" class="tsd-kind-icon">Date<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.filter.html" class="tsd-kind-icon">Filter</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.identifier.html" class="tsd-kind-icon">Identifier</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.availablepolicies.html" class="tsd-kind-icon">Available<wbr>Policies</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.list.html" class="tsd-kind-icon">List</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_parse_ast_.list.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_parse_ast_.list.html#location" class="tsd-kind-icon">location</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_parse_ast_.list.html#members" class="tsd-kind-icon">members</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_parse_ast_.list.html#type" class="tsd-kind-icon">type</a>
-							</li>
-						</ul>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.enabledpolicies.html" class="tsd-kind-icon">Enabled<wbr>Policies</a>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.numberliteral.html" class="tsd-kind-icon">Number<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.or.html" class="tsd-kind-icon">Or</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.query.html" class="tsd-kind-icon">Query</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_parse_ast_.stringliteral.html" class="tsd-kind-icon">String<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_parse_ast_.location.html" class="tsd-kind-icon">Location</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_parse_ast_.node.html" class="tsd-kind-icon">Node</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_parse_ast_.nodes.html" class="tsd-kind-icon">Nodes</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="_compile_policy_.policy.html" class="tsd-kind-icon">Policy</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_parse_ast_.html#literal" class="tsd-kind-icon">Literal</a>
+						<a href="../modules/_compile_policy_.html#operator" class="tsd-kind-icon">Operator</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_parse_ast_.html#term" class="tsd-kind-icon">Term</a>
+						<a href="../modules/_compile_policy_.html#policypointer" class="tsd-kind-icon">Policy<wbr>Pointer</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_parse_ast_.html#value" class="tsd-kind-icon">Value</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_policy_.html#policyref" class="tsd-kind-icon">Policy<wbr>Ref</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_policy_.html#apply" class="tsd-kind-icon">apply</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_policy_.html#getpolicyfor" class="tsd-kind-icon">get<wbr>Policy<wbr>For</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
+						<a href="../modules/_compile_policy_.html#resolve" class="tsd-kind-icon">resolve</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#tonative" class="tsd-kind-icon">to<wbr>Native</a>
 					</li>
 				</ul>
 			</nav>
