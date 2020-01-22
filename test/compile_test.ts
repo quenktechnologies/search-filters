@@ -2,9 +2,10 @@ import { assert } from '@quenk/test/lib/assert';
 import { Except } from '@quenk/noni/lib/control/error';
 import { right } from '@quenk/noni/lib/data/either';
 
-import { PolicySet } from '../lib/compile/policy/set';
+import { AvailablePolicies, EnabledPolicies } from '../lib/compile/policy';
 import { FilterInfo, TermConstructorFactory, Term } from '../lib/compile/term';
 import { Context, Options, newContext, compile } from '../lib/compile';
+import { UnsupportedFieldErr } from '../lib/compile/error';
 
 interface QLTerm extends Term<string> { }
 
@@ -85,9 +86,9 @@ class FilterTerm implements QLTerm {
 
 }
 
-const policies: PolicySet<string> = {
+const available: AvailablePolicies<string> = {
 
-    name: {
+    string: {
 
         type: 'string',
 
@@ -96,7 +97,7 @@ const policies: PolicySet<string> = {
         term: FilterTerm.create
 
     },
-    age: {
+    number: {
 
         type: 'number',
 
@@ -104,7 +105,16 @@ const policies: PolicySet<string> = {
 
         term: FilterTerm.create
 
-    },
+    }
+
+}
+
+const enabled: EnabledPolicies<string> = {
+
+    name: 'string',
+
+    age: 'number',
+
     location: {
 
         type: 'string',
@@ -128,7 +138,7 @@ const terms: TermConstructorFactory<string> = {
 };
 
 const qlc = (src: string, options: Partial<Options> = {}) =>
-    compile(newContext(terms, policies, options), src);
+    compile(newContext(terms, available, options), enabled, src);
 
 describe('compile', () => {
 
@@ -150,6 +160,8 @@ describe('compile', () => {
             let eResult = qlc('name:bar and created_at:<="33.5"');
 
             assert(eResult.isLeft()).true();
+
+            assert(eResult.takeLeft()).instance.of(UnsupportedFieldErr);
 
         })
 

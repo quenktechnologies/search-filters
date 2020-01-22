@@ -1,8 +1,7 @@
 /// <reference path='../parse/parser.d.ts' />
 
 /**
- * The compile modules provides an API for building compilers on top of
- * the library.
+ * The compile module provides an API for building filter compilers.
  */
 
 /** imports */
@@ -13,9 +12,15 @@ import { Except } from '@quenk/noni/lib/control/error';
 import { merge } from '@quenk/noni/lib/data/record';
 
 import { Source, parse } from '../parse';
-import { PolicySet, resolve } from './policy/set';
-import { apply, toNative } from './policy';
-import { TermConstructorFactory, FilterInfo, Term } from './term';
+import {
+    EnabledPolicies,
+    AvailablePolicies,
+    getPolicyFor,
+    apply,
+    toNative
+} from './policy';
+import { TermConstructorFactory, Term } from './term';
+import { UnsupportedFieldErr, MaxFilterExceededErr } from './error';
 
 export const DEFAULT_MAX_FILTERS = 25;
 
@@ -71,34 +76,22 @@ export interface Context<T> {
     terms: TermConstructorFactory<T>
 
     /**
-     * policies is the PolicySet that a parsed query string must comply with
-     * to compile successfully.
+     * policies that can be substituted during compilation.
+     *
+     * Any policy value in the EnabledPolicies object that is a string will be
+     * looked up here.
      */
-    policies: PolicySet<T>
+    policies: AvailablePolicies<T>
 
 }
 
 /**
- * maxFilterExceededErr constructs an Err indicating the maximum amount of
- * filters allowed has been surpassed.
- */
-export const maxFilterExceededErr = (n: number, max: number) =>
-    ({ n, max, message: `Max ${max} filters are allowed, got ${n}!` });
-
-/**
- * invalidFilterFieldErr constructs an Err indicating the filter encountered
- * is not supported.
- */
-export const invalidFilterFieldErr =
-    ({ field, operator, value }: FilterInfo) =>
-        ({ field, operator, value, message: `Invalid field ${field}!` });
-
-/**
- * newContext creates a new Context with default policies and options set.
+ * newContext creates a new Context with default policies and options
+ * set.
  */
 export const newContext =
     <T>(terms: TermConstructorFactory<T>,
-        policies: PolicySet<T> = {},
+        policies: AvailablePolicies<T> = {},
         opts: Partial<Options> = {}): Context<T> => ({
 
             options: merge(defaultOptions, opts),
@@ -114,31 +107,43 @@ export const newContext =
  * to be applied.
  */
 export const ast2Terms =
-    <T>(ctx: Context<T>, n: ast.Node): Except<Term<T>> => {
+    <T>(
+        ctx: Context<T>,
+        enabled: EnabledPolicies<T>,
+        node: ast.Node): Except<Term<T>> => {
 
-        if (n instanceof ast.Query) {
+        if (node instanceof ast.Query) {
 
-            if (n.terms.isNothing())
+            if (node.terms.isNothing())
                 return <Except<Term<T>>>right(ctx.terms.empty());
 
-            if (n.count > ctx.options.maxFilters)
-                return left(maxFilterExceededErr(n.count, ctx.options.maxFilters));
+            if (node.count > ctx.options.maxFilters)
+                return left(new MaxFilterExceededErr(node.count,
+                    ctx.options.maxFilters));
 
-            return ast2Terms<T>(ctx, n.terms.get());
+            return ast2Terms<T>(ctx, enabled, node.terms.get());
 
-        } else if ((n instanceof ast.And) || (n instanceof ast.Or)) {
+        } else if ((node instanceof ast.And) || (node instanceof ast.Or)) {
 
-            if (ctx.options.ignoreUnknownFields)
-                if ((resolve(ctx.policies, n.left.field.value).isNothing()) ||
-                    resolve(ctx.policies, n.right.field.value).isNothing())
+            if (ctx.options.ignoreUnknownFields) {
+
+                let mLhs = getPolicyFor(ctx.policies, enabled,
+                    node.left.field.value);
+
+                let mRhs = getPolicyFor(ctx.policies, enabled,
+                    node.right.field.value);
+
+                if (mLhs.isNothing() || mRhs.isNothing())
                     return right(ctx.terms.empty());
 
-            let eitherL = ast2Terms<T>(ctx, n.left);
+            }
+
+            let eitherL = ast2Terms<T>(ctx, enabled, node.left);
 
             if (eitherL.isLeft())
                 return eitherL;
 
-            let eitherR = ast2Terms<T>(ctx, n.right);
+            let eitherR = ast2Terms<T>(ctx, enabled, node.right);
 
             if (eitherR.isLeft())
                 return eitherR;
@@ -146,30 +151,31 @@ export const ast2Terms =
             let l = eitherL.takeRight();
             let r = eitherR.takeRight();
 
-            if (n.type === 'and')
+            if (node.type === 'and')
                 return right(ctx.terms.and(ctx, l, r));
             else
                 return right(ctx.terms.or(ctx, l, r));
 
-        } else if (n instanceof ast.Filter) {
+        } else if (node instanceof ast.Filter) {
 
-            let maybePolicy = resolve(ctx.policies, n.field.value);
+            let maybePolicy = getPolicyFor(ctx.policies, enabled,
+                node.field.value);
 
             if (maybePolicy.isJust())
-                return apply(ctx, maybePolicy.get(), n);
+                return apply(ctx, maybePolicy.get(), node);
 
             if (ctx.options.ignoreUnknownFields === true)
                 return right(ctx.terms.empty());
 
-            let { operator } = n;
-            let value = toNative(n.value);
-            let field = n.field.value;
+            let { operator } = node;
+            let value = toNative(node.value);
+            let field = node.field.value;
 
-            return left(invalidFilterFieldErr({ field, operator, value }));
+            return left(new UnsupportedFieldErr(field, operator, value));
 
         } else {
 
-            return left(new Error(`Unsupported node type "${n.type}"!`));
+            return left(new Error(`Unsupported node type "${node.type}"!`));
 
         }
 
@@ -179,13 +185,19 @@ export const ast2Terms =
  * source2Term transform Source text directly into a Term chain.
  */
 export const source2Term =
-    <T>(ctx: Context<T>, src: Source): Except<Term<T>> =>
-        parse(src).chain(n => ast2Terms(ctx, n));
-
+    <T>(
+        ctx: Context<T>,
+        enabled: EnabledPolicies<T>,
+        src: Source): Except<Term<T>> =>
+        parse(src).chain(n => ast2Terms(ctx, enabled, n));
 
 /**
- * compile source text into a type <T> that represents a filter.
+ * compile source text into a type <T> that represents a filter in the target
+ * language.
+ *
+ * Succesful compilation depends on the fields used in the source text 
+ * complying with the policies indicated in the enabled argument.
  */
 export const compile =
-    <T>(ctx: Context<T>, src: Source): Except<T> =>
-        source2Term(ctx, src).chain(r => r.compile());
+    <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: Source): Except<T> =>
+        source2Term(ctx, enabled, src).chain(r => r.compile());

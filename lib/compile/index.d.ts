@@ -1,13 +1,12 @@
 /// <reference path="../parse/parser.d.ts" />
 /**
- * The compile modules provides an API for building compilers on top of
- * the library.
+ * The compile module provides an API for building filter compilers.
  */
 /** imports */
 import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
-import { PolicySet } from './policy/set';
-import { TermConstructorFactory, FilterInfo, Term } from './term';
+import { EnabledPolicies, AvailablePolicies } from './policy';
+import { TermConstructorFactory, Term } from './term';
 export declare const DEFAULT_MAX_FILTERS = 25;
 /**
  * defaultOptions for compilation.
@@ -47,44 +46,32 @@ export interface Context<T> {
      */
     terms: TermConstructorFactory<T>;
     /**
-     * policies is the PolicySet that a parsed query string must comply with
-     * to compile successfully.
+     * policies that can be substituted during compilation.
+     *
+     * Any policy value in the EnabledPolicies object that is a string will be
+     * looked up here.
      */
-    policies: PolicySet<T>;
+    policies: AvailablePolicies<T>;
 }
 /**
- * maxFilterExceededErr constructs an Err indicating the maximum amount of
- * filters allowed has been surpassed.
+ * newContext creates a new Context with default policies and options
+ * set.
  */
-export declare const maxFilterExceededErr: (n: number, max: number) => {
-    n: number;
-    max: number;
-    message: string;
-};
-/**
- * invalidFilterFieldErr constructs an Err indicating the filter encountered
- * is not supported.
- */
-export declare const invalidFilterFieldErr: ({ field, operator, value }: FilterInfo) => {
-    field: string;
-    operator: string;
-    value: import("@quenk/noni/lib/data/json").Value;
-    message: string;
-};
-/**
- * newContext creates a new Context with default policies and options set.
- */
-export declare const newContext: <T>(terms: TermConstructorFactory<T>, policies?: PolicySet<T>, opts?: Partial<Options>) => Context<T>;
+export declare const newContext: <T>(terms: TermConstructorFactory<T>, policies?: AvailablePolicies<T>, opts?: Partial<Options>) => Context<T>;
 /**
  * ast2Terms converts an AST into a chain of Terms each representing a filter
  * to be applied.
  */
-export declare const ast2Terms: <T>(ctx: Context<T>, n: ast.Node) => Except<Term<T>>;
+export declare const ast2Terms: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, node: ast.Node) => Except<Term<T>>;
 /**
  * source2Term transform Source text directly into a Term chain.
  */
-export declare const source2Term: <T>(ctx: Context<T>, src: string) => Except<Term<T>>;
+export declare const source2Term: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: string) => Except<Term<T>>;
 /**
- * compile source text into a type <T> that represents a filter.
+ * compile source text into a type <T> that represents a filter in the target
+ * language.
+ *
+ * Succesful compilation depends on the fields used in the source text
+ * complying with the policies indicated in the enabled argument.
  */
-export declare const compile: <T>(ctx: Context<T>, src: string) => Except<T>;
+export declare const compile: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: string) => Except<T>;
