@@ -63,6 +63,7 @@
 				<a href="#search-filters" id="search-filters" style="color: inherit; text-decoration: none;">
 					<h1>Search Filters</h1>
 				</a>
+				<p>Parse and compile a string into usable search filters.</p>
 				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
 					<h2>Table of Contents</h2>
 				</a>
@@ -83,7 +84,6 @@
 						</ul>
 					</li>
 				</ul>
-				<p>Parse and compile a string into usable search filters.</p>
 				<p>This library provides a parser and compiler API for converting a string sequence
 					of filter conditions into usable search filters. Use it to build faceted search
 				interfaces in web applications or to provide advanced users with a search DSL.</p>
@@ -146,8 +146,8 @@
 				<p>The validity and actual implementation of these operators, and their accepted value types, depends on the policies set for the fields. Compilation fails if the wrong operator or type is used on a field.</p>
 				<p>The value part can either be one of the following values:</p>
 				<ol>
-					<li><p>String  - A sequence of one or more unicode characters surronded by double quotes.</p>
-					<pre><code>     <span class="hljs-keyword">Example</span>: <span class="hljs-string">"my string"</span></code></pre></li>
+					<li><p>String  - A sequence of one or more unicode characters surronded by double quotes. </p>
+					<pre><code>      <span class="hljs-keyword">Example</span>: <span class="hljs-string">"my string"</span></code></pre></li>
 					<li><p>Number  - Any number that can be represented in the IEEE 754 double format.</p>
 					</li>
 					<li><p>Boolean - The literal value true or the literal value false. </p>
@@ -170,7 +170,7 @@
 				</a>
 				<p>A Policy has the following main fields:</p>
 				<ol>
-					<li>type        -       Indicates the allowed type for the field.<pre><code>                One <span class="hljs-keyword">of</span> (<span class="hljs-built_in">string</span>,<span class="hljs-built_in">number</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">boolean</span>).</code></pre></li>
+					<li>type        -       Indicates the allowed type for the field. One of (string,number or boolean).</li>
 					<li>operators   -       A list of supported operators for the field.</li>
 					<li>term        -       A function that will produce a <code>Term</code> instance of the filter.</li>
 				</ol>
