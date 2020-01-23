@@ -1,6 +1,8 @@
 
 # Search Filters
 
+Parse and compile a string into usable search filters.
+
 ## Table of Contents
 
 - [Installation](#install)
@@ -8,13 +10,13 @@
     - [Syntax](#syntax)
         - [The Source String](#the-source-string)
         - [Filters](#filters)
+          - [Operators](#operators)
+          - [Values](#values)
     - [Compilation](#compilation)
         - [Policies](#policies)
     - [API](#api)
     - [License](#license)
     
-Parse and compile a string into usable search filters.
-
 This library provides a parser and compiler API for converting a string sequence
 of filter conditions into usable search filters. Use it to build faceted search 
 interfaces in web applications or to provide advanced users with a search DSL.
@@ -76,6 +78,8 @@ via the ".", that is, a property path.
 The colon is used to indicate the end of the field name and is followed by the operator or value if
 none specified. If the operator part is ommited, the default operator is assumed. The default operator is determined by the policies set for the field.
 
+#### Operators
+
 The following operators are recognised by the parser:
 
 1. ">"     Greater than.
@@ -87,14 +91,19 @@ The following operators are recognised by the parser:
 
 The validity and actual implementation of these operators, and their accepted value types, depends on the policies set for the fields. Compilation fails if the wrong operator or type is used on a field.
 
+#### Values
+
 The value part can either be one of the following values:
 
-1. String  - A sequence of one or more unicode characters surronded by double quotes.
-            Example: "my string"
-
+1. String  - A sequence of one or more unicode characters surronded by double quotes. 
+             Example: "my string"
 2. Number  - Any number that can be represented in the IEEE 754 double format.
 
 3. Boolean - The literal value true or the literal value false. 
+
+4. Date    - A subset of the ISO8601 extended format supporting the format of  
+            `Date#toISOString()`. The time part may be excluded (smallest to largest)  
+            but fractions are only supported on seconds.
 
 4. List    - A comma seperated sequence of the above values surronded in "[" "]"
 
@@ -114,8 +123,7 @@ Policy pointers that cannot be resolved will result in a failed compilation.
 ### Policies
 A Policy has the following main fields:
 
-1. type        -       Indicates the allowed type for the field.
-                       One of (string,number or boolean).
+1. type        -       Indicates the allowed type for the field. One of (string,number or boolean).
 2. operators   -       A list of supported operators for the field.
 3. term        -       A function that will produce a `Term` instance of the filter.
 
