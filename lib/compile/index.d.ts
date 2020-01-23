@@ -5,8 +5,10 @@
 /** imports */
 import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
+import { Source } from '../parse';
 import { EnabledPolicies, AvailablePolicies } from './policy';
 import { TermConstructorFactory, Term } from './term';
+export { Source, Except };
 export declare const DEFAULT_MAX_FILTERS = 25;
 /**
  * defaultOptions for compilation.

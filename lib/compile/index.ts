@@ -22,6 +22,8 @@ import {
 import { TermConstructorFactory, Term } from './term';
 import { UnsupportedFieldErr, MaxFilterExceededErr } from './error';
 
+export { Source, Except }
+
 export const DEFAULT_MAX_FILTERS = 25;
 
 /**
