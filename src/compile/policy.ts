@@ -106,6 +106,8 @@ const checkType = <V>(typ: string, value: V): boolean => {
 
     if (Array.isArray(value) && typ === 'array')
         return true
+    else if ((typ === 'date') && (value instanceof Date))
+        return true
     else if (typeof value === typ)
         return true
     else

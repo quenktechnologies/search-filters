@@ -75,7 +75,8 @@ class FilterTerm implements QLTerm {
         public value: string) { }
 
     static create = (_: Context<string>, info: FilterInfo) =>
-        new FilterTerm(info.field, info.operator, String(info.value));
+        new FilterTerm(info.field, info.operator, (info.value instanceof Date) ?
+            info.value.toISOString() : String(info.value));
 
     compile(): Except<string> {
 
@@ -83,22 +84,6 @@ class FilterTerm implements QLTerm {
         return right(`${field} ${op} ${value}`);
 
     }
-
-}
-
-class DateFilterTerm implements FilterTerm {
-
-    static create = (_: Context<string>, info: FilterInfo) =>
-        new DateFilterTerm(info.field, info.operator, String(info.value));
-
-    compile(): Except<string> {
-
-        let { field, op, value } = this;
-        return right(`${field} ${op} ${value}`);
-
-    }
-
-
 
 }
 
@@ -148,7 +133,8 @@ const enabled: EnabledPolicies<string> = {
 
         term: FilterTerm.create
 
-    }
+    },
+    last_login: 'date'
 
 }
 
@@ -214,6 +200,26 @@ describe('compile', () => {
             let eResult = qlc('name:>"33.5"');
 
             assert(eResult.isLeft()).true();
+
+        })
+
+        it('should support dates', () => {
+
+            let eResult = qlc('last_login:>1989-04-03');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight()).equal('last_login > 1989-04-03T00:00:00.000Z');
+
+        })
+
+        it('should support date time', () => {
+
+            let eResult = qlc('last_login:>1989-04-03T00:00:00.001Z');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight()).equal('last_login > 1989-04-03T00:00:00.001Z');
 
         })
 
