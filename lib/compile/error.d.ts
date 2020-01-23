@@ -1,4 +1,4 @@
-import { Value } from "@quenk/noni/lib/data/json";
+import { Value } from "@quenk/noni/lib/data/jsonx";
 import { FilterInfo } from "./term";
 /**
  * MaxFilterExceedErr constructs an Err indicating the maximum amount of

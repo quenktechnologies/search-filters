@@ -1,6 +1,6 @@
 import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
-import { Value } from '@quenk/noni/lib/data/json';
+import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe } from '@quenk/noni/lib/data/maybe';
 import { Term, FilterTermConstructor } from './term';
 import { Context } from './';

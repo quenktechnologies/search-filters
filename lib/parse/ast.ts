@@ -122,7 +122,7 @@ export class List {
     type = 'list';
 
     constructor(
-        public members: Value[],
+        public members: Literal[],
         public location: Location) { }
 
 }
@@ -131,16 +131,16 @@ export class List {
  * Literal 
  */
 export type Literal
-    = DateLiteral
+    = DateTimeLiteral
     | StringLiteral
     | BooleanLiteral
     | NumberLiteral
     ;
 
 /**
- * DateLiteral
+ * DateTimeLiteral
  */
-export class DateLiteral {
+export class DateTimeLiteral {
 
     type = 'date';
 

@@ -1,9 +1,10 @@
+import * as moment from 'moment';
 import * as ast from '../parse/ast';
 
 import { isString } from '@quenk/noni/lib/data/type';
 import { left, right } from '@quenk/noni/lib/data/either';
 import { Except } from '@quenk/noni/lib/control/error';
-import { Value } from '@quenk/noni/lib/data/json';
+import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe, fromNullable } from '@quenk/noni/lib/data/maybe';
 
 import { Term, FilterTermConstructor } from './term';
@@ -87,10 +88,16 @@ export interface Policy<T> {
 /**
  * toNative converts a parsed value into a JS native value.
  */
-export const toNative = (v: ast.Value): Value =>
-    (v instanceof ast.List) ?
-        v.members.map(toNative) :
-        v.value;
+export const toNative = (v: ast.Value): Value => {
+
+    if (v instanceof ast.List)
+        return v.members.map(toNative);
+    else if (v instanceof ast.DateTimeLiteral)
+        return moment.utc(v.value).toDate();
+    else
+        return v.value;
+
+}
 
 /**
  * checkType to ensure they match.
@@ -98,6 +105,8 @@ export const toNative = (v: ast.Value): Value =>
 const checkType = <V>(typ: string, value: V): boolean => {
 
     if (Array.isArray(value) && typ === 'array')
+        return true
+    else if ((typ === 'date') && (value instanceof Date))
         return true
     else if (typeof value === typ)
         return true

@@ -82,19 +82,19 @@ export declare type Value = List | Literal;
  * List
  */
 export declare class List {
-    members: Value[];
+    members: Literal[];
     location: Location;
     type: string;
-    constructor(members: Value[], location: Location);
+    constructor(members: Literal[], location: Location);
 }
 /**
  * Literal
  */
-export declare type Literal = DateLiteral | StringLiteral | BooleanLiteral | NumberLiteral;
+export declare type Literal = DateTimeLiteral | StringLiteral | BooleanLiteral | NumberLiteral;
 /**
- * DateLiteral
+ * DateTimeLiteral
  */
-export declare class DateLiteral {
+export declare class DateTimeLiteral {
     value: string;
     location: Location;
     type: string;
