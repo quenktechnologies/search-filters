@@ -87,6 +87,26 @@ export const tests: { [key: string]: any } = {
 
         input: '(type:"P" \'|\' name:"Sargent")'
 
+    },
+    'should parse dates': {
+
+        input: 'created_on:1989-07-23'
+
+    },
+    'should parse date time (Local)': {
+
+        input: 'created_on:1989-07-23T23:00:00'
+
+    },
+    'should parse date time (UTC)': {
+
+        input: 'created_on:1989-07-23T23:00:00Z'
+
+    },
+    'should parse date time (with offset)': {
+
+        input: 'created_on:1989-07-23T23:00:00+09:00'
+
     }
 
 };

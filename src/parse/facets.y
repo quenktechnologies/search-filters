@@ -22,7 +22,10 @@ UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
 DoubleStringCharacter ([^"\n\r]|[\\"])
 StringLiteral (\"{DoubleStringCharacter}+\")|(\"\")
-DateLiteral [0-9]{4}[-]([0][0-9]|1[0-2])[-]([0-2][0-9]|3[01])
+DateLiteral \d{4}-\d{2}-\d{2}
+Time \d{2}":"\d{2}":"\d{2}
+TimeOffset ([+-]\d{2}":"\d{2})
+DateTimeLiteral {DateLiteral}T{Time}(Z|{TimeOffset})?
 Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 
 /* Flags */
@@ -33,6 +36,7 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 \s+                                         /* skips whitespace */
 'true'                                      return 'TRUE';
 'false'                                     return 'FALSE';
+{DateTimeLiteral}                           return 'DATE_TIME_LITERAL';
 {DateLiteral}                               return 'DATE_LITERAL';
 'OR'|'or'                                   return 'OR';
 'AND'|'and'                                 return 'AND';
@@ -196,9 +200,6 @@ value
             : list 
               {$$ =$1;}
               
-            | date_literal
-              {$$ = $1;}
-
             | string_literal 
               {$$ =$1;}
 
@@ -207,24 +208,44 @@ value
 
             | boolean_literal
               {$$ =$1;}
+
+            | date_literal
+              {$$ = $1;}
             ;
 
 list        
             : '[' ']'
               {$$ = new yy.ast.List([], @$); }
 
-            | '[' value_list ']'
+            | '[' list_value_list ']'
               {$$ = new yy.ast.List($2, @$); }
             ;
 
-value_list  
-            : value                 {$$ = [$1];         }
-            | value_list ',' value  {$$ = $1.concat($3);}
+list_value_list  
+            : list_value                      {$$ = [$1];         }
+            | list_value_list ',' list_value  {$$ = $1.concat($3);}
+            ;
+
+list_value
+            : string_literal 
+              {$$ = $1;}
+
+            | number_literal
+              {$$ = $1;}
+
+            | boolean_literal
+              {$$ = $1;}
+
+            | date_literal
+              {$$ = $1;}
             ;
 
 date_literal
             : DATE_LITERAL
-              {$$ = new yy.ast.DateLiteral($1, @$);   }
+              {$$ = new yy.ast.DateTimeLiteral($1, @$);     }
+
+            | DATE_TIME_LITERAL
+              {$$ = new yy.ast.DateTimeLiteral($1, @$);     }
             ;
 
 string_literal

@@ -1,5 +1,5 @@
 import { Except } from '@quenk/noni/lib/control/error';
-import { Value } from '@quenk/noni/lib/data/json';
+import { Value } from '@quenk/noni/lib/data/jsonx';
 
 import { Context } from './';
 
