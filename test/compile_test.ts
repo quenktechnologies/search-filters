@@ -86,6 +86,22 @@ class FilterTerm implements QLTerm {
 
 }
 
+class DateFilterTerm implements FilterTerm {
+
+    static create = (_: Context<string>, info: FilterInfo) =>
+        new DateFilterTerm(info.field, info.operator, String(info.value));
+
+    compile(): Except<string> {
+
+        let { field, op, value } = this;
+        return right(`${field} ${op} ${value}`);
+
+    }
+
+
+
+}
+
 const available: AvailablePolicies<string> = {
 
     string: {
@@ -100,6 +116,15 @@ const available: AvailablePolicies<string> = {
     number: {
 
         type: 'number',
+
+        operators: ['=', '>', '<', '<=', '>=', '!='],
+
+        term: FilterTerm.create
+
+    },
+    date: {
+
+        type: 'date',
 
         operators: ['=', '>', '<', '<=', '>=', '!='],
 

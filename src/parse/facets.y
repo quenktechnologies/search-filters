@@ -23,7 +23,11 @@ EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
 DoubleStringCharacter ([^"\n\r]|[\\"])
 StringLiteral (\"{DoubleStringCharacter}+\")|(\"\")
 DateLiteral \d{4}-\d{2}-\d{2}
-Time \d{2}":"\d{2}":"\d{2}
+TimeHrs \d{2}
+TimeHrsMin {TimeHrs}":"\d{2}
+TimeHrsMinSec {TimeHrsMin}":"\d{2}
+TimeHrsMinSecFrac {TimeHrsMinSec}[.]\d{3}
+Time {TimeHrsMinSecFrac}|{TimeHrsMinSec}|{TimeHrsMin}|{TimeHrs}
 TimeOffset ([+-]\d{2}":"\d{2})
 DateTimeLiteral {DateLiteral}T{Time}(Z|{TimeOffset})?
 Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*

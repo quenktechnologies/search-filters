@@ -107,6 +107,66 @@ export const tests: { [key: string]: any } = {
 
         input: 'created_on:1989-07-23T23:00:00+09:00'
 
+    },
+    'should parse date time (hours only local)': {
+
+        input: 'created_on:1989-07-23T23'
+
+    },
+    'should parse date time (hours only UTC)': {
+
+        input: 'created_on:1989-07-23T23Z'
+
+    },
+    'should parse date time (hours only with offset)': {
+
+        input: 'created_on:1989-07-23T23+09:00'
+
+    },
+    'should parse date time (minutes local)': {
+
+        input: 'created_on:1989-07-23T23:00'
+
+    },
+    'should parse date time (minutes UTC)': {
+
+        input: 'created_on:1989-07-23T23:00Z'
+
+    },
+    'should parse date time (minutes with offset)': {
+
+        input: 'created_on:1989-07-23T23:00-04:00'
+
+    },
+    'should parse date time (seconds local)': {
+
+        input: 'created_on:1989-07-23T23:00:01'
+
+    },
+    'should parse date time (seconds UTC)': {
+
+        input: 'created_on:1989-07-23T23:00:24Z'
+
+    },
+    'should parse date time (seconds with offset)': {
+
+        input: 'created_on:1989-07-23T23:00-04:00'
+
+    },
+    'should parse date time (seconds with fraction local)': {
+
+        input: 'created_on:1989-07-23T23:00:01.555'
+
+    },
+    'should parse date time (seconds with fraction UTC)': {
+
+        input: 'created_on:1989-07-23T23:00:24.555Z'
+
+    },
+    'should parse date time (seconds with fraction and offset)': {
+
+        input: 'created_on:1989-07-23T23:00:24.555-04:00'
+
     }
 
 };
