@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@quenk/search-filters - v2.2.0</title>
+	<title>@quenk/search-filters - v2.3.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="index.html" class="title">@quenk/search-filters - v2.2.0</a>
+					<a href="index.html" class="title">@quenk/search-filters - v2.3.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -52,7 +52,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> @quenk/search-filters - v2.2.0</h1>
+			<h1> @quenk/search-filters - v2.3.0</h1>
 		</div>
 	</div>
 </header>
@@ -90,18 +90,18 @@
 				</ul>
 				<p>This library provides a parser and compiler API for converting a string sequence
 					of filter conditions into usable search filters. Use it to build faceted search
-				interfaces in web applications or to provide advanced users with a search DSL.</p>
+				interfaces in web applications or to provide you advanced users with a DSL for search.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
-				<pre><code class="language-sh">npm install --save-dev @quenk/search-filters
+				<pre><code class="language-sh">npm install --save @quenk/search-filters
 </code></pre>
 				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
 					<h2>Usage</h2>
 				</a>
 				<p>This module by itself only provides a parser in <code>lib/parse</code> and supporting
 					APIs for creating a compiler in <code>lib/compile</code>. To actually generate valid query filters for
-				your target platform, use a supported module or implement your own compiler using  <code>lib/compile</code>.</p>
+				your target platform, use a supported module or implement your own.</p>
 				<p>Supported targets:</p>
 				<ol>
 					<li><a href="https://github.com/quenktechnologies/search-filters-mongodb">search-filters-mongodb</a>.</li>
@@ -135,9 +135,10 @@
 				<pre><code class="language-bnf"><span class="hljs-attribute">&lt;field&gt;</span> <span class="hljs-attribute">&lt;colon&gt;</span> <span class="hljs-attribute">&lt;operator&gt;</span>? <span class="hljs-attribute">&lt;value&gt;</span></code></pre>
 				<p>Examples: <code>status:=1</code> or <code>status:1</code>.</p>
 				<p>The field name is any valid ECMAScript identifier or sequence of valid identifiers seperated
-				via the &quot;.&quot;, that is, a property path.</p>
-				<p>The colon is used to indicate the end of the field name and is followed by the operator or value if
-				none specified. If the operator part is ommited, the default operator is assumed. The default operator is determined by the policies set for the field.</p>
+				via &quot;.&quot; (period).</p>
+				<p>A colon is used to indicate the end of the field name and is followed by the operator or value if
+					none specified. If the operator part is ommited, the default operator is assumed.
+				The default operator is determined by the policies set for the field.</p>
 				<a href="#operators" id="operators" style="color: inherit; text-decoration: none;">
 					<h4>Operators</h4>
 				</a>
@@ -150,17 +151,18 @@
 					<li>&quot;=&quot;     Equal to.</li>
 					<li>&quot;!=&quot;    Not equal to.</li>
 				</ol>
-				<p>The validity and actual implementation of these operators, and their accepted value types, depends on the policies set for the fields. Compilation fails if the wrong operator or type is used on a field.</p>
+				<p>The validity, actual implementation, accepted value types of these operators, depends on the policies set for the field.
+				Compilation fails if the wrong operator or type is used on a field.</p>
 				<a href="#values" id="values" style="color: inherit; text-decoration: none;">
 					<h4>Values</h4>
 				</a>
 				<p>The value part can either be one of the following values:</p>
 				<ol>
-					<li><p>String  - A sequence of one or more unicode characters surronded by double quotes. </p>
+					<li><p>String  - A sequence of one or more unicode characters surronded by double quotes.  </p>
 					<pre><code>      <span class="hljs-keyword">Example</span>: <span class="hljs-string">"my string"</span></code></pre></li>
 					<li><p>Number  - Any number that can be represented in the IEEE 754 double format.</p>
 					</li>
-					<li><p>Boolean - The literal value true or the literal value false. </p>
+					<li><p>Boolean - The literal value <code>true</code> or the literal value <code>false</code>. </p>
 					</li>
 					<li><p>Date    - A subset of the ISO8601 extended format supporting the format of  </p>
 						<pre><code>     `<span class="hljs-type">Date</span>#toISOString()`. The <span class="hljs-type">time</span> part may be excluded (smallest <span class="hljs-keyword">to</span> largest)
@@ -174,18 +176,22 @@
 					<h2>Compilation</h2>
 				</a>
 				<p>In <code>lib/compile</code> of this module a function <code>compile</code> is exported that
-				does most of the compilation work. Compilers need only pass an instance of <code>Context</code> with the required <code>Term</code> instances, <code>EnabledPolicies</code> the source string and valid filters for the target will be produced.</p>
-				<p>The <code>EnabledPolcies</code> instance is what determines what fields can be included in the
-				source string. The <code>EnabledPolicies</code> type supports either a literal <code>Policy</code> definition or a string pointing to one in the <code>policies</code> key of the passed Context.</p>
+					does most of the compilation work. Compilation works by first converting the parsed AST into an
+					intermediate representation via the <code>Term</code> interface. <code>Term#compile()</code> is then called on
+				the top level Term. Users are required to supply implementations for <code>Term</code>.</p>
+				<p>The <code>compile</code> function takes 3 arguments. The first argument, the <code>Context</code> which contains the <code>TermFactory</code>
+				for constructing logical Terms, the second is an <code>EnabledPolicies</code> instance and the last the source string to parsed.</p>
+				<p>EnabledPolcies is what determines what fields can be included in the source string and their policies.
+				EnabledPolicies supports either a literal <code>Policy</code> definition or a string pointing to one in the <code>policies</code> key of the Context.</p>
 				<p>Policy pointers that cannot be resolved will result in a failed compilation.</p>
 				<a href="#policies" id="policies" style="color: inherit; text-decoration: none;">
 					<h3>Policies</h3>
 				</a>
 				<p>A Policy has the following main fields:</p>
 				<ol>
-					<li>type        -       Indicates the allowed type for the field. One of (string,number or boolean).</li>
+					<li>type        -       Indicates the allowed type for the field. One of (number,boolean,string or date).</li>
 					<li>operators   -       A list of supported operators for the field.</li>
-					<li>term        -       A function that will produce a <code>Term</code> instance of the filter.</li>
+					<li>term        -       A function that will produce a Term instance of the filter.</li>
 				</ol>
 				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
 					<h2>API</h2>
