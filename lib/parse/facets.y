@@ -20,7 +20,7 @@ OctalEscapeSequence (?:[1-7][0-7]{0,2}|[0-7]{2,3})
 HexEscapeSequence [x]{HexDigit}{2}
 UnicodeEscapeSequence [u]{HexDigit}{4}
 EscapeSequence {OctalEscapeSequence}|{HexEscapeSequence}|{UnicodeEscapeSequence}
-DoubleStringCharacter ([^"\n\r]|[\\"])
+DoubleStringCharacter ([^"\n\r]|\\\")
 StringLiteral (\"{DoubleStringCharacter}+\")|(\"\")
 DateLiteral \d{4}-\d{2}-\d{2}
 TimeHrs \d{2}
