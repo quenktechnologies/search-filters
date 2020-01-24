@@ -7,7 +7,7 @@ import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Source } from '../parse';
 import { EnabledPolicies, AvailablePolicies } from './policy';
-import { TermConstructorFactory, Term } from './term';
+import { TermFactory, Term } from './term';
 export { Source, Except };
 export declare const DEFAULT_MAX_FILTERS = 25;
 /**
@@ -46,7 +46,7 @@ export interface Context<T> {
     /**
      * terms provides the common required terms.
      */
-    terms: TermConstructorFactory<T>;
+    terms: TermFactory<T>;
     /**
      * policies that can be substituted during compilation.
      *
@@ -59,7 +59,7 @@ export interface Context<T> {
  * newContext creates a new Context with default policies and options
  * set.
  */
-export declare const newContext: <T>(terms: TermConstructorFactory<T>, policies?: AvailablePolicies<T>, opts?: Partial<Options>) => Context<T>;
+export declare const newContext: <T>(terms: TermFactory<T>, policies?: AvailablePolicies<T>, opts?: Partial<Options>) => Context<T>;
 /**
  * ast2Terms converts an AST into a chain of Terms each representing a filter
  * to be applied.

@@ -8,50 +8,20 @@
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 
-import { Context } from './';
-
 /**
  * TermType
  */
 export type TermType = string;
 
 /**
- * TermConstructor are functions that produce Term instances on the compiler's
- * behalf.
+ * FieldName
  */
-export type TermConstructor<T>
-    = EmptyTermConstructor<T>
-    | AndTermConstructor<T>
-    | OrTermConstructor<T>
-    | FilterTermConstructor<T>
-    ;
+export type FieldName = string;
 
 /**
- * EmptyTermConstructor
- *
- * The EmptyTermConstructor is used to indicate the absence of any filters.
- * It is also used when the ignoreUnknownFields options is set.
+ * Operator
  */
-export type EmptyTermConstructor<T> = () => Term<T>;
-
-/**
- * AndTermConstructor
- *
- * The AndTermConstructor provides a Term that combines two filters into a 
- * logical AND.
- */
-export type AndTermConstructor<T> =
-    (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
-
-/**
- * OrTermConstructor
- *
- * The OrTermConstructor provides a Term that alternates between two filters
- * via a logical OR.
- *
- */
-export type OrTermConstructor<T> =
-    (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
+export type Operator = string;
 
 /**
  * FilterTermConstructor type.
@@ -60,7 +30,7 @@ export type OrTermConstructor<T> =
  * query.
  */
 export type FilterTermConstructor<T> =
-    (c: Context<T>, filter: FilterInfo) => Term<T>;
+    (field: FieldName, op: Operator, value: Value) => Term<T>;
 
 /**
  * FilterInfo holds information about a filter while being compiled.
@@ -70,12 +40,12 @@ export interface FilterInfo {
     /**
      * field the filter refers to.
      */
-    field: string,
+    field: FieldName,
 
     /**
      * operator applied to the filter.
      */
-    operator: string,
+    operator: Operator,
 
     /**
      * value used with the operator.
@@ -85,27 +55,25 @@ export interface FilterInfo {
 };
 
 /**
- * TermConstructorFactory provides functions for creating new instances of 
+ * TermFactory provides functions for creating new instances of 
  * the common Terms.
  */
-export interface TermConstructorFactory<T> {
-
-    [key: string]: TermConstructor<T>
+export interface TermFactory<T> {
 
     /**
-     * empty provides a new EmptyTermConstructor instance.
+     * empty Term constructor.
      */
-    empty: EmptyTermConstructor<T>,
+    empty(): Term<T>
 
     /**
-     * and provides a new AndTermConstructor instance.
+     * and Term constructor.
      */
-    and: AndTermConstructor<T>,
+    and(left: Term<T>, right: Term<T>): Term<T>
 
     /**
-     * or provides a new OrTermConstructor instance.
+     * or Term constructor.
      */
-    or: OrTermConstructor<T>
+    or(left: Term<T>, right: Term<T>): Term<T>
 
 }
 

@@ -85,7 +85,7 @@ export const tests: { [key: string]: any } = {
     },
     'should allow use of pipes in place of or': {
 
-        input: '(type:"P" \'|\' name:"Sargent")'
+        input: '(type:"P" | name:"Sargent")'
 
     },
     'should parse dates': {

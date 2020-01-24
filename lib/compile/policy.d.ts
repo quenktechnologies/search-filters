@@ -2,12 +2,11 @@ import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe } from '@quenk/noni/lib/data/maybe';
-import { Term, FilterTermConstructor } from './term';
-import { Context } from './';
+import { Operator, Term, FilterTermConstructor } from './term';
 /**
- * Operator
+ * PolicyType
  */
-export declare type Operator = string;
+export declare type PolicyType = string;
 /**
  * PolicyPointer is used to indicate a Policy is defined elsewhere.
  *
@@ -51,7 +50,7 @@ export interface Policy<T> {
      * If the value does not match the type, it is rejected. Valid values
      * include "string", "number" and "date".
      */
-    type: string;
+    type: PolicyType;
     /**
      * operators is a non-empty list of filter  operators allowed.
      *
@@ -85,4 +84,4 @@ export declare const resolve: <T>(avail: AvailablePolicies<T>, ref: PolicyRef<T>
  *
  * This function will produce a Term for the filter or an error if any occurs.
  */
-export declare const apply: <T>(ctx: Context<T>, p: Policy<T>, n: ast.Filter) => Except<Term<T>>;
+export declare const apply: <T>(p: Policy<T>, n: ast.Filter) => Except<Term<T>>;

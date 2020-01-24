@@ -1,40 +1,31 @@
+/**
+ * Compilation to a target platform filter invovles an intermediate step
+ * of representing Filters as Term instances.
+ *
+ * This representation was introduced to create a layer of abastraction so
+ * that implmenting a compiler requires less boilerplate.
+ */
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
-import { Context } from './';
 /**
- * TermConstructor are functions that produce Term instances on the compiler's
- * behalf.
+ * TermType
  */
-export declare type TermConstructor<T> = EmptyTermConstructor<T> | AndTermConstructor<T> | OrTermConstructor<T> | FilterTermConstructor<T>;
+export declare type TermType = string;
 /**
- * EmptyTermConstructor
- *
- * The EmptyTermConstructor is used to indicate the absence of any filters.
- * It is also used when the ignoreUnknownFields options is set.
+ * FieldName
  */
-export declare type EmptyTermConstructor<T> = () => Term<T>;
+export declare type FieldName = string;
 /**
- * AndTermConstructor
- *
- * The AndTermConstructor provides a Term that combines two filters into a
- * logical AND.
+ * Operator
  */
-export declare type AndTermConstructor<T> = (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
-/**
- * OrTermConstructor
- *
- * The OrTermConstructor provides a Term that alternates between two filters
- * via a logical OR.
- *
- */
-export declare type OrTermConstructor<T> = (c: Context<T>, left: Term<T>, right: Term<T>) => Term<T>;
+export declare type Operator = string;
 /**
  * FilterTermConstructor type.
  *
  * The FilterTermConstructor constructs a Term for a filter to be used in a
  * query.
  */
-export declare type FilterTermConstructor<T> = (c: Context<T>, filter: FilterInfo) => Term<T>;
+export declare type FilterTermConstructor<T> = (field: FieldName, op: Operator, value: Value) => Term<T>;
 /**
  * FilterInfo holds information about a filter while being compiled.
  */
@@ -42,40 +33,45 @@ export interface FilterInfo {
     /**
      * field the filter refers to.
      */
-    field: string;
+    field: FieldName;
     /**
      * operator applied to the filter.
      */
-    operator: string;
+    operator: Operator;
     /**
      * value used with the operator.
      */
     value: Value;
 }
 /**
- * TermConstructorFactory provides functions for creating new instances of
+ * TermFactory provides functions for creating new instances of
  * the common Terms.
  */
-export interface TermConstructorFactory<T> {
-    [key: string]: TermConstructor<T>;
+export interface TermFactory<T> {
     /**
-     * empty provides a new EmptyTermConstructor instance.
+     * empty Term constructor.
      */
-    empty: EmptyTermConstructor<T>;
+    empty(): Term<T>;
     /**
-     * and provides a new AndTermConstructor instance.
+     * and Term constructor.
      */
-    and: AndTermConstructor<T>;
+    and(left: Term<T>, right: Term<T>): Term<T>;
     /**
-     * or provides a new OrTermConstructor instance.
+     * or Term constructor.
      */
-    or: OrTermConstructor<T>;
+    or(left: Term<T>, right: Term<T>): Term<T>;
 }
 /**
  * Term is an intermediate representation of a filter (or chain of filters)
  * before it is compiled to its final form.
  */
 export interface Term<T> {
+    /**
+     * type of the Term.
+     *
+     * This property can be used by compilers for optimisation etc.
+     */
+    type: TermType;
     /**
      * compile this Term into its target filter format.
      */

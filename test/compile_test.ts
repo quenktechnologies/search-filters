@@ -3,7 +3,7 @@ import { Except } from '@quenk/noni/lib/control/error';
 import { right } from '@quenk/noni/lib/data/either';
 
 import { AvailablePolicies, EnabledPolicies } from '../lib/compile/policy';
-import { FilterInfo, TermConstructorFactory, Term } from '../lib/compile/term';
+import { FilterInfo, TermFactory, Term } from '../lib/compile/term';
 import { Context, Options, newContext, compile } from '../lib/compile';
 import { UnsupportedFieldErr } from '../lib/compile/error';
 
@@ -12,8 +12,6 @@ interface QLTerm extends Term<string> { }
 class EmptyTerm implements QLTerm {
 
     type = 'empty';
-
-    static create = (): QLTerm => new EmptyTerm();
 
     compile(): Except<string> {
 
@@ -28,9 +26,6 @@ class AndTerm implements QLTerm {
     type = 'and';
 
     constructor(public left: QLTerm, public right: QLTerm) { }
-
-    static create = (_: Context<string>, l: QLTerm, r: QLTerm): QLTerm =>
-        new AndTerm(l, r);
 
     compile(): Except<string> {
 
@@ -54,9 +49,6 @@ class OrTerm implements QLTerm {
 
     constructor(public left: QLTerm, public right: QLTerm) { }
 
-    static create = (_: Context<string>, l: QLTerm, r: QLTerm): QLTerm =>
-        new OrTerm(l, r);
-
     compile(): Except<string> {
 
         let eLeft = this.left.compile();
@@ -79,6 +71,8 @@ class FilterTerm implements QLTerm {
         public field: string,
         public op: string,
         public value: string) { }
+
+    type = 'filter';
 
     static create = (_: Context<string>, info: FilterInfo) =>
         new FilterTerm(info.field, info.operator, (info.value instanceof Date) ?
@@ -144,13 +138,25 @@ const enabled: EnabledPolicies<string> = {
 
 }
 
-const terms: TermConstructorFactory<string> = {
+const terms: TermFactory<string> = {
 
-    empty: EmptyTerm.create,
+    empty(): QLTerm {
 
-    and: AndTerm.create,
+        return new EmptyTerm();
 
-    or: OrTerm.create
+    },
+
+    and(l: QLTerm, r: QLTerm): QLTerm {
+
+        return new AndTerm(l, r);
+
+    },
+
+    or(l: QLTerm, r: QLTerm): QLTerm {
+
+        return new OrTerm(l, r);
+
+    }
 
 };
 

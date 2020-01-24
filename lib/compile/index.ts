@@ -19,7 +19,7 @@ import {
     apply,
     toNative
 } from './policy';
-import { TermConstructorFactory, Term } from './term';
+import { TermFactory, Term } from './term';
 import { UnsupportedFieldErr, MaxFilterExceededErr } from './error';
 
 export { Source, Except }
@@ -75,7 +75,7 @@ export interface Context<T> {
     /**
      * terms provides the common required terms.
      */
-    terms: TermConstructorFactory<T>
+    terms: TermFactory<T>
 
     /**
      * policies that can be substituted during compilation.
@@ -92,7 +92,7 @@ export interface Context<T> {
  * set.
  */
 export const newContext =
-    <T>(terms: TermConstructorFactory<T>,
+    <T>(terms: TermFactory<T>,
         policies: AvailablePolicies<T> = {},
         opts: Partial<Options> = {}): Context<T> => ({
 
@@ -154,9 +154,9 @@ export const ast2Terms =
             let r = eitherR.takeRight();
 
             if (node.type === 'and')
-                return right(ctx.terms.and(ctx, l, r));
+                return right(ctx.terms.and(l, r));
             else
-                return right(ctx.terms.or(ctx, l, r));
+                return right(ctx.terms.or(l, r));
 
         } else if (node instanceof ast.Filter) {
 
@@ -164,7 +164,7 @@ export const ast2Terms =
                 node.field.value);
 
             if (maybePolicy.isJust())
-                return apply(ctx, maybePolicy.get(), node);
+                return apply(maybePolicy.get(), node);
 
             if (ctx.options.ignoreUnknownFields === true)
                 return right(ctx.terms.empty());

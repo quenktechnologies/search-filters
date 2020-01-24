@@ -7,14 +7,13 @@ import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe, fromNullable } from '@quenk/noni/lib/data/maybe';
 
-import { Term, FilterTermConstructor } from './term';
-import { Context } from './';
+import { Operator, Term, FilterTermConstructor, FieldName } from './term';
 import { UnsupportedOperatorErr, InvalidTypeErr } from './error';
 
 /**
- * Operator
+ * PolicyType
  */
-export type Operator = string;
+export type PolicyType = string;
 
 /**
  * PolicyPointer is used to indicate a Policy is defined elsewhere.
@@ -68,7 +67,7 @@ export interface Policy<T> {
      * If the value does not match the type, it is rejected. Valid values
      * include "string", "number" and "date".
      */
-    type: string,
+    type: PolicyType,
 
     /**
      * operators is a non-empty list of filter  operators allowed.
@@ -102,7 +101,7 @@ export const toNative = (v: ast.Value): Value => {
 /**
  * checkType to ensure they match.
  */
-const checkType = <V>(typ: string, value: V): boolean => {
+const checkType = <V>(typ: PolicyType, value: V): boolean => {
 
     if (Array.isArray(value) && typ === 'array')
         return true
@@ -124,7 +123,7 @@ const checkType = <V>(typ: string, value: V): boolean => {
 export const getPolicyFor =
     <T>(available: AvailablePolicies<T>,
         enabled: EnabledPolicies<T>,
-        field: string): Maybe<Policy<T>> =>
+        field: FieldName): Maybe<Policy<T>> =>
         fromNullable(enabled[field])
             .chain(ref => resolve(available, ref));
 
@@ -142,7 +141,7 @@ export const resolve =
  * This function will produce a Term for the filter or an error if any occurs.
  */
 export const apply = <T>
-    (ctx: Context<T>, p: Policy<T>, n: ast.Filter): Except<Term<T>> => {
+    (p: Policy<T>, n: ast.Filter): Except<Term<T>> => {
 
     let { operator } = n;
     let field = n.field.value;
@@ -152,10 +151,10 @@ export const apply = <T>
         return left(new InvalidTypeErr(field, operator, value, p.type));
 
     if (operator === 'default')
-        return right(p.term(ctx, { field, operator: p.operators[0], value }));
+        return right(p.term(field, p.operators[0], value));
 
     if (p.operators.indexOf(operator) > -1)
-        return right(p.term(ctx, { field, operator, value }));
+        return right(p.term(field, operator, value));
 
     return left(new UnsupportedOperatorErr(field, operator, value));
 
