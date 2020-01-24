@@ -11,6 +11,8 @@ interface QLTerm extends Term<string> { }
 
 class EmptyTerm implements QLTerm {
 
+    type = 'empty';
+
     static create = (): QLTerm => new EmptyTerm();
 
     compile(): Except<string> {
@@ -22,6 +24,8 @@ class EmptyTerm implements QLTerm {
 }
 
 class AndTerm implements QLTerm {
+
+    type = 'and';
 
     constructor(public left: QLTerm, public right: QLTerm) { }
 
@@ -45,6 +49,8 @@ class AndTerm implements QLTerm {
 }
 
 class OrTerm implements QLTerm {
+
+    type = 'or';
 
     constructor(public left: QLTerm, public right: QLTerm) { }
 

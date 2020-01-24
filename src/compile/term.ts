@@ -1,7 +1,19 @@
+/**
+ * Compilation to a target platform filter invovles an intermediate step 
+ * of representing Filters as Term instances.
+ *
+ * This representation was introduced to create a layer of abastraction so
+ * that implmenting a compiler requires less boilerplate.
+ */
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 
 import { Context } from './';
+
+/**
+ * TermType
+ */
+export type TermType = string;
 
 /**
  * TermConstructor are functions that produce Term instances on the compiler's
@@ -102,6 +114,13 @@ export interface TermConstructorFactory<T> {
  * before it is compiled to its final form.
  */
 export interface Term<T> {
+
+    /**
+     * type of the Term.
+     *
+     * This property can be used by compilers for optimisation etc.
+     */
+    type: TermType
 
     /**
      * compile this Term into its target filter format.
