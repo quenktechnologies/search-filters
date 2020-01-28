@@ -102,33 +102,32 @@ filter_group
                {$$ = $2;                            }
 
             | filter_group OR filter
-              {$$ = new yy.ast.Or($1, $2, @$);      }
+              {$$ = new yy.ast.Or($1, $3, @$);      }
 
             | filter_group '|' filter
-              {$$ = new yy.ast.Or($1, $2, @$);      }
+              {$$ = new yy.ast.Or($1, $3, @$);      }
 
             | filter_group AND filter
-              {$$ = new yy.ast.And($1, $2, @$);     }
+              {$$ = new yy.ast.And($1, $3, @$);     }
 
             | filter_group ',' filter
-              {$$ = new yy.ast.And($1, $2, @$);     }
+              {$$ = new yy.ast.And($1, $3, @$);     }
 
             | filter_group OR '(' filters ')'
-              {$$ = new yy.ast.Or($1, $2, @$);      }
+              {$$ = new yy.ast.Or($1, $4, @$);      }
 
             | filter_group '|' '(' filters ')'
-              {$$ = new yy.ast.Or($1, $2, @$);      }
+              {$$ = new yy.ast.Or($1, $4, @$);      }
 
             | filter_group AND '(' filters ')'
-              {$$ = new yy.ast.And($1, $2, @$);     }
+              {$$ = new yy.ast.And($1, $4, @$);     }
 
             | filter_group ',' '(' filters ')'
-              {$$ = new yy.ast.And($1, $2, @$);     }
+              {$$ = new yy.ast.And($1, $4, @$);     }
 
             | '(' filter_group ')'
-              {$$ = $1;                             }
+              {$$ = $3;                             }
             ;
-
 
 filters
          
