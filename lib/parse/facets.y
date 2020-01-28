@@ -126,7 +126,7 @@ filter_group
               {$$ = new yy.ast.And($1, $4, @$);     }
 
             | '(' filter_group ')'
-              {$$ = $3;                             }
+              {$$ = $2;                             }
             ;
 
 filters
