@@ -55,7 +55,7 @@ export const tests: { [key: string]: any } = {
     },
     'should not be thrown off by extra whitespace': {
 
-        input: 'type: "P",   name: "Sargent",  date_of_birth:  "1990-07-12"'
+        input: 'type: "P",   name: "Sargent",  date_of_birth:  1990-07-12'
 
     },
     'should allow grouping (single)': {
