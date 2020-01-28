@@ -1,6 +1,27 @@
 import { Value } from "@quenk/noni/lib/data/jsonx";
+import { Err } from '@quenk/noni/lib/control/error';
 
-import { FilterInfo } from "./term";
+/**
+ * CompileErr is used in place of Error to provide an Error classes that can be
+ * checked with instanceof.
+ */
+export abstract class CompileErr implements Err {
+
+    /**
+     * message
+     */
+    abstract message: string;
+
+    /**
+     * toString displays information about the CompileErr.
+     */
+    toString(): string {
+
+        return this.message;
+
+    }
+
+}
 
 /**
  * MaxFilterExceedErr constructs an Err indicating the maximum amount of
@@ -9,9 +30,9 @@ import { FilterInfo } from "./term";
  * @param max - The maximum number of filters allowed.
  * @param actual   - The number of filters encountered.
  */
-export class MaxFilterExceededErr {
+export class MaxFilterExceededErr extends CompileErr {
 
-    constructor(public allowed: number, public actual: number) { }
+    constructor(public allowed: number, public actual: number) { super(); }
 
     message = `Max ${this.allowed} filters are allowed, got ${this.actual}!`;
 
@@ -21,71 +42,45 @@ export class MaxFilterExceededErr {
  * UnsupportedFieldErr constructs an Err indicating a filter is using an 
  * unsupported field.
  */
-export class UnsupportedFieldErr {
+export class UnsupportedFieldErr extends CompileErr {
 
     constructor(
         public field: string,
         public operator: string,
-        public value: Value) { }
+        public value: Value) { super(); }
 
-    message = `Unsupported field "${this.field}" encountered!`;
-
-    /**
-     * fromFilterInfo constructs an UnsupportedFiledErr from a FilterInfo.
-     */
-    static fromFilterInfo(info: FilterInfo): UnsupportedFieldErr {
-
-        return new UnsupportedFieldErr(info.field, info.operator, info.value);
-
-    }
+    message = `Unsupported field "${this.field}" with value "${this.value}` + `
+  encountered!`;
 
 }
 
 /**
  * UnsupportedOperatorErr indicates an unsupported operator was used on a field.
  */
-export class UnsupportedOperatorErr {
+export class UnsupportedOperatorErr extends CompileErr {
 
     constructor(
         public field: string,
         public operator: string,
-        public value: Value) { }
+        public value: Value) { super(); }
 
     message = `Invalid operator '${this.operator}' ` +
         `used with field '${this.field}'!`
-
-    /**
-     * fromFilterInfo constructs an UnsupportedOperatorErr from a FilterInfo.
-     */
-    static fromFilterInfo({ field, operator, value }: FilterInfo) {
-
-        return new UnsupportedOperatorErr(field, operator, value);
-
-    }
 
 }
 
 /**
  * InvalidTypeErr indicates the value used with the filter is the incorrect type.
  */
-export class InvalidTypeErr {
+export class InvalidTypeErr extends CompileErr {
 
     constructor(
         public field: string,
         public operator: string,
         public value: Value,
-        public type: string) { }
+        public type: string) { super(); }
 
     message = `Invalid type '${typeof this.value}' for field '${this.field}',` +
         ` expected type of '${this.type}'!`
-
-    /**
-     * fromFilterInfo constructs an InvalidTypeErr from a FilterInfo.
-     */
-    static fromFilterInfo({ field, operator, value }: FilterInfo, type: string) {
-
-        return new InvalidTypeErr(field, operator, value, type);
-
-    }
 
 }

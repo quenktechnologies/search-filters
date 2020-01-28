@@ -1,5 +1,19 @@
 import { Value } from "@quenk/noni/lib/data/jsonx";
-import { FilterInfo } from "./term";
+import { Err } from '@quenk/noni/lib/control/error';
+/**
+ * CompileErr is used in place of Error to provide an Error classes that can be
+ * checked with instanceof.
+ */
+export declare abstract class CompileErr implements Err {
+    /**
+     * message
+     */
+    abstract message: string;
+    /**
+     * toString displays information about the CompileErr.
+     */
+    toString(): string;
+}
 /**
  * MaxFilterExceedErr constructs an Err indicating the maximum amount of
  * filters allowed has been surpassed in the source string.
@@ -7,7 +21,7 @@ import { FilterInfo } from "./term";
  * @param max - The maximum number of filters allowed.
  * @param actual   - The number of filters encountered.
  */
-export declare class MaxFilterExceededErr {
+export declare class MaxFilterExceededErr extends CompileErr {
     allowed: number;
     actual: number;
     constructor(allowed: number, actual: number);
@@ -17,43 +31,31 @@ export declare class MaxFilterExceededErr {
  * UnsupportedFieldErr constructs an Err indicating a filter is using an
  * unsupported field.
  */
-export declare class UnsupportedFieldErr {
+export declare class UnsupportedFieldErr extends CompileErr {
     field: string;
     operator: string;
     value: Value;
     constructor(field: string, operator: string, value: Value);
     message: string;
-    /**
-     * fromFilterInfo constructs an UnsupportedFiledErr from a FilterInfo.
-     */
-    static fromFilterInfo(info: FilterInfo): UnsupportedFieldErr;
 }
 /**
  * UnsupportedOperatorErr indicates an unsupported operator was used on a field.
  */
-export declare class UnsupportedOperatorErr {
+export declare class UnsupportedOperatorErr extends CompileErr {
     field: string;
     operator: string;
     value: Value;
     constructor(field: string, operator: string, value: Value);
     message: string;
-    /**
-     * fromFilterInfo constructs an UnsupportedOperatorErr from a FilterInfo.
-     */
-    static fromFilterInfo({ field, operator, value }: FilterInfo): UnsupportedOperatorErr;
 }
 /**
  * InvalidTypeErr indicates the value used with the filter is the incorrect type.
  */
-export declare class InvalidTypeErr {
+export declare class InvalidTypeErr extends CompileErr {
     field: string;
     operator: string;
     value: Value;
     type: string;
     constructor(field: string, operator: string, value: Value, type: string);
     message: string;
-    /**
-     * fromFilterInfo constructs an InvalidTypeErr from a FilterInfo.
-     */
-    static fromFilterInfo({ field, operator, value }: FilterInfo, type: string): InvalidTypeErr;
 }
