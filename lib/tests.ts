@@ -167,6 +167,21 @@ export const tests: { [key: string]: any } = {
 
         input: 'created_on:1989-07-23T23:00:24.555-04:00'
 
+    },
+    'should parse (<filter>) <and> (<filter>,<filter)': {
+
+        input: '(type:"P") and ' +
+            '(name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z,' +
+            'trini_national_id:"1968012875")'
+
+    },
+    'should parse ((<filter>) <and> (<filter>,<filter))': {
+
+        input: '((type:"P") and ' +
+            '(name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z,' +
+            'trini_national_id:"1968012875"))'
+
     }
+
 
 };
