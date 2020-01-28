@@ -1,9 +1,10 @@
 import { assert } from '@quenk/test/lib/assert';
 import { Except } from '@quenk/noni/lib/control/error';
 import { right } from '@quenk/noni/lib/data/either';
+import { Value } from '@quenk/noni/lib/data/jsonx';
 
 import { AvailablePolicies, EnabledPolicies } from '../lib/compile/policy';
-import { FilterInfo, TermFactory, Term } from '../lib/compile/term';
+import { TermFactory, Term } from '../lib/compile/term';
 import { Context, Options, newContext, compile } from '../lib/compile';
 import { UnsupportedFieldErr } from '../lib/compile/error';
 
@@ -74,9 +75,9 @@ class FilterTerm implements QLTerm {
 
     type = 'filter';
 
-    static create = (_: Context<string>, info: FilterInfo) =>
-        new FilterTerm(info.field, info.operator, (info.value instanceof Date) ?
-            info.value.toISOString() : String(info.value));
+    static create = (field: string, op: string, value: Value) =>
+        new FilterTerm(field, op, (value instanceof Date) ?
+            value.toISOString() : String(value));
 
     compile(): Except<string> {
 
