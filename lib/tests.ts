@@ -189,12 +189,12 @@ export const tests: { [key: string]: any } = {
     },
     'should parse in': {
 
-        input: 'uid: in [1,2,3,4,5,12]'
+        input: 'id: in [1,2,3,4,5,12]'
 
     },
     'should parse not in': {
 
-        input: 'uid: !in [1,2,3,4,5,12]'
+        input: 'id: !in [1,2,3,4,5,12]'
 
     }
 
