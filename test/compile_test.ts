@@ -76,8 +76,7 @@ class FilterTerm implements QLTerm {
     type = 'filter';
 
     static create = (field: string, op: string, value: Value) =>
-        new FilterTerm(field, op, (value instanceof Date) ?
-            value.toISOString() : String(value));
+        new FilterTerm(field, op, cast(value));
 
     compile(): Except<string> {
 
@@ -87,6 +86,9 @@ class FilterTerm implements QLTerm {
     }
 
 }
+
+const cast = (v: Value) => (v instanceof Date) ? v.toISOString() :
+    Array.isArray(v) ? v.map(cast).join(',') : String(v);
 
 const available: AvailablePolicies<string> = {
 
@@ -135,7 +137,56 @@ const enabled: EnabledPolicies<string> = {
         term: FilterTerm.create
 
     },
-    last_login: 'date'
+    last_login: 'date',
+
+    ref_number: {
+
+        type: ['string', 'number'],
+
+        operators: ['='],
+
+        term: FilterTerm.create
+
+    },
+
+    numbers: {
+
+        type: 'list-number',
+
+        operators: ['='],
+
+        term: FilterTerm.create
+
+    },
+    booleans: {
+
+        type: 'list-boolean',
+
+        operators: ['='],
+
+        term: FilterTerm.create
+
+    },
+
+    strings: {
+
+        type: 'list-string',
+
+        operators: ['='],
+
+        term: FilterTerm.create
+
+    },
+
+    dates: {
+
+        type: 'list-date',
+
+        operators: ['='],
+
+        term: FilterTerm.create
+
+    }
 
 }
 
@@ -233,6 +284,90 @@ describe('compile', () => {
             assert(eResult.isRight()).true();
 
             assert(eResult.takeRight()).equal('last_login > 1989-04-03T00:00:00.001Z');
+
+        })
+
+        it('should support alternate value types', () => {
+
+            assert(qlc('ref_number:1').isRight()).true();
+            assert(qlc('ref_number:"1"').isRight()).true();
+            assert(qlc('ref_number:["1"]').isRight()).false();
+            assert(qlc('ref_number:true').isRight()).false();
+
+        })
+
+        it('should support list-number type', () => {
+
+            let eResult = qlc('numbers:[1,2,3,4]');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight()).equal('numbers = 1,2,3,4');
+
+        })
+
+        it('should check list-number type', () => {
+
+            let eResult = qlc('numbers:[1,2,"3",4]');
+
+            assert(eResult.isRight()).false();
+
+        })
+
+        it('should support list-boolean type', () => {
+
+            let eResult = qlc('booleans:[true,false]');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight()).equal('booleans = true,false');
+
+        })
+
+        it('should check list-boolean type', () => {
+
+            let eResult = qlc('booleans:[true, "false"]');
+
+            assert(eResult.isRight()).false();
+
+        })
+
+        it('should support list-string type', () => {
+
+            let eResult = qlc('strings:["a","ab","abc"]');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight()).equal('strings = a,ab,abc');
+
+        })
+
+        it('should check list-string type', () => {
+
+            let eResult = qlc('strings:["false",true]');
+
+            assert(eResult.isRight()).false();
+
+        })
+
+        it('should support list-date type', () => {
+
+            let eResult = qlc('dates:[1956-03-07,1978-02-24,1979-05-24]');
+
+            assert(eResult.isRight()).true();
+
+            assert(eResult.takeRight())
+                .equal('dates = 1956-03-07T00:00:00.000Z' +
+                    ',1978-02-24T00:00:00.000Z' +
+                    ',1979-05-24T00:00:00.000Z');
+
+        })
+
+        it('should check list-date type', () => {
+
+            let eResult = qlc('dates:[1989-04-03, 1]');
+
+            assert(eResult.isRight()).false();
 
         })
 

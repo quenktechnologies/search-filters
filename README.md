@@ -14,6 +14,7 @@ Parse and compile a string into usable search filters.
           - [Values](#values)
     - [Compilation](#compilation)
         - [Policies](#policies)
+          -[Value Types](#value-types)
     - [API](#api)
     - [License](#license)
     
@@ -131,9 +132,23 @@ Policy pointers that cannot be resolved will result in a failed compilation.
 ### Policies
 A Policy has the following main fields:
 
-1. type        -       Indicates the allowed type for the field. One of (number,boolean,string or date).
+1. type        -       Indicates the value type allowed for the field.
 2. operators   -       A list of supported operators for the field.
 3. term        -       A function that will produce a Term instance of the filter.
+
+#### Value Types
+
+A policy's type field can have one of the following values (without quotes):
+
+1. "number"           - A number.
+2. "boolean"          - A boolean value.
+3. "string"           - A string value.
+4. "date"             - A date value.
+5. "list"             - A list of any values.
+6. "list-number"      - A list of numbers only.
+7. "list-boolean"     - A list of booleans only.
+8. "list-string"      - A list of strings only.
+9. "list-date"        - A list of dates only.
 
 ## API
 
