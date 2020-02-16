@@ -3,10 +3,21 @@ import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe } from '@quenk/noni/lib/data/maybe';
 import { Operator, Term, FilterTermConstructor } from './term';
+export declare const TYPE_NUMBER = "number";
+export declare const TYPE_BOOLEAN = "boolean";
+export declare const TYPE_STRING = "string";
+export declare const TYPE_DATE = "date";
+export declare const TYPE_LIST = "list";
+export declare const TYPE_LIST_NUMBER = "list-number";
+export declare const TYPE_LIST_BOOLEAN = "list-boolean";
+export declare const TYPE_LIST_STRING = "list-string";
+export declare const TYPE_LIST_DATE = "list-date";
 /**
- * PolicyType
+ * ValueType indiciates what value types are acceptable for the policy.
+ *
+ * Must be one of the TYPE_* constants.
  */
-export declare type PolicyType = string;
+export declare type ValueType = string | string[];
 /**
  * PolicyPointer is used to indicate a Policy is defined elsewhere.
  *
@@ -48,9 +59,10 @@ export interface Policy<T> {
      * type indicates what ECMAScript type the value should be.
      *
      * If the value does not match the type, it is rejected. Valid values
-     * include "string", "number" and "date".
+     * are the various TYPE_* constants exported. If the value of this
+     * property is an array it is taken to mean any of these values.
      */
-    type: PolicyType;
+    type: ValueType;
     /**
      * operators is a non-empty list of filter  operators allowed.
      *

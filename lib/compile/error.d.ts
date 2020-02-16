@@ -55,7 +55,7 @@ export declare class InvalidTypeErr extends CompileErr {
     field: string;
     operator: string;
     value: Value;
-    type: string;
-    constructor(field: string, operator: string, value: Value, type: string);
+    type: string | string[];
+    constructor(field: string, operator: string, value: Value, type: string | string[]);
     message: string;
 }

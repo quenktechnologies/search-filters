@@ -78,7 +78,7 @@ export class InvalidTypeErr extends CompileErr {
         public field: string,
         public operator: string,
         public value: Value,
-        public type: string) { super(); }
+        public type: string | string[]) { super(); }
 
     message = `Invalid type '${typeof this.value}' for field '${this.field}',` +
         ` expected type of '${this.type}'!`
