@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MaxFilterExceededErr | @quenk/search-filters - v2.3.0</title>
+	<title>MaxFilterExceededErr | @quenk/search-filters - v2.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@quenk/search-filters - v2.3.0</a>
+					<a href="../index.html" class="title">@quenk/search-filters - v2.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -85,8 +85,19 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MaxFilterExceededErr</span>
+						<a href="_compile_error_.compileerr.html" class="tsd-signature-type">CompileErr</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">MaxFilterExceededErr</span>
+							</li>
+						</ul>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><span class="tsd-signature-type">Err</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -104,7 +115,13 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#actual" class="tsd-kind-icon">actual</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#allowed" class="tsd-kind-icon">allowed</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_compile_error_.maxfilterexceedederr.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="_compile_error_.maxfilterexceedederr.html#message" class="tsd-kind-icon">message</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_compile_error_.maxfilterexceedederr.html#tostring" class="tsd-kind-icon">to<wbr>String</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,7 +139,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/error.ts#L12">compile/error.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/error.ts#L33">compile/error.ts:33</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -147,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">actual<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/error.ts#L14">compile/error.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/error.ts#L35">compile/error.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -157,19 +174,46 @@
 					<div class="tsd-signature tsd-kind-icon">allowed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/error.ts#L14">compile/error.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/error.ts#L35">compile/error.ts:35</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="message" class="tsd-anchor"></a>
 					<h3>message</h3>
 					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&#x60;Max ${this.allowed} filters are allowed, got ${this.actual}!&#x60;</span></div>
 					<aside class="tsd-sources">
+						<p>Overrides <a href="_compile_error_.compileerr.html">CompileErr</a>.<a href="_compile_error_.compileerr.html#message">message</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/error.ts#L16">compile/error.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/error.ts#L37">compile/error.ts:37</a></li>
 						</ul>
 					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<a name="tostring" class="tsd-anchor"></a>
+					<h3>to<wbr>String</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>String<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="_compile_error_.compileerr.html">CompileErr</a>.<a href="_compile_error_.compileerr.html#tostring">toString</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/error.ts#L18">compile/error.ts:18</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>toString displays information about the CompileErr.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -205,6 +249,9 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_compile_error_.compileerr.html" class="tsd-kind-icon">Compile<wbr>Err</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_compile_error_.invalidtypeerr.html" class="tsd-kind-icon">Invalid<wbr>Type<wbr>Err</a>
 					</li>
 				</ul>
@@ -221,8 +268,11 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_compile_error_.maxfilterexceedederr.html#allowed" class="tsd-kind-icon">allowed</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="_compile_error_.maxfilterexceedederr.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_compile_error_.maxfilterexceedederr.html#tostring" class="tsd-kind-icon">to<wbr>String</a>
 							</li>
 						</ul>
 					</li>

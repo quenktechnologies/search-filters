@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Policy | @quenk/search-filters - v2.3.0</title>
+	<title>Policy | @quenk/search-filters - v2.4.0</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -22,7 +22,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@quenk/search-filters - v2.3.0</a>
+					<a href="../index.html" class="title">@quenk/search-filters - v2.4.0</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -114,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">operators<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_term_.html#operator" class="tsd-signature-type">Operator</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/policy.ts#L77">compile/policy.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/policy.ts#L90">compile/policy.ts:90</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -130,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">term<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_term_.html#filtertermconstructor" class="tsd-signature-type">FilterTermConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/policy.ts#L83">compile/policy.ts:83</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/policy.ts#L96">compile/policy.ts:96</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -143,10 +143,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="type" class="tsd-anchor"></a>
 					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_policy_.html#policytype" class="tsd-signature-type">PolicyType</a></div>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../modules/_compile_policy_.html#valuetype" class="tsd-signature-type">ValueType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/ff655ac/lib/compile/policy.ts#L70">compile/policy.ts:70</a></li>
+							<li>Defined in <a href="https://github.com/quenktechnologies/facets-parser/blob/836dcff/lib/compile/policy.ts#L83">compile/policy.ts:83</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,7 +154,8 @@
 							<p>type indicates what ECMAScript type the value should be.</p>
 						</div>
 						<p>If the value does not match the type, it is rejected. Valid values
-						include &quot;string&quot;, &quot;number&quot; and &quot;date&quot;.</p>
+							are the various TYPE_* constants exported. If the value of this
+						property is an array it is taken to mean any of these values.</p>
 					</div>
 				</section>
 			</section>
@@ -221,7 +222,34 @@
 						<a href="../modules/_compile_policy_.html#policyref" class="tsd-kind-icon">Policy<wbr>Ref</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_compile_policy_.html#policytype" class="tsd-kind-icon">Policy<wbr>Type</a>
+						<a href="../modules/_compile_policy_.html#valuetype" class="tsd-kind-icon">Value<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_boolean" class="tsd-kind-icon">TYPE_<wbr>BOOLEAN</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_date" class="tsd-kind-icon">TYPE_<wbr>DATE</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_list" class="tsd-kind-icon">TYPE_<wbr>LIST</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_list_boolean" class="tsd-kind-icon">TYPE_<wbr>LIST_<wbr>BOOLEAN</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_list_date" class="tsd-kind-icon">TYPE_<wbr>LIST_<wbr>DATE</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_list_number" class="tsd-kind-icon">TYPE_<wbr>LIST_<wbr>NUMBER</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_list_string" class="tsd-kind-icon">TYPE_<wbr>LIST_<wbr>STRING</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_number" class="tsd-kind-icon">TYPE_<wbr>NUMBER</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-external-module">
+						<a href="../modules/_compile_policy_.html#type_string" class="tsd-kind-icon">TYPE_<wbr>STRING</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-has-type-parameter">
 						<a href="../modules/_compile_policy_.html#apply" class="tsd-kind-icon">apply</a>
