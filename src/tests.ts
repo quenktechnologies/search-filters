@@ -181,6 +181,11 @@ export const tests: { [key: string]: any } = {
             '(name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z,' +
             'trini_national_id:"1968012875"))'
 
+    },
+    'should parse a single filter in parens': {
+
+        input: '(id:=["12","20"])'
+
     }
 
 
