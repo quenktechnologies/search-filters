@@ -90,6 +90,8 @@ The following operators are recognised by the parser:
 4. "<="    Less than or equal to.
 5. "="     Equal to.
 6. "!="    Not equal to.
+7. "in"    Value is in a list.
+8. "!in"   Value is not in a list.
 
 The validity, actual implementation, accepted value types of these operators, depends on the policies set for the field.
 Compilation fails if the wrong operator or type is used on a field.

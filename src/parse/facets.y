@@ -44,6 +44,8 @@ Identifier [a-zA-Z$_][a-zA-Z$\\._\-0-9]*
 {DateLiteral}                               return 'DATE_LITERAL';
 'OR'|'or'                                   return 'OR';
 'AND'|'and'                                 return 'AND';
+'!in'|'!IN'                                 return 'NIN';
+'in'|'IN'                                   return 'IN';
 {Characters}                                return 'CHARACTERS';
 {Identifier}                                return 'IDENTIFIER';
 {StringLiteral}                             return 'STRING_LITERAL';
@@ -91,7 +93,6 @@ query
             | EOF
               {$$ = new yy.ast.Query(yy.nothing, yy.filterCount, @$); return $$; }
             ;
-
 
 filter_group
 
@@ -172,7 +173,7 @@ filter
             ;
 
 operator
-            : ('>'|'<'|'>='|'<='|'='|'!=')
+            : ('>'|'<'|'>='|'<='|'='|'!='|IN|NIN)
               {$$ = $1; }
             ;
 

@@ -186,7 +186,16 @@ export const tests: { [key: string]: any } = {
 
         input: '(id:=["12","20"])'
 
-    }
+    },
+    'should parse in': {
 
+        input: 'id: in [1,2,3,4,5,12]'
+
+    },
+    'should parse not in': {
+
+        input: 'id: !in [1,2,3,4,5,12]'
+
+    }
 
 };
