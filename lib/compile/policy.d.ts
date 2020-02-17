@@ -30,14 +30,18 @@ export declare type PolicyPointer = string;
  */
 export declare type PolicyRef<T> = Policy<T> | PolicyPointer;
 /**
- * EnabledPolicies is a map of PolicyRefs where the key is a field name and
- * the value the Policy (or PolicyPointer) to be applied to that field.
+ * EnabledPolicies is a map of PolicyRefs.
  *
- * EnabledPolicies is used to determine what fields can occur in a filter chain
+ * The key is a valid field name that can be filtered on and the value is
+ * a PolicyPointer or raw Policy to be applied for the field. EnabledPolicies is
+ * used to determine what fields can occur in a filter chain
  * and how they can be filtered on.
+
+ * If the value is an array, then any element of that array is considered a
+ * valid policy for the field.
  */
 export interface EnabledPolicies<T> {
-    [key: string]: PolicyRef<T>;
+    [key: string]: PolicyRef<T> | PolicyRef<T>[];
 }
 /**
  * AvailablePolicies is a map of Policys available for PolicyPointer resolution.
@@ -80,12 +84,12 @@ export interface Policy<T> {
  */
 export declare const toNative: (v: ast.Value) => Value;
 /**
- * getPolicyFor will attempt to get the Policy applicable to a field.
+ * getPolicies attempts to retrieve the Policy(s) applicable to a field.
  *
- * If the field does not have a Policy or the Policy cannot be resolve the
- * result will be an instance of Nothing.
+ * If the field does not have a Policy or the Policy cannot be resolved the
+ * array will be empty.
  */
-export declare const getPolicyFor: <T>(available: AvailablePolicies<T>, enabled: EnabledPolicies<T>, field: string) => Maybe<Policy<T>>;
+export declare const getPolicies: <T>(available: AvailablePolicies<T>, enabled: EnabledPolicies<T>, field: string) => Policy<T>[];
 /**
  * resolve a PolicyRef against an AvailablePolicies list to get the applicable
  * Policy (if any).

@@ -15,7 +15,7 @@ import { Source, parse } from '../parse';
 import {
     EnabledPolicies,
     AvailablePolicies,
-    getPolicyFor,
+    getPolicies,
     apply,
     toNative
 } from './policy';
@@ -129,13 +129,13 @@ export const ast2Terms =
 
             if (ctx.options.ignoreUnknownFields) {
 
-                let mLhs = getPolicyFor(ctx.policies, enabled,
+                let mLhs = getPolicies(ctx.policies, enabled,
                     node.left.field.value);
 
-                let mRhs = getPolicyFor(ctx.policies, enabled,
+                let mRhs = getPolicies(ctx.policies, enabled,
                     node.right.field.value);
 
-                if (mLhs.isNothing() || mRhs.isNothing())
+                if ((mLhs.length === 0) || (mRhs.length === 0))
                     return right(ctx.terms.empty());
 
             }
@@ -160,20 +160,20 @@ export const ast2Terms =
 
         } else if (node instanceof ast.Filter) {
 
-            let maybePolicy = getPolicyFor(ctx.policies, enabled,
+            let policies = getPolicies(ctx.policies, enabled,
                 node.field.value);
-
-            if (maybePolicy.isJust())
-                return apply(maybePolicy.get(), node);
-
-            if (ctx.options.ignoreUnknownFields === true)
-                return right(ctx.terms.empty());
 
             let { operator } = node;
             let value = toNative(node.value);
             let field = node.field.value;
 
-            return left(new UnsupportedFieldErr(field, operator, value));
+            let ex: Except<Term<T>> =
+                (ctx.options.ignoreUnknownFields === true) ?
+                    right(ctx.terms.empty()) :
+                    left(new UnsupportedFieldErr(field, operator, value));
+
+            return policies.reduce((p, c) =>
+                p.isLeft() ? apply(c, node) : p, ex);
 
         } else {
 

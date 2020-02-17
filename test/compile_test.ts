@@ -137,6 +137,7 @@ const enabled: EnabledPolicies<string> = {
         term: FilterTerm.create
 
     },
+
     last_login: 'date',
 
     ref_number: {
@@ -186,7 +187,20 @@ const enabled: EnabledPolicies<string> = {
 
         term: FilterTerm.create
 
-    }
+    },
+
+    string_or_number_or_date: [
+
+        'string',
+        'number', {
+
+            type: 'date',
+
+            operators: ['=', '>', '<', '<=', '>=', '!='],
+
+            term: FilterTerm.create
+
+        }]
 
 }
 
@@ -370,6 +384,18 @@ describe('compile', () => {
             assert(eResult.isRight()).false();
 
         })
+
+        it('should support multiple policies', () => {
+
+            assert(qlc('string_or_number_or_date: "foo"').isRight()).true();
+            assert(qlc('string_or_number_or_date: >22').isRight()).true();
+            assert(qlc('string_or_number_or_date: 1989-04-03').isRight()).true();
+
+            assert(qlc('string_or_number_or_date: >"1989-04-03"').isRight()).false();
+            assert(qlc('string_or_number_or_date: ["1989-04-03"]').isRight()).false();
+            assert(qlc('string_or_number_or_date: false').isRight()).false();
+
+        });
 
     });
 

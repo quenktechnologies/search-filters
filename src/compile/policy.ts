@@ -41,15 +41,19 @@ export type PolicyPointer = string;
 export type PolicyRef<T> = Policy<T> | PolicyPointer;
 
 /**
- * EnabledPolicies is a map of PolicyRefs where the key is a field name and
- * the value the Policy (or PolicyPointer) to be applied to that field.
+ * EnabledPolicies is a map of PolicyRefs.
  *
- * EnabledPolicies is used to determine what fields can occur in a filter chain
+ * The key is a valid field name that can be filtered on and the value is
+ * a PolicyPointer or raw Policy to be applied for the field. EnabledPolicies is
+ * used to determine what fields can occur in a filter chain
  * and how they can be filtered on.
+
+ * If the value is an array, then any element of that array is considered a 
+ * valid policy for the field.
  */
 export interface EnabledPolicies<T> {
 
-    [key: string]: PolicyRef<T>
+    [key: string]: PolicyRef<T> | PolicyRef<T>[]
 
 }
 
@@ -118,8 +122,8 @@ const checkType = <V>(typ: ValueType, value: V): boolean => {
 
     if (Array.isArray(typ))
         return typ.some(t => checkType(t, value));
-    else if ((typ === TYPE_LIST) && Array.isArray(value))
-        return true;
+    else if (typ === TYPE_LIST)
+        return Array.isArray(value);
     else if (typ === TYPE_LIST_NUMBER)
         return checkList(isNumber, value);
     else if (typ === TYPE_LIST_BOOLEAN)
@@ -141,17 +145,36 @@ const checkList = <V>(test: (v: V) => boolean, value: V) =>
     Array.isArray(value) && value.every(test);
 
 /**
- * getPolicyFor will attempt to get the Policy applicable to a field.
+ * getPolicies attempts to retrieve the Policy(s) applicable to a field.
  *
- * If the field does not have a Policy or the Policy cannot be resolve the
- * result will be an instance of Nothing.
+ * If the field does not have a Policy or the Policy cannot be resolved the
+ * array will be empty.
  */
-export const getPolicyFor =
-    <T>(available: AvailablePolicies<T>,
+export const getPolicies =
+    <T>(
+        available: AvailablePolicies<T>,
         enabled: EnabledPolicies<T>,
-        field: FieldName): Maybe<Policy<T>> =>
-        fromNullable(enabled[field])
-            .chain(ref => resolve(available, ref));
+        field: FieldName): Policy<T>[] => {
+
+        let t = enabled[field];
+
+        if (t == null) return [];
+
+        return Array.isArray(t) ?
+            t.reduce((p, ref) => {
+
+                let mPolicy = resolve(available, ref);
+
+                return mPolicy.isJust() ? p.concat(mPolicy.get()) : p;
+
+            }, <Policy<T>[]>[]) :
+
+            resolve(available, t)
+                .map(p => [p])
+                .orJust(() => [])
+                .get();
+
+    }
 
 /**
  * resolve a PolicyRef against an AvailablePolicies list to get the applicable 

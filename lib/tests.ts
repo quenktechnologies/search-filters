@@ -184,7 +184,7 @@ export const tests: { [key: string]: any } = {
     },
     'should parse a single filter in parens': {
 
-        input: '(id:=["12","20"])'
+        input: '(id: [12,20])'
 
     },
     'should parse in': {
