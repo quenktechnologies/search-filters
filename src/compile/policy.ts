@@ -205,6 +205,6 @@ export const apply = <T>
     if (p.operators.indexOf(operator) > -1)
         return right(p.term(field, operator, value));
 
-    return left(new UnsupportedOperatorErr(field, operator, value));
+    return left(new UnsupportedOperatorErr(field, operator, value, p.operators));
 
 }

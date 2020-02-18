@@ -62,10 +62,11 @@ export class UnsupportedOperatorErr extends CompileErr {
     constructor(
         public field: string,
         public operator: string,
-        public value: Value) { super(); }
+        public value: Value,
+        public allowed: string[]) { super(); }
 
-    message = `Invalid operator '${this.operator}' ` +
-        `used with field '${this.field}'!`
+    message = `Unsupported operator "${this.operator}" ` +
+        `used with field "${this.field}"! Allowed operators: [${this.allowed}].`;
 
 }
 

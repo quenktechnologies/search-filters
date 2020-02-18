@@ -45,7 +45,8 @@ export declare class UnsupportedOperatorErr extends CompileErr {
     field: string;
     operator: string;
     value: Value;
-    constructor(field: string, operator: string, value: Value);
+    allowed: string[];
+    constructor(field: string, operator: string, value: Value, allowed: string[]);
     message: string;
 }
 /**
