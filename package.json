@@ -24,7 +24,7 @@
     "typescript": "^3.7.4"
   },
   "dependencies": {
-    "@quenk/noni": "^1.36.0",
+    "@quenk/noni": "^1.38.0",
     "moment": "^2.24.0"
   }
 }
