@@ -78,20 +78,92 @@ query
                return $$;    
               }
 
-            | filter EOF
-              {$$ =
-                new yy.ast.Query(yy.just($1), yy.filterCount, @$); 
-                return $$; 
-              }
-
-            | filter_group EOF
-              {$$ =
-                new yy.ast.Query(yy.just($1), yy.filterCount, @$); 
-                return $$; 
-              }
-
             | EOF
               {$$ = new yy.ast.Query(yy.nothing, yy.filterCount, @$); return $$; }
+            ;
+
+filters
+            : filter
+              {$$ = $1; }
+
+            | binary_filter
+              {$$ = $1; }
+
+            | filter_group
+              {$$ = $1; }
+
+            | filter_groups
+              {$$ = $1; }
+
+            ;
+
+filter_groups
+
+            : filter OR  filter_group  
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | binary_filter OR  filter_group  
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group OR filter 
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group OR binary_filter 
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group OR filter_group
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+
+            | filter AND  filter_group  
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | binary_filter AND  filter_group  
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group AND filter 
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group AND binary_filter 
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group AND filter_group
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter '|'  filter_group  
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | binary_filter '|'  filter_group  
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group '|' filter 
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group '|' binary_filter 
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+            | filter_group '|' filter_group
+              {$$ = new yy.ast.Or($1, $3, @$);     }
+
+
+            | filter ','  filter_group  
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | binary_filter ','  filter_group  
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group ',' filter 
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group ',' binary_filter 
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+            | filter_group ',' filter_group
+              {$$ = new yy.ast.And($1, $3, @$);     }
+
+
+            | '(' filter_groups ')'
+              {$$ = $2;                             }
             ;
 
 filter_group
@@ -99,38 +171,11 @@ filter_group
             : '(' filter ')'
                {$$ = $2;                            }
 
-            | '(' filters ')'
+            | '(' binary_filter ')'
                {$$ = $2;                            }
-
-            | filter_group OR filter
-              {$$ = new yy.ast.Or($1, $3, @$);      }
-
-            | filter_group '|' filter
-              {$$ = new yy.ast.Or($1, $3, @$);      }
-
-            | filter_group AND filter
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group ',' filter
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group OR '(' filters ')'
-              {$$ = new yy.ast.Or($1, $4, @$);      }
-
-            | filter_group '|' '(' filters ')'
-              {$$ = new yy.ast.Or($1, $4, @$);      }
-
-            | filter_group AND '(' filters ')'
-              {$$ = new yy.ast.And($1, $4, @$);     }
-
-            | filter_group ',' '(' filters ')'
-              {$$ = new yy.ast.And($1, $4, @$);     }
-
-            | '(' filter_group ')'
-              {$$ = $2;                             }
             ;
 
-filters
+binary_filter
          
             : filter OR filter 
               {$$ = new yy.ast.Or($1, $3, @$);    }
@@ -147,19 +192,19 @@ filters
             | filter ',' filter 
               {$$ = new yy.ast.And($1, $3, @$);   }
 
-            | filters OR filter 
+            | binary_filter OR filter 
               {$$ = new yy.ast.Or($1, $3, @$);    }
 
-            | filters '|' filter 
+            | binary_filter '|' filter 
               {$$ = new yy.ast.Or($1, $3, @$);    }
 
-            | filters filter 
+            | binary_filter filter 
               {$$ = new yy.ast.And($1, $2, @$);    }
 
-            | filters AND filter 
+            | binary_filter AND filter 
               {$$ = new yy.ast.And($1, $3, @$);   }
 
-            | filters ',' filter 
+            | binary_filter ',' filter 
               {$$ = new yy.ast.And($1, $3, @$);   }
 
             ;

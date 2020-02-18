@@ -177,9 +177,9 @@ export const tests: { [key: string]: any } = {
     },
     'should parse ((<filter>) <and> (<filter>,<filter))': {
 
-        input: '((type:"P") and ' +
-            '(name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z,' +
-            'trini_national_id:"1968012875"))'
+        input:
+            `((type:"P") and (name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z, 
+      trini_national_id:"1968012875"))`,
 
     },
     'should parse a single filter in parens': {
@@ -195,6 +195,11 @@ export const tests: { [key: string]: any } = {
     'should parse not in': {
 
         input: 'id: !in [1,2,3,4,5,12]'
+
+    },
+    'should parse (<filter>) <op> (<filter>)': {
+
+        input: '(id: in [12,5]),(id:=12)'
 
     }
 
