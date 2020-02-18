@@ -90,7 +90,16 @@ export declare class List {
 /**
  * Literal
  */
-export declare type Literal = DateTimeLiteral | StringLiteral | BooleanLiteral | NumberLiteral;
+export declare type Literal = NumberLiteral | BooleanLiteral | StringLiteral | DateLiteral | DateTimeLiteral;
+/**
+ * DateLiteral
+ */
+export declare class DateLiteral {
+    value: string;
+    location: Location;
+    type: string;
+    constructor(value: string, location: Location);
+}
 /**
  * DateTimeLiteral
  */

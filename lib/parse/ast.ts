@@ -131,16 +131,17 @@ export class List {
  * Literal 
  */
 export type Literal
-    = DateTimeLiteral
-    | StringLiteral
+    = NumberLiteral
     | BooleanLiteral
-    | NumberLiteral
+    | StringLiteral
+    | DateLiteral
+    | DateTimeLiteral
     ;
 
 /**
- * DateTimeLiteral
+ * DateLiteral
  */
-export class DateTimeLiteral {
+export class DateLiteral {
 
     type = 'date';
 
@@ -149,6 +150,20 @@ export class DateTimeLiteral {
         public location: Location) { }
 
 }
+
+/**
+ * DateTimeLiteral
+ */
+export class DateTimeLiteral {
+
+    type = 'datetime';
+
+    constructor(
+        public value: string,
+        public location: Location) { }
+
+}
+
 
 /**
  * StringLiteral

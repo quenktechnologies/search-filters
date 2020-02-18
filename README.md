@@ -100,18 +100,20 @@ Compilation fails if the wrong operator or type is used on a field.
 
 The value part can either be one of the following values:
 
-1. String  - A sequence of one or more unicode characters surronded by double quotes.  
-             Example: "my string"
+1. String    - A sequence of one or more unicode characters surronded by double quotes.  
+               Example: "my string"
 
-2. Number  - Any number that can be represented in the IEEE 754 double format.
+2. Number    - Any number that can be represented in the IEEE 754 double format.
 
-3. Boolean - The literal value `true` or the literal value `false`. 
+3. Boolean   - The literal value `true` or the literal value `false`. 
 
-4. Date    - A subset of the ISO8601 extended format supporting the format of  
-            `Date#toISOString()`. The time part may be excluded (smallest to largest)  
-            but fractions are only supported on seconds.
+4. Date      - YYYY-MM-DD
 
-4. List    - A comma seperated sequence of the above values surronded in "[" "]"
+5. DateTime  - A subset of the ISO8601 extended format supporting the format of  
+               `Date#toISOString()`. The time part may be excluded (smallest to largest)  
+               but fractions are only supported on seconds.
+
+6. List    - A comma seperated sequence of the above values surronded in "[" "]".
 
 A compiler impelmentation only needs to support those values that are valid for the
 underlying query language.
@@ -142,15 +144,16 @@ A Policy has the following main fields:
 
 A policy's type field can have one of the following values (without quotes):
 
-1. "number"           - A number.
-2. "boolean"          - A boolean value.
-3. "string"           - A string value.
-4. "date"             - A date value.
-5. "list"             - A list of any values.
-6. "list-number"      - A list of numbers only.
-7. "list-boolean"     - A list of booleans only.
-8. "list-string"      - A list of strings only.
-9. "list-date"        - A list of dates only.
+1.  "number"           - A number.
+2.  "boolean"          - A boolean value.
+3.  "string"           - A string value.
+4.  "date"             - A date value.
+5.  "list"             - A list of any values.
+6.  "list-number"      - A list of numbers only.
+7.  "list-boolean"     - A list of booleans only.
+8.  "list-string"      - A list of strings only.
+9.  "list-date"        - A list of dates only.
+10. "list-datetime"    - A list of datetimes only.
 
 ## API
 

@@ -7,11 +7,13 @@ export declare const TYPE_NUMBER = "number";
 export declare const TYPE_BOOLEAN = "boolean";
 export declare const TYPE_STRING = "string";
 export declare const TYPE_DATE = "date";
+export declare const TYPE_DATE_TIME = "datetime";
 export declare const TYPE_LIST = "list";
 export declare const TYPE_LIST_NUMBER = "list-number";
 export declare const TYPE_LIST_BOOLEAN = "list-boolean";
 export declare const TYPE_LIST_STRING = "list-string";
 export declare const TYPE_LIST_DATE = "list-date";
+export declare const TYPE_LIST_DATETIME = "list-datetime";
 /**
  * ValueType indiciates what value types are acceptable for the policy.
  *

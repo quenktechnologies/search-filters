@@ -14,11 +14,13 @@ export const TYPE_NUMBER = 'number';
 export const TYPE_BOOLEAN = 'boolean';
 export const TYPE_STRING = 'string';
 export const TYPE_DATE = 'date';
+export const TYPE_DATE_TIME = 'datetime';
 export const TYPE_LIST = 'list';
 export const TYPE_LIST_NUMBER = 'list-number';
 export const TYPE_LIST_BOOLEAN = 'list-boolean';
 export const TYPE_LIST_STRING = 'list-string';
 export const TYPE_LIST_DATE = 'list-date';
+export const TYPE_LIST_DATETIME = 'list-datetime';
 
 /**
  * ValueType indiciates what value types are acceptable for the policy.
@@ -108,7 +110,7 @@ export const toNative = (v: ast.Value): Value => {
 
     if (v instanceof ast.List)
         return v.members.map(toNative);
-    else if (v instanceof ast.DateTimeLiteral)
+    else if ((v instanceof ast.DateLiteral) || (v instanceof ast.DateTimeLiteral))
         return moment.utc(v.value).toDate();
     else
         return v.value;
@@ -130,9 +132,9 @@ const checkType = <V>(typ: ValueType, value: V): boolean => {
         return checkList(isBoolean, value);
     else if (typ === TYPE_LIST_STRING)
         return checkList(isString, value);
-    else if (typ === TYPE_LIST_DATE)
+    else if ((typ === TYPE_LIST_DATE) || (typ === TYPE_LIST_DATETIME))
         return checkList(v => v instanceof Date, value);
-    else if (typ === TYPE_DATE)
+    else if ((typ === TYPE_DATE) || (typ === TYPE_DATE_TIME))
         return (value instanceof Date);
     else if (typeof value === typ)
         return true

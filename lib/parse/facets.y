@@ -94,7 +94,6 @@ filters
 
             | filter_groups
               {$$ = $1; }
-
             ;
 
 filter_groups
@@ -206,7 +205,6 @@ binary_filter
 
             | binary_filter ',' filter 
               {$$ = new yy.ast.And($1, $3, @$);   }
-
             ;
 
 filter
@@ -268,7 +266,7 @@ list_value
 
 date_literal
             : DATE_LITERAL
-              {$$ = new yy.ast.DateTimeLiteral($1, @$);     }
+              {$$ = new yy.ast.DateLiteral($1, @$);     }
 
             | DATE_TIME_LITERAL
               {$$ = new yy.ast.DateTimeLiteral($1, @$);     }
