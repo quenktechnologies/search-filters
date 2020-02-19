@@ -88,131 +88,88 @@ filters
 
             | binary_filter
               {$$ = $1; }
-
-            | filter_group
-              {$$ = $1; }
-
-            | filter_groups
-              {$$ = $1; }
-            ;
-
-filter_groups
-
-            : filter OR  filter_group  
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | binary_filter OR  filter_group  
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group OR filter 
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group OR binary_filter 
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group OR filter_group
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-
-            | filter AND  filter_group  
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | binary_filter AND  filter_group  
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group AND filter 
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group AND binary_filter 
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group AND filter_group
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter '|'  filter_group  
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | binary_filter '|'  filter_group  
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group '|' filter 
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group '|' binary_filter 
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-            | filter_group '|' filter_group
-              {$$ = new yy.ast.Or($1, $3, @$);     }
-
-
-            | filter ','  filter_group  
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | binary_filter ','  filter_group  
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group ',' filter 
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group ',' binary_filter 
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-            | filter_group ',' filter_group
-              {$$ = new yy.ast.And($1, $3, @$);     }
-
-
-            | '(' filter_groups ')'
-              {$$ = $2;                             }
-            ;
-
-filter_group
-
-            : '(' filter ')'
-               {$$ = $2;                            }
-
-            | '(' binary_filter ')'
-               {$$ = $2;                            }
             ;
 
 binary_filter
          
             : filter OR filter 
-              {$$ = new yy.ast.Or($1, $3, @$);    }
-
-            | filter '|' filter 
-              {$$ = new yy.ast.Or($1, $3, @$);    }
-
-            | filter filter 
-              {$$ = new yy.ast.And($1, $2, @$);    }
+              {$$ = new yy.ast.Or($1, $3, @$);                          }
 
             | filter AND filter 
-              {$$ = new yy.ast.And($1, $3, @$);   }
+              {$$ = new yy.ast.And($1, $3, @$);                         }
+
+            | filter '|' filter 
+              {$$ = new yy.ast.Or($1, $3, @$);                          }
 
             | filter ',' filter 
-              {$$ = new yy.ast.And($1, $3, @$);   }
+              {$$ = new yy.ast.And($1, $3, @$);                         }
+
+            | filter filter 
+              {$$ = new yy.ast.And($1, $2, @$);                         }
+
+
+            | filter OR '(' binary_filter ')'
+              {$$ = new yy.ast.Or($1, $4, @$);                          }
+
+            | filter AND '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $4, @$);                         }
+
+            | filter '|' '(' binary_filter  ')'
+              {$$ = new yy.ast.Or($1, $4, @$);                          }
+
+            | filter ',' '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $4, @$);                         }
+
+            | filter '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $3, @$);                         }
+
 
             | binary_filter OR filter 
-              {$$ = new yy.ast.Or($1, $3, @$);    }
-
-            | binary_filter '|' filter 
-              {$$ = new yy.ast.Or($1, $3, @$);    }
-
-            | binary_filter filter 
-              {$$ = new yy.ast.And($1, $2, @$);    }
+              {$$ = new yy.ast.Or($1, $3, @$);                          }
 
             | binary_filter AND filter 
-              {$$ = new yy.ast.And($1, $3, @$);   }
+              {$$ = new yy.ast.And($1, $3, @$);                         }
+
+            | binary_filter '|' filter 
+              {$$ = new yy.ast.Or($1, $3, @$);                          }
 
             | binary_filter ',' filter 
-              {$$ = new yy.ast.And($1, $3, @$);   }
+              {$$ = new yy.ast.And($1, $3, @$);                         }
+
+            | binary_filter filter 
+              {$$ = new yy.ast.And($1, $2, @$);                         }
+
+
+            | '(' binary_filter ')'
+              {$$ = $2;                                                 }
+
+
+            | binary_filter OR '(' binary_filter ')'
+              {$$ = new yy.ast.Or($1, $4, @$);                          }
+
+            | binary_filter AND '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $4, @$);                         }
+
+            | binary_filter '|' '(' binary_filter ')'
+              {$$ = new yy.ast.Or($1, $4, @$);                          }
+
+            | binary_filter ',' '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $4, @$);                         }
+
+            | binary_filter '(' binary_filter ')'
+              {$$ = new yy.ast.And($1, $3, @$);                         }
             ;
 
 filter
             : identitifer ':' operator value 
-              {$$ = new yy.ast.Filter($1, $3, $4, @$); yy.filterCount++; }
+              {$$ = new yy.ast.Filter($1, $3, $4, @$);yy.filterCount++; }
 
             | identitifer ':' value 
-              {$$ = new yy.ast.Filter($1, 'default', $3, @$); yy.filterCount++; }
+              {$$ = new yy.ast.Filter($1, 'default', $3, @$); 
+              yy.filterCount++;                                         }
+
+            | '(' filter ')'
+               {$$ = $2;                                                } 
             ;
 
 operator

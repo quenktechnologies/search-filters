@@ -168,14 +168,14 @@ export const tests: { [key: string]: any } = {
         input: 'created_on:1989-07-23T23:00:24.555-04:00'
 
     },
-    'should parse (<filter>) <and> (<filter>,<filter)': {
+    'should parse (<filter>) <and> (<filter>,<filter>,<filter>)': {
 
         input: '(type:"P") and ' +
             '(name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z,' +
             'trini_national_id:"1968012875")'
 
     },
-    'should parse ((<filter>) <and> (<filter>,<filter))': {
+    'should parse ((<filter>) <and> (<filter>,<filter>,<filter>))': {
 
         input:
             `((type:"P") and (name:"Rakim",date_of_birth:1968-01-28T00:00:00.000Z, 
@@ -200,6 +200,21 @@ export const tests: { [key: string]: any } = {
     'should parse (<filter>) <op> (<filter>)': {
 
         input: '(id: in [12,5]),(id:=12)'
+
+    },
+    'should parse (<filter>) <op> (<filter>) op (<filter>)': {
+
+        input: '(last_updated_on:>=2019-12-19),(created_on:>=2019-12-19),(created_on:<=2020-02-19)'
+
+    },
+    'should parse <filter> <op> <filter> op <filter>': {
+
+        input: 'id:1 or id:2 or id:3'
+
+    },
+    'should parse (<filter> <op> <filter> op <filter>_': {
+
+        input: '(id:1 or id:2 or id:3)'
 
     }
 
