@@ -20,6 +20,10 @@ export declare type FieldName = string;
  */
 export declare type Operator = string;
 /**
+ * FoldFunc
+ */
+export declare type FoldFunc<T, A> = (prev: A, curr: Term<T>) => A;
+/**
  * FilterTermConstructor type.
  *
  * The FilterTermConstructor constructs a Term for a filter to be used in a
@@ -76,4 +80,12 @@ export interface Term<T> {
      * compile this Term into its target filter format.
      */
     compile(): Except<T>;
+    /**
+     * fold allows a function to be applied to a Term to transform it to a
+     * new value.
+     *
+     * If the Term is a chain, the function is applied to each member
+     * recursively.
+     */
+    fold<A>(f: FoldFunc<T, A>): A;
 }
