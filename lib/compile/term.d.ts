@@ -87,5 +87,5 @@ export interface Term<T> {
      * If the Term is a chain, the function is applied to each member
      * recursively.
      */
-    fold<A>(f: FoldFunc<T, A>): A;
+    fold<A>(init: A, f: FoldFunc<T, A>): A;
 }
