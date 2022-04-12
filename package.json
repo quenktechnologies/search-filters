@@ -1,6 +1,6 @@
 {
   "name": "@quenk/search-filters",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "description": "Parse and compile a string into usable search filters.",
   "main": "lib/index.js",
   "files": [
