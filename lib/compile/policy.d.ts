@@ -2,7 +2,7 @@ import * as ast from '../parse/ast';
 import { Except } from '@quenk/noni/lib/control/error';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 import { Maybe } from '@quenk/noni/lib/data/maybe';
-import { Operator, Term, FilterTermConstructor } from './term';
+import { Operator, Term, FilterTermConstructor, FieldName } from './term';
 export declare const TYPE_NUMBER = "number";
 export declare const TYPE_BOOLEAN = "boolean";
 export declare const TYPE_STRING = "string";
@@ -91,7 +91,7 @@ export declare const toNative: (v: ast.Value) => Value;
  * If the field does not have a Policy or the Policy cannot be resolved the
  * array will be empty.
  */
-export declare const getPolicies: <T>(available: AvailablePolicies<T>, enabled: EnabledPolicies<T>, field: string) => Policy<T>[];
+export declare const getPolicies: <T>(available: AvailablePolicies<T>, enabled: EnabledPolicies<T>, field: FieldName) => Policy<T>[];
 /**
  * resolve a PolicyRef against an AvailablePolicies list to get the applicable
  * Policy (if any).

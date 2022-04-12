@@ -18,4 +18,4 @@ export declare type Source = string;
  *
  * Any errors encountered result in a Left<Err> value, success Right<Query>.
  */
-export declare const parse: (source: string) => Except<ast.Query>;
+export declare const parse: (source: Source) => Except<ast.Query>;

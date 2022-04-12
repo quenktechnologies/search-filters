@@ -68,7 +68,7 @@ export declare const ast2Terms: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>
 /**
  * source2Term transform Source text directly into a Term chain.
  */
-export declare const source2Term: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: string) => Except<Term<T>>;
+export declare const source2Term: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: Source) => Except<Term<T>>;
 /**
  * compile source text into a type <T> that represents a filter in the target
  * language.
@@ -76,4 +76,4 @@ export declare const source2Term: <T>(ctx: Context<T>, enabled: EnabledPolicies<
  * Succesful compilation depends on the fields used in the source text
  * complying with the policies indicated in the enabled argument.
  */
-export declare const compile: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: string) => Except<T>;
+export declare const compile: <T>(ctx: Context<T>, enabled: EnabledPolicies<T>, src: Source) => Except<T>;
