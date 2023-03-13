@@ -1,16 +1,31 @@
 import { assert } from '@quenk/test/lib/assert';
 import { Except } from '@quenk/noni/lib/control/error';
-import { right } from '@quenk/noni/lib/data/either';
+import { left, right } from '@quenk/noni/lib/data/either';
 import { Value } from '@quenk/noni/lib/data/jsonx';
 
 import { AvailablePolicies, EnabledPolicies } from '../lib/compile/policy';
-import { TermFactory, Term } from '../lib/compile/term';
-import { Context, Options, newContext, compile } from '../lib/compile';
+import { TermFactory, Term, FoldFunc } from '../lib/compile/term';
+import { Options, newContext, compile } from '../lib/compile';
 import { UnsupportedFieldErr } from '../lib/compile/error';
 
-interface QLTerm extends Term<string> { }
+abstract class QLTerm implements Term<string> {
 
-class EmptyTerm implements QLTerm {
+    type = 'abstract';
+
+    compile(): Except<string> {
+
+        return left(new Error('not implemented'));
+    }
+
+    fold<A>(init: A, f: FoldFunc<string, A>) {
+
+        return f(init, <any>this);
+
+    }
+
+}
+
+class EmptyTerm extends QLTerm {
 
     type = 'empty';
 
@@ -22,11 +37,11 @@ class EmptyTerm implements QLTerm {
 
 }
 
-class AndTerm implements QLTerm {
+class AndTerm extends QLTerm {
 
     type = 'and';
 
-    constructor(public left: QLTerm, public right: QLTerm) { }
+    constructor(public left: QLTerm, public right: QLTerm) { super(); }
 
     compile(): Except<string> {
 
@@ -44,11 +59,11 @@ class AndTerm implements QLTerm {
 
 }
 
-class OrTerm implements QLTerm {
+class OrTerm extends QLTerm {
 
     type = 'or';
 
-    constructor(public left: QLTerm, public right: QLTerm) { }
+    constructor(public left: QLTerm, public right: QLTerm) { super(); }
 
     compile(): Except<string> {
 
@@ -66,12 +81,12 @@ class OrTerm implements QLTerm {
 
 }
 
-class FilterTerm implements QLTerm {
+class FilterTerm extends QLTerm {
 
     constructor(
         public field: string,
         public op: string,
-        public value: string) { }
+        public value: string) { super(); }
 
     type = 'filter';
 
@@ -87,7 +102,7 @@ class FilterTerm implements QLTerm {
 
 }
 
-const cast = (v: Value) => (v instanceof Date) ? v.toISOString() :
+const cast = (v: Value): string => (v instanceof Date) ? v.toISOString() :
     Array.isArray(v) ? v.map(cast).join(',') : String(v);
 
 const available: AvailablePolicies<string> = {
@@ -256,7 +271,7 @@ describe('compile', () => {
 
         it('should ignore on unknown fields (when enabled)', () => {
 
-            let eResult = qlc('name:foo or created_at:<="33.5"',
+            let eResult = qlc('name:foo created_at:<="33.5"',
                 { ignoreUnknownFields: true });
 
             assert(eResult.isRight()).true();

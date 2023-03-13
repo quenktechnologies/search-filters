@@ -1,8 +1,7 @@
 {
-"recursive": true,
-"growl": true,
-"reporter": "list",
-"require": "./test/register",
-"exit": true,
-"timeout": 10000
+  "recursive": true,
+  "growl": true,
+  "reporter": "list",
+  "require": "./test/register",
+  "timeout": 10000
 }
